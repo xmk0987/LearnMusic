@@ -1,0 +1,12 @@
+.button {
+  padding: 5px 10px;
+  font-size: var(--xs-font);
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  box-shadow: var(--drop-shadow-s);
+}
+
+.button:hover {
+  background-color: var(--accent) !important;
+}

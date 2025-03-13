@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import CardGridLayout from "@/app/layouts/CardGridLayout";
-import ExerciseCard from "@/components/exerciseCard/ExerciseCard";
+import ExerciseCard from "@/components/ExerciseCard/ExerciseCard";
 import { capitalizeFirstLetter } from "@/utils/helpers";
 import { useParams, useRouter } from "next/navigation";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import LessonCard from "@/components/lessonCard/LessonCard";
+import LessonCard from "@/components/LessonCard/LessonCard";
 import CardGridLayout from "../layouts/CardGridLayout";
 
 const LessonsPage = () => {

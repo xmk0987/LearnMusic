@@ -26,10 +26,15 @@
   --contrast-text: #fff;
   --accent: #684afa;
 
+  --accent2: red;
+
   --border-radius: 15px;
 
   --drop-shadow: 0 4px 6px 5px rgba(0, 0, 0, 0.25);
   --drop-shadow-s: 0 2px 5px 2px rgba(0, 0, 0, 0.25);
+
+  /* PIANO */
+  --black-key-w: 60px;
 }
 
 h1,
@@ -61,6 +66,12 @@ main {
   overflow-y: auto;
 }
 
+.maxWidth {
+  margin: 0 auto;
+  max-width: 1200px;
+  height: 100%;
+}
+
 /* Hide scrollbars for all browsers */
 *::-webkit-scrollbar {
   display: none;
@@ -77,9 +88,6 @@ main {
   }
 }
 
-button {
-  box-shadow: var(--drop-shadow-s);
-}
 
 button:hover {
   cursor: pointer;
@@ -87,4 +95,15 @@ button:hover {
 
 button:active {
   box-shadow: none;
+}
+
+button:disabled {
+  box-shadow: none !important;
+  background-color: gray !important;
+  cursor: default;
+}
+
+button:disabled:hover {
+  cursor: default;
+  background-color: gray !important;
 }

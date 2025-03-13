@@ -1,0 +1,13 @@
+.nav {
+  font-size: var(--xs-font);
+  margin-bottom: var(--margin-xl);
+}
+
+.nav ol {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.current {
+  text-decoration: underline;
+}

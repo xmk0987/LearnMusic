@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import ScaleExercise from "@/components/scaleExercise/ScaleExercise";
+import ScaleExercise from "@/components/ScaleExercise/ScaleExercise";
 
 const exerciseComponents: Record<string, React.FC<{ exercise: string }>> = {
   scales: ScaleExercise,

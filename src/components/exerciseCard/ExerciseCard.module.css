@@ -10,43 +10,31 @@
 }
 
 .cardHeader {
-  padding: 20px;
+  padding: 15px;
   background-color: var(--secondary);
   font-weight: bold;
   color: var(--contrast-text);
 }
 
 .cardInfo {
-  padding: 20px;
+  padding: 15px 0;
   flex-grow: 1;
   background-color: var(--background);
   display: inline-flex;
-  gap: 30px;
+  justify-content: space-between;
   font-size: var(--xs-font);
   position: relative;
   align-items: flex-end;
 }
 
-.circleButton {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background-color: var(--accent);
-  right: 20px;
-  top: 0;
-  transform: translateY(-50%);
-  color: var(--contrast-text);
-  font-size: var(--xl-font);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .cardInfoItem {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  justify-content: flex-end;
+  height: 100%;
+  align-items: center;
+  gap: 10px;
 }
 
 .cardInfoItem span {
@@ -55,4 +43,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.circleButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  color: var(--contrast-text);
+  font-size: var(--xl-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--drop-shadow-s);
+}
+
+.circleButton:hover {
+  background-color: var(--accent);
+}
+
+.test {
+  background-color: var(--accent2);
 }

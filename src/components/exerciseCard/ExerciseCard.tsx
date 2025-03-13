@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 const ExerciseCard = () => {
   const router = useRouter();
 
-  const goToLessons = () => {
-    router.push("/lessons/scales/c-major");
+  const goToLessons = (practice: boolean) => {
+    const type = practice ? "practice" : "test";
+    router.push(`/lessons/scales/b-major?type=${type}`);
   };
 
   return (
@@ -15,11 +16,26 @@ const ExerciseCard = () => {
       <div className={styles.cardHeader}>C Major</div>
       <div className={styles.cardInfo}>
         <div className={styles.cardInfoItem}>
-          <button className={styles.circleButton} onClick={goToLessons}>
-            &gt;
-          </button>
           <span>False</span>
           <p>Completed</p>
+        </div>
+        <div className={styles.cardInfoItem}>
+          <button
+            className={styles.circleButton}
+            onClick={() => goToLessons(true)}
+          >
+            &gt;
+          </button>
+          <p>Practice</p>
+        </div>
+        <div className={styles.cardInfoItem}>
+          <button
+            className={`${styles.circleButton} ${styles.test}`}
+            onClick={() => goToLessons(false)}
+          >
+            &gt;
+          </button>
+          <p>Test</p>
         </div>
       </div>
     </div>

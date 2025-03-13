@@ -1,12 +1,8 @@
-.title {
-  margin-bottom: var(--margin-l);
-}
 
 .container {
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  max-width: 1200px;
   margin: 0 auto;
   margin-bottom: var(--margin-xl);
 }

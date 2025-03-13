@@ -33,7 +33,7 @@
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: var(--accent);
+  background-color: var(--secondary);
   right: 20px;
   top: 0;
   transform: translateY(-50%);
@@ -42,6 +42,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--drop-shadow-s);
+}
+
+.circleButton:hover {
+  background-color: var(--accent);
 }
 
 .circleButton::after {
