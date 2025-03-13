@@ -1,0 +1,68 @@
+.card {
+  height: 300px;
+  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--drop-shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+.cardHeader {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: var(--secondary);
+  font-weight: bold;
+  color: var(--contrast-text);
+}
+
+.cardInfo {
+  padding: 20px;
+  height: 90px;
+  background-color: var(--background);
+  display: inline-flex;
+  gap: 30px;
+  font-size: var(--xs-font);
+  position: relative;
+  align-items: flex-end;
+}
+
+.circleButton {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  right: 20px;
+  top: 0;
+  transform: translateY(-50%);
+  color: var(--contrast-text);
+  font-size: var(--xl-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleButton::after {
+  font-size: var(--m-font);
+  color: black;
+  content: "0%";
+  position: absolute;
+  top: 100%;
+  transform: translate(0%, 20%);
+}
+
+.cardInfoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cardInfoItem span {
+  font-weight: bold;
+  font-size: var(--m-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
