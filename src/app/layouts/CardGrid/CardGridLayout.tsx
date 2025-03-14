@@ -5,14 +5,18 @@ import DynamicBreadcrumbs from "@/components/DynamicBreadcrumbs/DynamicBreadcrum
 interface CardGridLayoutProps {
   title: string;
   children: React.ReactNode;
+  hasBreadcrumbs?: boolean;
 }
 
-const CardGridLayout: React.FC<CardGridLayoutProps> = ({ title, children }) => {
+const CardGridLayout: React.FC<CardGridLayoutProps> = ({
+  title,
+  children,
+  hasBreadcrumbs = true,
+}) => {
   return (
     <>
       <h1 className={styles.title}>{title}</h1>
-
-      <DynamicBreadcrumbs />
+      {hasBreadcrumbs && <DynamicBreadcrumbs />}
       <div className={styles.container}>{children}</div>
     </>
   );

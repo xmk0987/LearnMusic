@@ -1,0 +1,173 @@
+{
+  "scales": {
+    "majors": [
+      {
+        "id": 1,
+        "name": "C Major",
+        "notes": ["C", "D", "E", "F", "G", "A", "B", "C"]
+      },
+      {
+        "id": 2,
+        "name": "D Major",
+        "notes": ["D", "E", "F#/Gb", "G", "A", "B", "C#/Db", "D"]
+      },
+      {
+        "id": 3,
+        "name": "E Major",
+        "notes": ["E", "F#/Gb", "G#/Ab", "A", "B", "C#/Db", "D#/Eb", "E"]
+      },
+      {
+        "id": 4,
+        "name": "F Major",
+        "notes": ["F", "G", "A", "A#/Bb", "C", "D", "E", "F"]
+      },
+      {
+        "id": 5,
+        "name": "G Major",
+        "notes": ["G", "A", "B", "C", "D", "E", "F#/Gb", "G"]
+      },
+      {
+        "id": 6,
+        "name": "A Major",
+        "notes": ["A", "B", "C#/Db", "D", "E", "F#/Gb", "G#/Ab", "A"]
+      },
+      {
+        "id": 7,
+        "name": "B Major",
+        "notes": ["B", "C#/Db", "D#/Eb", "E", "F#/Gb", "G#/Ab", "A#/Bb", "B"]
+      },
+      {
+        "id": 8,
+        "name": "C#/Db Major",
+        "notes": [
+          "C#/Db",
+          "D#/Eb",
+          "F",
+          "F#/Gb",
+          "G#/Ab",
+          "A#/Bb",
+          "C",
+          "C#/Db"
+        ]
+      },
+      {
+        "id": 9,
+        "name": "D#/Eb Major",
+        "notes": ["D#/Eb", "F", "G", "G#/Ab", "A#/Bb", "C", "D", "D#/Eb"]
+      },
+      {
+        "id": 10,
+        "name": "F#/Gb Major",
+        "notes": [
+          "F#/Gb",
+          "G#/Ab",
+          "A#/Bb",
+          "B",
+          "C#/Db",
+          "D#/Eb",
+          "F",
+          "F#/Gb"
+        ]
+      },
+      {
+        "id": 11,
+        "name": "G#/Ab Major",
+        "notes": ["G#/Ab", "A#/Bb", "C", "C#/Db", "D#/Eb", "F", "G", "G#/Ab"]
+      },
+      {
+        "id": 12,
+        "name": "A#/Bb Major",
+        "notes": ["A#/Bb", "C", "D", "D#/Eb", "F", "G", "A", "A#/Bb"]
+      }
+    ],
+    "minors": [
+      {
+        "id": 1,
+        "name": "C Minor",
+        "notes": ["C", "D", "D#/Eb", "F", "G", "G#/Ab", "A#/Bb", "C"]
+      },
+      {
+        "id": 2,
+        "name": "D Minor",
+        "notes": ["D", "E", "F", "G", "A", "A#/Bb", "C", "D"]
+      },
+      {
+        "id": 3,
+        "name": "E Minor",
+        "notes": ["E", "F#/Gb", "G", "A", "B", "C", "D", "E"]
+      },
+      {
+        "id": 4,
+        "name": "F Minor",
+        "notes": ["F", "G", "G#/Ab", "A#/Bb", "C", "C#/Db", "D#/Eb", "F"]
+      },
+      {
+        "id": 5,
+        "name": "G Minor",
+        "notes": ["G", "A", "A#/Bb", "C", "D", "D#/Eb", "F", "G"]
+      },
+      {
+        "id": 6,
+        "name": "A Minor",
+        "notes": ["A", "B", "C", "D", "E", "F", "G", "A"]
+      },
+      {
+        "id": 7,
+        "name": "B Minor",
+        "notes": ["B", "C#/Db", "D", "E", "F#/Gb", "G", "A", "B"]
+      },
+      {
+        "id": 8,
+        "name": "C#/Db Minor",
+        "notes": ["C#/Db", "D#/Eb", "E", "F#/Gb", "G#/Ab", "A", "B", "C#/Db"]
+      },
+      {
+        "id": 9,
+        "name": "D#/Eb Minor",
+        "notes": [
+          "D#/Eb",
+          "F",
+          "F#/Gb",
+          "G#/Ab",
+          "A#/Bb",
+          "B",
+          "C#/Db",
+          "D#/Eb"
+        ]
+      },
+      {
+        "id": 10,
+        "name": "F#/Gb Minor",
+        "notes": ["F#/Gb", "G#/Ab", "A", "B", "C#/Db", "D", "E", "F#/Gb"]
+      },
+      {
+        "id": 11,
+        "name": "G#/Ab Minor",
+        "notes": [
+          "G#/Ab",
+          "A#/Bb",
+          "B",
+          "C#/Db",
+          "D#/Eb",
+          "E",
+          "F#/Gb",
+          "G#/Ab"
+        ]
+      },
+      {
+        "id": 12,
+        "name": "A#/Bb Minor",
+        "notes": [
+          "A#/Bb",
+          "C",
+          "C#/Db",
+          "D#/Eb",
+          "F",
+          "F#/Gb",
+          "G#/Ab",
+          "A#/Bb"
+        ]
+      }
+    ]
+  }
+}

@@ -2,24 +2,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ScaleExercise.module.css";
 import Piano from "../Piano/Piano";
-import scalesData from "@/lessons/scales.json";
 import { Key } from "@/lib/pianoConfig";
 import { useRouter, useSearchParams } from "next/navigation";
 import DynamicBreadcrumbs from "../DynamicBreadcrumbs/DynamicBreadcrumbs";
-
-interface Scale {
-  id: number;
-  name: string;
-  notes: string[];
-}
-
-interface ScalesData {
-  majors: Scale[];
-  minors: Scale[];
-}
+import { Lessons, Scale } from "@/types/lessons.types";
 
 interface ScaleExerciseProps {
   exercise: string;
+  lessonContent: Lessons["scales"];
 }
 
 export interface CheckResponse {
@@ -32,9 +22,11 @@ export interface CheckResponse {
   }[];
 }
 
-const ScaleExercise: React.FC<ScaleExerciseProps> = ({ exercise }) => {
+const ScaleExercise: React.FC<ScaleExerciseProps> = ({
+  exercise,
+  lessonContent,
+}) => {
   const [scale, setScale] = useState<Scale | undefined>(undefined);
-
   const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams.get("type") as "test" | "practice";
@@ -47,19 +39,36 @@ const ScaleExercise: React.FC<ScaleExerciseProps> = ({ exercise }) => {
     if (!type || !(type === "test" || type === "practice")) goToScales();
   }, [goToScales, router, type]);
 
-  // Get the correct scale based on exercise
-  // Update to fetching from db
   useEffect(() => {
-    const normalizedName = exercise
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+    if (lessonContent) {
+      const parts = exercise.split("-");
 
-    const foundScale = (scalesData as ScalesData).majors.find(
-      (scale) => scale.name === normalizedName
-    );
-    setScale(foundScale);
-  }, [exercise]);
+      const normalizeWord = (word: string) => {
+        if (word.includes("/")) {
+          return word
+            .split("/")
+            .map(
+              (segment) => segment.charAt(0).toUpperCase() + segment.slice(1)
+            )
+            .join("/");
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      };
+
+      const normalizedName = parts.map(normalizeWord).join(" ");
+
+      const scaleList =
+        parts[1].toLowerCase() === "major"
+          ? lessonContent.majors
+          : lessonContent.minors;
+
+      const foundScale = scaleList.find(
+        (scale) => scale.name === normalizedName
+      );
+
+      setScale(foundScale);
+    }
+  }, [exercise, lessonContent]);
 
   const checkExercise = (playedKeys: Key[]): CheckResponse => {
     if (!scale) {
@@ -165,7 +174,7 @@ const ScaleExercise: React.FC<ScaleExerciseProps> = ({ exercise }) => {
         </div>
         <DynamicBreadcrumbs />
       </div>
-      <Piano checkExercise={checkExercise} type={type} scale={scale.name}/>
+      <Piano checkExercise={checkExercise} type={type} scale={scale.name} />
     </div>
   );
 };

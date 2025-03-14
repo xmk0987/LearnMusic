@@ -1,0 +1,35 @@
+.container {
+  flex: 1;
+  max-width: 600px;
+  min-width: 270px;
+}
+
+.header {
+  height: 70px;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+  position: relative;
+}
+
+.headerButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(50%);
+  font-size: var(--xs-font);
+}
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-m);
+  padding-bottom: var(--margin-l);
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    max-width: 100%;
+  }
+}

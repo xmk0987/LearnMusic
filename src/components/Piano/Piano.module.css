@@ -46,6 +46,10 @@
   border-bottom-left-radius: 5px;
 }
 
+.key:hover {
+  cursor: pointer;
+}
+
 .key:first-of-type {
   border-left: 1px solid black;
   border-top-left-radius: 5px;

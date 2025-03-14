@@ -4,6 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./DynamicBreadcrumbs.module.css";
 
+/**
+ * DynamicBreadcrumbs component creates breadcrumb navigation dynamically.
+ * It splits the current pathname into segments and generates cumulative links.
+ */
 const DynamicBreadcrumbs: React.FC = () => {
   const pathname = usePathname();
 
@@ -18,22 +22,23 @@ const DynamicBreadcrumbs: React.FC = () => {
   return (
     <nav aria-label="breadcrumb" className={styles.nav}>
       <ol>
-        {/* Always include the Home link as the root */}
         <li key="home">
           <Link href="/">Home</Link>
         </li>
         <span>/</span>
         {breadcrumbs.map((crumb, index) => (
-          <>
-            <li key={index}>
+          <React.Fragment key={`breadcrumb-${index}`}>
+            <li key={`link-${crumb.text}-${index}`}>
               {index === breadcrumbs.length - 1 ? (
                 <span className={styles.current}>{crumb.text}</span>
               ) : (
                 <Link href={crumb.href}>{crumb.text}</Link>
               )}
             </li>
-            {index !== breadcrumbs.length - 1 && <span>/</span>}
-          </>
+            {index !== breadcrumbs.length - 1 && (
+              <span key={`slash-${crumb.text}-${index}`}>/</span>
+            )}
+          </React.Fragment>
         ))}
       </ol>
     </nav>

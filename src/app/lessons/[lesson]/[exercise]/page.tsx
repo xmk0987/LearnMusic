@@ -1,17 +1,27 @@
 "use client";
-
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useLessonData } from "@/app/context/LessonDataContext";
+import { LessonKey, Lessons } from "@/types/lessons.types";
 import ScaleExercise from "@/components/ScaleExercise/ScaleExercise";
 
-const exerciseComponents: Record<string, React.FC<{ exercise: string }>> = {
+const exerciseComponents: {
+  [key in LessonKey]: React.FC<{
+    exercise: string;
+    lessonContent: Lessons[LessonKey];
+  }>;
+} = {
   scales: ScaleExercise,
 };
 
 const ExercisePage = () => {
   const router = useRouter();
-  const params = useParams() as { lesson: string; exercise: string };
-  const { lesson, exercise } = params;
+  const params = useParams() as { exercise: string };
+  const decodedExercise = decodeURIComponent(params.exercise);
+  const { lessonContent, lesson } = useLessonData() as {
+    lessonContent: Lessons[LessonKey];
+    lesson: LessonKey;
+  };
 
   const ExerciseComponent = exerciseComponents[lesson];
 
@@ -21,9 +31,14 @@ const ExercisePage = () => {
     }
   }, [ExerciseComponent, router]);
 
-  if (!ExerciseComponent) return null;
+  if (!ExerciseComponent || !lessonContent) return null;
 
-  return <ExerciseComponent exercise={exercise} />;
+  return (
+    <ExerciseComponent
+      exercise={decodedExercise}
+      lessonContent={lessonContent}
+    />
+  );
 };
 
 export default ExercisePage;

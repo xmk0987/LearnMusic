@@ -1,8 +1,7 @@
-
 .container {
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  margin: 0 auto;
-  margin-bottom: var(--margin-xl);
+  margin: var(--margin-xl) 0;
+  padding-bottom: var(--margin-l);
 }

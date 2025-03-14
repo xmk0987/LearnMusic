@@ -1,67 +1,56 @@
 .card {
-  height: 150px;
-  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
   border-radius: var(--border-radius);
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--drop-shadow);
-  overflow: hidden;
-  position: relative;
+  border: 1px solid rgb(121, 121, 121);
+  padding: 5px 10px;
+  font-size: var(--s-font);
+  white-space: nowrap;
+  gap: var(--margin-xs);
 }
 
 .cardHeader {
-  padding: 15px;
-  background-color: var(--secondary);
-  font-weight: bold;
-  color: var(--contrast-text);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--margin-xs);
+}
+
+.cardHeader p {
+  font-weight: 600;
 }
 
 .cardInfo {
-  padding: 15px 0;
-  flex-grow: 1;
-  background-color: var(--background);
   display: inline-flex;
-  justify-content: space-between;
+  gap: var(--margin-m);
+}
+
+.card button {
+  display: flex;
+  align-items: center;
   font-size: var(--xs-font);
-  position: relative;
-  align-items: flex-end;
+  gap: var(--margin-xxs);
 }
 
-.cardInfoItem {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
-  align-items: center;
-  gap: 10px;
-}
-
-.cardInfoItem span {
-  font-weight: bold;
-  font-size: var(--m-font);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.circleButton {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--secondary);
-  color: var(--contrast-text);
-  font-size: var(--xl-font);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--drop-shadow-s);
-}
-
-.circleButton:hover {
+.card button:hover span {
   background-color: var(--accent);
 }
 
-.test {
-  background-color: var(--accent2);
+.card span {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--xs-font);
+  color: var(--contrast-text);
+  box-shadow: var(--drop-shadow-s);
+  font-weight: bold;
+}
+
+.card span.completed {
+  box-shadow: none;
+  background-color: red;
 }

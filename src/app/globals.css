@@ -3,6 +3,8 @@
 :root {
   /* FONTS */
   --font-size: 20px;
+  --xxs-font: 0.3rem;
+
   --xs-font: 0.5rem;
   --s-font: 0.75rem;
   --m-font: 1rem;
@@ -87,7 +89,6 @@ main {
     padding: var(--margin-m) var(--margin-l);
   }
 }
-
 
 button:hover {
   cursor: pointer;
