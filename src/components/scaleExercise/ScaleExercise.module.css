@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding-bottom: var(--margin-xl);
 }
 
 .title {

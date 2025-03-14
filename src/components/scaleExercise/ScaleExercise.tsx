@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ScaleExercise.module.css";
 import Piano from "../Piano/Piano";
-import { Key } from "@/lib/pianoConfig";
+import { Key } from "@/types/piano.types";
 import { useRouter, useSearchParams } from "next/navigation";
 import DynamicBreadcrumbs from "../DynamicBreadcrumbs/DynamicBreadcrumbs";
 import { Lessons, Scale } from "@/types/lessons.types";

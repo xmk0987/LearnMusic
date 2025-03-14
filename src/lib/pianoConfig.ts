@@ -1,4 +1,5 @@
 // pianoConfig.ts
+import { Key } from "@/types/piano.types";
 
 export const WHITE_KEYS = ["C", "D", "E", "F", "G", "A", "B"];
 
@@ -11,14 +12,6 @@ export const BLACK_KEY_NAMES: {
   4: { sharp: "G#", flat: "Ab" },
   5: { sharp: "A#", flat: "Bb" },
 };
-
-export type KeyType = "white" | "black";
-
-export interface Key {
-  type: KeyType;
-  label: string;
-  octave: number;
-}
 
 export const KEYS: Key[] = [
   { type: "white", label: `${WHITE_KEYS[0]}`, octave: 4 },

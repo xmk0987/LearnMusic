@@ -1,0 +1,14 @@
+.options {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.optionsItem {
+  display: inline-flex;
+  gap: 15px;
+}
+
+.options button:hover {
+  background-color: var(--accent);
+}

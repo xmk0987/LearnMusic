@@ -1,9 +1,11 @@
 "use client";
+import PianoKeys from "./Keys/PianoKeys";
+import { PianoOptions } from "./Options/PianoOptions";
 import React, { useState } from "react";
 import styles from "./Piano.module.css";
-import { KEYS, Key } from "@/lib/pianoConfig";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
+import { Key } from "@/types/piano.types";
 import { CheckResponse } from "../ScaleExercise/ScaleExercise";
+import PianoCheck from "./Check/PianoCheck";
 
 interface PianoProps {
   checkExercise: (playedNotes: Key[]) => CheckResponse;
@@ -75,113 +77,26 @@ const Piano: React.FC<PianoProps> = ({
   return (
     <div className={styles.container}>
       <p className={styles.instructions}>Play all {scale} notes in order.</p>
-      <div className={styles.options}>
-        <div className={styles.optionsItem}>
-          {!isTest && (
-            <PrimaryButton
-              text={showLabels ? "Hide Labels" : "Show Labels"}
-              onClick={() => setShowLabels(!showLabels)}
-            />
-          )}
-          <PrimaryButton
-            text={showPlayed ? "Hide Played" : "Show Played"}
-            onClick={() => setShowPlayed(!showPlayed)}
-          />
-        </div>
-        <div className={styles.optionsItem}>
-          <PrimaryButton
-            text={"Reset Played"}
-            onClick={resetNotes}
-            color={playedNotes.length === 0 ? "var(--secondary)" : "red"}
-            isDisabled={playedNotes.length === 0}
-          />
-          <PrimaryButton
-            text={"Check"}
-            onClick={handleCheckExercise}
-            color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
-          />
-        </div>
-      </div>
-      <div className={styles.piano}>
-        {KEYS.map((key, i) => {
-          if (key.type === "white") {
-            const keyLabel = `${key.label}${key.octave}`;
-            const noteFeedback = checkResponse?.notes.find(
-              (feedback) =>
-                feedback.note === key.label && feedback.octave === key.octave
-            );
-            const noteStatus = noteFeedback?.status;
-            const spanStyle = noteStatus ? styles[noteStatus] : "";
-
-            return (
-              <button
-                key={i}
-                className={`${styles.key} ${styles.whiteKey}`}
-                onClick={() => handleKeyClick(key)}
-              >
-                {showPlayed && isPlayed(key) ? (
-                  <div className={styles.playedContainer}>
-                    <span className={`${styles.played} ${spanStyle}`}>
-                      {getPositionOfKey(key)}
-                    </span>
-                    {showLabels && <>{keyLabel}</>}
-                  </div>
-                ) : (
-                  <>{showLabels && <>{keyLabel}</>}</>
-                )}
-              </button>
-            );
-          } else {
-            // Similar logic for black keys.
-            const keyLabel = `${key.label}${key.octave}`;
-            const noteFeedback = checkResponse?.notes.find(
-              (feedback) =>
-                feedback.note === key.label && feedback.octave === key.octave
-            );
-            const noteStatus = noteFeedback?.status;
-            const spanStyle = noteStatus
-              ? styles[noteStatus]
-              : isPlayed(key)
-              ? styles.played
-              : "";
-
-            return (
-              <button
-                key={i}
-                className={`${styles.key} ${styles.blackKey}`}
-                onClick={() => handleKeyClick(key)}
-              >
-                {showPlayed && isPlayed(key) ? (
-                  <div className={styles.playedContainer}>
-                    <span className={`${styles.played} ${spanStyle}`}>
-                      {getPositionOfKey(key)}
-                    </span>
-                    {showLabels && <>{keyLabel}</>}
-                  </div>
-                ) : (
-                  <>{showLabels && <>{keyLabel}</>}</>
-                )}
-              </button>
-            );
-          }
-        })}
-      </div>
+      <PianoOptions
+        playedNotes={playedNotes}
+        isTest={isTest}
+        showLabels={showLabels}
+        setShowLabels={setShowLabels}
+        showPlayed={showPlayed}
+        setShowPlayed={setShowPlayed}
+        resetNotes={resetNotes}
+        handleCheckExercise={handleCheckExercise}
+      />
+      <PianoKeys
+        handleKeyClick={handleKeyClick}
+        isPlayed={isPlayed}
+        getPositionOfKey={getPositionOfKey}
+        showLabels={showLabels}
+        showPlayed={showPlayed}
+        checkResponse={checkResponse}
+      />
       {checkResponse && (
-        <div className={styles.extraInfo}>
-          <p className={styles.message}>{checkResponse?.message}</p>
-          <PrimaryButton text={"Try again"} onClick={resetNotes} color="red" />
-          <div className={styles.colorLabels}>
-            <div>
-              <span className={styles.greenLabel}></span> Correct
-            </div>
-            <div>
-              <span className={styles.orangeLabel}></span> Wrong Position
-            </div>
-            <div>
-              <span className={styles.redLabel}></span> Wrong Note
-            </div>
-          </div>
-        </div>
+        <PianoCheck message={checkResponse.message} resetNotes={resetNotes} />
       )}
     </div>
   );
