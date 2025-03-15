@@ -12,6 +12,7 @@ interface PianoKeyProps {
   showLabels: boolean;
   showPlayed: boolean;
   checkResponse?: CheckResponse | null;
+  isActive: boolean;
 }
 
 const PianoKey: React.FC<PianoKeyProps> = ({
@@ -22,6 +23,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({
   showLabels,
   showPlayed,
   checkResponse,
+  isActive,
 }) => {
   const keyLabel = `${keyData.label}${keyData.octave}`;
   const noteFeedback = checkResponse?.notes.find(
@@ -35,7 +37,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({
     <button
       className={`${styles.key} ${
         keyData.type === "white" ? styles.whiteKey : styles.blackKey
-      }`}
+      } ${isActive ? styles.activeNote : ""}`}
       onClick={() => handleKeyClick(keyData)}
     >
       {showPlayed && isPlayed ? (

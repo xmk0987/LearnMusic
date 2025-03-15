@@ -90,3 +90,7 @@
   color: orange;
   border: 1px solid orange;
 }
+
+.activeNote {
+  box-shadow: none;
+}

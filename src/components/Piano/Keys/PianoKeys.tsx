@@ -13,6 +13,7 @@ interface PianoKeysProps {
   showLabels: boolean;
   showPlayed: boolean;
   checkResponse?: CheckResponse | null;
+  activeNotes: Set<Key>;
 }
 
 const PianoKeys: React.FC<PianoKeysProps> = ({
@@ -22,6 +23,7 @@ const PianoKeys: React.FC<PianoKeysProps> = ({
   showLabels,
   showPlayed,
   checkResponse,
+  activeNotes,
 }) => {
   return (
     <div className={styles.piano}>
@@ -35,6 +37,7 @@ const PianoKeys: React.FC<PianoKeysProps> = ({
           showLabels={showLabels}
           showPlayed={showPlayed}
           checkResponse={checkResponse}
+          isActive={activeNotes.has(key)}
         />
       ))}
     </div>
