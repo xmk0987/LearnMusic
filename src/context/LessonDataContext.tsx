@@ -9,6 +9,7 @@ interface LessonDataContextValue {
   lessonContent: Lessons[LessonKey] | null;
   lesson: string;
   valid: boolean;
+  lessons: LessonKey[];
 }
 
 interface LessonDataProvderProps {
@@ -29,6 +30,11 @@ export const LessonDataProvider: React.FC<LessonDataProvderProps> = ({
   const [lessonContent, setLessonContent] = useState<Lessons[LessonKey] | null>(
     null
   );
+  const [lessons, setLessons] = useState<LessonKey[]>([]);
+
+  useEffect(() => {
+    setLessons(Object.keys(lessonsData) as LessonKey[]);
+  }, []);
 
   useEffect(() => {
     if (!validLessons.includes(lesson)) {
@@ -42,7 +48,12 @@ export const LessonDataProvider: React.FC<LessonDataProvderProps> = ({
 
   return (
     <LessonDataContext.Provider
-      value={{ lesson, lessonContent, valid: validLessons.includes(lesson) }}
+      value={{
+        lesson,
+        lessonContent,
+        valid: validLessons.includes(lesson),
+        lessons,
+      }}
     >
       {children}
     </LessonDataContext.Provider>

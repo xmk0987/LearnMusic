@@ -94,3 +94,8 @@
 .activeNote {
   box-shadow: none;
 }
+
+.nextKey {
+  background-color: green;
+  transition: background-color 0.2s ease-in-out;
+}

@@ -1,6 +1,6 @@
 // app/lessons/layout.tsx
 import React from "react";
-import { LessonDataProvider } from "../context/LessonDataContext";
+import { LessonDataProvider } from "../../context/LessonDataContext";
 
 export default function LessonsLayout({
   children,

@@ -1,5 +1,5 @@
 "use client";
-import { useLessonData } from "@/app/context/LessonDataContext";
+import { useLessonData } from "@/context/LessonDataContext";
 import ScaleLesson from "@/components/ScaleLesson/ScaleLesson";
 
 const LessonPage = () => {

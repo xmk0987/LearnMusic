@@ -1,16 +1,16 @@
 import React from "react";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import styles from "./PianoCheck.module.css";
+import { usePiano } from "@/context/PianoContext";
 
-interface PianoCheckProps {
-  message: string;
-  resetNotes: () => void;
-}
+const PianoCheck = () => {
+  const { checkResponse, resetNotes } = usePiano();
 
-const PianoCheck: React.FC<PianoCheckProps> = ({ message, resetNotes }) => {
+  if (!checkResponse) return null;
+
   return (
     <div className={styles.extraInfo}>
-      <p className={styles.message}>{message}</p>
+      <p className={styles.message}>{checkResponse?.message}</p>
       <PrimaryButton text={"Try again"} onClick={resetNotes} color="red" />
       <div className={styles.colorLabels}>
         <div>

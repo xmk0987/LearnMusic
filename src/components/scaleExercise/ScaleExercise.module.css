@@ -29,3 +29,8 @@
 .header {
   width: 100%;
 }
+
+.instructions {
+  font-size: var(--m-font);
+  margin: var(--margin-m) 0;
+}

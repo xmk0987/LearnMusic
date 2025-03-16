@@ -6,6 +6,7 @@ import { Key } from "@/types/piano.types";
 import { useRouter, useSearchParams } from "next/navigation";
 import DynamicBreadcrumbs from "../DynamicBreadcrumbs/DynamicBreadcrumbs";
 import { Lessons, Scale } from "@/types/lessons.types";
+import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
 
 interface ScaleExerciseProps {
   exercise: string;
@@ -87,35 +88,11 @@ const ScaleExercise: React.FC<ScaleExerciseProps> = ({
       };
     }
 
-    const noteMap: { [key: string]: number } = {
-      C: 0,
-      "C#/Db": 1,
-      D: 2,
-      "D#/Eb": 3,
-      E: 4,
-      F: 5,
-      "F#/Gb": 6,
-      G: 7,
-      "G#/Ab": 8,
-      A: 9,
-      "A#/Bb": 10,
-      B: 11,
-    };
-
-    // Determine starting octave from the first played key.
-    // Increase octave when necessary
     const startingOctave = playedKeys[0].octave;
-    let currentOctave = startingOctave;
-    let previousPitch = noteMap[scale.notes[0]];
-
-    const expectedNotesWithOctaves = scale.notes.map((note, index) => {
-      const currentPitch = noteMap[note];
-      if (index > 0 && currentPitch <= previousPitch) {
-        currentOctave++;
-      }
-      previousPitch = currentPitch;
-      return `${note}${currentOctave}`;
-    });
+    const expectedNotesWithOctaves = calculateExpectedNotesWithOctaves(
+      scale.notes,
+      startingOctave
+    );
 
     // Check each individual note whether its in the scale, wrong position or
     // completely wrong.
@@ -174,7 +151,10 @@ const ScaleExercise: React.FC<ScaleExerciseProps> = ({
         </div>
         <DynamicBreadcrumbs />
       </div>
-      <Piano checkExercise={checkExercise} type={type} scale={scale.name} />
+      <p className={styles.instructions}>
+        Play all {scale?.name} notes in order.
+      </p>
+      <Piano checkExercise={checkExercise} type={type} scale={scale} />
     </div>
   );
 };

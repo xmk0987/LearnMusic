@@ -2,41 +2,40 @@
 import React from "react";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import styles from "./PianoOptions.module.css";
-import { Key } from "@/types/piano.types";
+import { usePiano } from "@/context/PianoContext";
 
-interface PianoOptionsProps {
-  isTest: boolean;
-  showLabels: boolean;
-  showPlayed: boolean;
-  playedNotes: Key[];
-  setShowLabels: (value: boolean) => void;
-  setShowPlayed: (value: boolean) => void;
-  resetNotes: () => void;
-  handleCheckExercise: () => void;
-}
+export const PianoOptions = () => {
+  const {
+    isTest,
+    playedNotes,
+    showLabels,
+    showNext,
+    showPlayed,
+    toggleShowLabels,
+    toggleShowNext,
+    toggleShowPlayed,
+    resetNotes,
+    handleCheckExercise,
+  } = usePiano();
 
-export const PianoOptions: React.FC<PianoOptionsProps> = ({
-  isTest,
-  showLabels,
-  setShowLabels,
-  showPlayed,
-  playedNotes,
-  setShowPlayed,
-  resetNotes,
-  handleCheckExercise,
-}) => {
   return (
     <div className={styles.options}>
       <div className={styles.optionsItem}>
         {!isTest && (
-          <PrimaryButton
-            text={showLabels ? "Hide Labels" : "Show Labels"}
-            onClick={() => setShowLabels(!showLabels)}
-          />
+          <>
+            <PrimaryButton
+              text={showLabels ? "Hide Labels" : "Show Labels"}
+              onClick={toggleShowLabels}
+            />
+            <PrimaryButton
+              text={showNext ? "Hide Show Next Key" : "Show Show Next Key"}
+              onClick={toggleShowNext}
+            />
+          </>
         )}
         <PrimaryButton
           text={showPlayed ? "Hide Played" : "Show Played"}
-          onClick={() => setShowPlayed(!showPlayed)}
+          onClick={toggleShowPlayed}
         />
       </div>
       <div className={styles.optionsItem}>

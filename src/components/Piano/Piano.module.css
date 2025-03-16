@@ -5,7 +5,3 @@
   align-items: center;
   gap: 15px;
 }
-
-.instructions {
-  font-size: var(--m-font);
-}

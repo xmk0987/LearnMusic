@@ -1,7 +1,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useLessonData } from "@/app/context/LessonDataContext";
+import { useLessonData } from "@/context/LessonDataContext";
 import { LessonKey, Lessons } from "@/types/lessons.types";
 import ScaleExercise from "@/components/ScaleExercise/ScaleExercise";
 

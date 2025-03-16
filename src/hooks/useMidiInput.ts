@@ -24,7 +24,6 @@ export const useMidi = (
           midiAccess.inputs.forEach((input) => {
             input.onmidimessage = (event: WebMidi.MIDIMessageEvent) => {
               const [status, data1, data2] = event.data;
-
               // Handle Note On: status 144 with velocity > 0
               if (status === 144 && data2 > 0) {
                 // Only trigger if note is not already active

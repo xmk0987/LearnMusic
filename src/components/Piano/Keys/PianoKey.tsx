@@ -9,6 +9,8 @@ interface PianoKeyProps {
   isPlayed: boolean;
   getPositionOfKey: (key: Key) => number;
   handleKeyClick: (key: Key) => void;
+  isNextkey: (key: Key) => boolean;
+  showNext: boolean;
   showLabels: boolean;
   showPlayed: boolean;
   checkResponse?: CheckResponse | null;
@@ -20,6 +22,8 @@ const PianoKey: React.FC<PianoKeyProps> = ({
   isPlayed,
   getPositionOfKey,
   handleKeyClick,
+  isNextkey,
+  showNext,
   showLabels,
   showPlayed,
   checkResponse,
@@ -32,12 +36,15 @@ const PianoKey: React.FC<PianoKeyProps> = ({
   );
   const noteStatus = noteFeedback?.status;
   const spanStyle = noteStatus ? styles[noteStatus] : "";
+  const isNext = isNextkey(keyData);
 
   return (
     <button
       className={`${styles.key} ${
         keyData.type === "white" ? styles.whiteKey : styles.blackKey
-      } ${isActive ? styles.activeNote : ""}`}
+      } ${isActive ? styles.activeNote : ""} ${
+        isNext && showNext ? styles.nextKey : ""
+      }`}
       onClick={() => handleKeyClick(keyData)}
     >
       {showPlayed && isPlayed ? (

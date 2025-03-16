@@ -2,29 +2,22 @@
 import React from "react";
 import styles from "./PianoKeys.module.css";
 import { KEYS } from "@/lib/pianoConfig";
-import { Key } from "@/types/piano.types";
 import PianoKey from "./PianoKey";
-import { CheckResponse } from "@/components/ScaleExercise/ScaleExercise";
+import { usePiano } from "@/context/PianoContext";
 
-interface PianoKeysProps {
-  handleKeyClick: (key: Key) => void;
-  isPlayed: (key: Key) => boolean;
-  getPositionOfKey: (key: Key) => number;
-  showLabels: boolean;
-  showPlayed: boolean;
-  checkResponse?: CheckResponse | null;
-  activeNotes: Set<Key>;
-}
+const PianoKeys = () => {
+  const {
+    handleKeyClick,
+    isPlayed,
+    getPositionOfKey,
+    isNextKey,
+    showLabels,
+    showNext,
+    showPlayed,
+    checkResponse,
+    activeNotes,
+  } = usePiano();
 
-const PianoKeys: React.FC<PianoKeysProps> = ({
-  handleKeyClick,
-  isPlayed,
-  getPositionOfKey,
-  showLabels,
-  showPlayed,
-  checkResponse,
-  activeNotes,
-}) => {
   return (
     <div className={styles.piano}>
       {KEYS.map((key, i) => (
@@ -34,7 +27,9 @@ const PianoKeys: React.FC<PianoKeysProps> = ({
           isPlayed={isPlayed(key)}
           getPositionOfKey={getPositionOfKey}
           handleKeyClick={handleKeyClick}
+          isNextkey={isNextKey}
           showLabels={showLabels}
+          showNext={showNext}
           showPlayed={showPlayed}
           checkResponse={checkResponse}
           isActive={activeNotes.has(key)}
