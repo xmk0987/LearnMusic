@@ -1,34 +1,28 @@
 "use client";
 import React from "react";
 import { Key } from "@/types/piano.types";
-import { CheckResponse } from "@/components/ScaleExercise/ScaleExercise";
 import styles from "./PianoKeys.module.css";
+import { usePiano } from "@/context/PianoContext";
 
 interface PianoKeyProps {
   keyData: Key;
-  isPlayed: boolean;
-  getPositionOfKey: (key: Key) => number;
-  handleKeyClick: (key: Key) => void;
-  isNextkey: (key: Key) => boolean;
-  showNext: boolean;
-  showLabels: boolean;
-  showPlayed: boolean;
-  checkResponse?: CheckResponse | null;
-  isActive: boolean;
 }
 
-const PianoKey: React.FC<PianoKeyProps> = ({
-  keyData,
-  isPlayed,
-  getPositionOfKey,
-  handleKeyClick,
-  isNextkey,
-  showNext,
-  showLabels,
-  showPlayed,
-  checkResponse,
-  isActive,
-}) => {
+const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
+  const {
+    isPlayed,
+    getPositionOfKey,
+    isNextKey,
+    showLabels,
+    showNext,
+    showPlayed,
+    checkResponse,
+    activeNotes,
+    handleKeyDown,
+    handleKeyUp,
+  } = usePiano();
+
+  const isActive = activeNotes.has(keyData);
   const keyLabel = `${keyData.label}${keyData.octave}`;
   const noteFeedback = checkResponse?.notes.find(
     (feedback) =>
@@ -36,7 +30,26 @@ const PianoKey: React.FC<PianoKeyProps> = ({
   );
   const noteStatus = noteFeedback?.status;
   const spanStyle = noteStatus ? styles[noteStatus] : "";
-  const isNext = isNextkey(keyData);
+  const isNext = isNextKey(keyData);
+
+  // Touch events for mobile devices.
+  const handleTouchStart = async (e: React.TouchEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleKeyDown(keyData);
+  };
+
+  const handleTouchEnd = async (e: React.TouchEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleKeyUp(keyData);
+  };
+
+  const handleMouseDown = () => {
+    handleKeyDown(keyData);
+  };
+
+  const handleMouseUp = () => {
+    handleKeyUp(keyData);
+  };
 
   return (
     <button
@@ -45,9 +58,12 @@ const PianoKey: React.FC<PianoKeyProps> = ({
       } ${isActive ? styles.activeNote : ""} ${
         isNext && showNext ? styles.nextKey : ""
       }`}
-      onClick={() => handleKeyClick(keyData)}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      {showPlayed && isPlayed ? (
+      {showPlayed && isPlayed(keyData) ? (
         <div className={styles.playedContainer}>
           <span className={`${styles.played} ${spanStyle}`}>
             {getPositionOfKey(keyData)}
