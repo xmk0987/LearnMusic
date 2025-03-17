@@ -4,8 +4,10 @@
       "id": 1,
       "name": "Major Scales",
       "description": "Learn basic major scales for beginners",
+      "task": "Play through all the notes of the scale",
       "category": "scales",
-      "type": "Major",
+      "type": "play",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Whole Half Whole Whole Whole Half.",
       "exercises": [
         {
           "id": 1,
@@ -92,7 +94,9 @@
       "name": "Minor Scales",
       "description": "Learn basic minor scales for beginners",
       "category": "scales",
-      "type": "Minor",
+      "task": "Play through all the notes of the scale",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "type": "play",
       "exercises": [
         {
           "id": 1,
@@ -180,6 +184,52 @@
             "G#/Ab",
             "A#/Bb"
           ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Chords in C Major Scale",
+      "description": "Learn all the chords in a C major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords in a scale, use the 1st, 3rd, and 5th notes of the scale for major and minor chords. For example, in the C major scale, the C major chord is made up of the notes C, E, and G.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "C Major",
+          "notes": ["C", "E", "G"]
+        },
+        {
+          "id": 2,
+          "name": "D Minor",
+          "notes": ["D", "F", "A"]
+        },
+        {
+          "id": 3,
+          "name": "E Minor",
+          "notes": ["E", "G", "B"]
+        },
+        {
+          "id": 4,
+          "name": "F Major",
+          "notes": ["F", "A", "C"]
+        },
+        {
+          "id": 5,
+          "name": "G Major",
+          "notes": ["G", "B", "D"]
+        },
+        {
+          "id": 6,
+          "name": "A Minor",
+          "notes": ["A", "C", "E"]
+        },
+        {
+          "id": 7,
+          "name": "B Sus",
+          "notes": ["B", "D", "F"]
         }
       ]
     }

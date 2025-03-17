@@ -1,7 +1,6 @@
 export interface Exercise {
   id: number;
   name: string;
-  description?: string;
   notes: string[];
 }
 
@@ -9,14 +8,16 @@ export interface Lesson {
   id: number;
   name: string;
   description?: string;
+  hint: string;
+  task: string;
   category: LessonCategory;
-  type?: LessonTypes;
+  type: LessonTypes;
   exercises: Exercise[];
 }
 
-export type LessonTypes = "Major" | "Minor" | "Chords";
+export type LessonTypes = "play" | "read" | "transcribe";
 
-export type LessonCategory = "scales";
+export type LessonCategory = "scales" | "chords";
 export interface Lessons {
   lessons: Lesson[];
 }

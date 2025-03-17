@@ -10,9 +10,11 @@ export const PianoOptions = () => {
     playedNotes,
     showLabels,
     showNext,
+    showHint,
     showPlayed,
     showKeyboardKeys,
     toggleShowLabels,
+    toggleShowHint,
     toggleShowKeyboardKeys,
     toggleShowNext,
     toggleShowPlayed,
@@ -62,6 +64,13 @@ export const PianoOptions = () => {
         />
       </div>
       <div className={styles.optionsItem}>
+        {!isTest && (
+          <PrimaryButton
+            text={showHint ? "Hide Hint" : "Show Hint"}
+            onClick={toggleShowHint}
+            color={playedNotes.length === 0 ? "var(--secondary)" : "red"}
+          />
+        )}
         <PrimaryButton
           text={"Reset Played"}
           onClick={resetNotes}

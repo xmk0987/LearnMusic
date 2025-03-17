@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import LessonCard from "@/components/LessonCard/LessonCard";
+import LessonCard from "@/components/GridCards/Lesson/LessonCard";
 import CardGridLayout from "../layouts/CardGrid/CardGridLayout";
-import { useLessonsData } from "@/context/LessonsProvider";
+import { useLessonsData } from "@/context/LessonsContext";
 import DynamicBreadcrumbs from "@/components/DynamicBreadcrumbs/DynamicBreadcrumbs";
 import { LessonCategory, Lesson } from "@/types/lessons.types";
 import styles from "./LessonsPage.module.css";
@@ -11,7 +11,6 @@ import { capitalizeFirstLetter } from "@/utils/helpers";
 const LessonsPage = () => {
   const { lessons } = useLessonsData();
 
-  // Define the type for groupedLessons
   const groupedLessons: { [key in LessonCategory]?: Lesson[] } = lessons.reduce(
     (acc, lesson) => {
       (acc[lesson.category] = acc[lesson.category] || []).push(lesson);

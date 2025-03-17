@@ -5,6 +5,7 @@
   align-items: center;
   position: relative;
   padding-bottom: var(--margin-xl);
+  gap: var(--margin-m);
 }
 
 .title {
@@ -32,5 +33,5 @@
 
 .instructions {
   font-size: var(--m-font);
-  margin: var(--margin-m) 0;
+  margin-bottom: var(--margin-m);
 }

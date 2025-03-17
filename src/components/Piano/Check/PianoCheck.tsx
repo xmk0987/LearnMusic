@@ -5,13 +5,23 @@ import { usePiano } from "@/context/PianoContext";
 
 const PianoCheck = () => {
   const { checkResponse, resetNotes } = usePiano();
+  
 
   if (!checkResponse) return null;
+
+
 
   return (
     <div className={styles.extraInfo}>
       <p className={styles.message}>{checkResponse?.message}</p>
-      <PrimaryButton text={"Try again"} onClick={resetNotes} color="red" />
+      <div className={styles.buttons}>
+        <PrimaryButton text={"Try again"} onClick={resetNotes} color="red" />
+        <PrimaryButton
+          text={"Next exercise"}
+          onClick={resetNotes}
+          color="green"
+        />
+      </div>
       <div className={styles.colorLabels}>
         <div>
           <span className={styles.greenLabel}></span> Correct

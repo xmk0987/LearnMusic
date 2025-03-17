@@ -8,13 +8,13 @@ import {
   useRef,
   useCallback,
 } from "react";
-import { CheckResponse } from "@/components/ScaleExercise/ScaleExercise";
+import { CheckResponse } from "@/components/Exercise/Exercise";
 import { Key } from "@/types/piano.types";
 import { Exercise } from "@/types/lessons.types";
 import { useMidi } from "@/hooks/useMidiInput";
 import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
 import { useAudioContext } from "./AudioContext";
-import EnableAudioModal from "@/components/EnableAudioModal/EnableAudioModal";
+import EnableAudioModal from "@/components/Modals/EnableAudio/EnableAudioModal";
 
 interface PianoContextProps {
   // States
@@ -22,6 +22,7 @@ interface PianoContextProps {
   showPlayed: boolean;
   showKeyboardKeys: boolean;
   showNext: boolean;
+  showHint: boolean;
   playedNotes: Key[];
   setPlayedNotes: React.Dispatch<React.SetStateAction<Key[]>>;
   checkResponse: CheckResponse | null;
@@ -36,12 +37,13 @@ interface PianoContextProps {
   toggleShowLabels: () => void;
   toggleShowNext: () => void;
   toggleShowPlayed: () => void;
+  toggleShowHint: () => void;
   toggleShowKeyboardKeys: () => void;
   isNextKey: (key: Key) => boolean;
   getNote: (key: Key) => string;
   handleKeyEvent: (key: Key, isPressing: boolean, isMidi?: boolean) => void;
   // Props passed to provider
-  scale?: Exercise;
+  exercise?: Exercise;
   checkExercise: (playedNotes: Key[]) => CheckResponse;
   type: "test" | "practice";
   isTest: boolean;
@@ -51,7 +53,7 @@ interface PianoProviderProps {
   children: React.ReactNode;
   checkExercise: (playedNotes: Key[]) => CheckResponse;
   type?: "test" | "practice";
-  scale?: Exercise;
+  exercise?: Exercise;
 }
 
 const PianoContext = createContext<PianoContextProps | undefined>(undefined);
@@ -60,10 +62,11 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   children,
   checkExercise,
   type = "practice",
-  scale,
+  exercise,
 }) => {
   const isTest = type === "test";
   const [showLabels, setShowLabels] = useState<boolean>(!isTest);
+  const [showHint, setShowHint] = useState<boolean>(false);
   const [showPlayed, setShowPlayed] = useState<boolean>(true);
   const [showNext, setShowNext] = useState<boolean>(!isTest);
   const [showKeyboardKeys, setShowKeyboardKeys] = useState<boolean>(false);
@@ -155,12 +158,12 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   };
 
   const isNextKey = (key: Key): boolean => {
-    if (!scale) return false;
+    if (!exercise) return false;
 
     const startingOctave =
       playedNotes.length > 0 ? playedNotes[0].octave : key.octave;
     const expectedNotes = calculateExpectedNotesWithOctaves(
-      scale.notes,
+      exercise.notes,
       startingOctave
     );
 
@@ -178,6 +181,10 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
 
   const toggleShowLabels = () => {
     setShowLabels(!showLabels);
+  };
+
+  const toggleShowHint = () => {
+    setShowHint(!showHint);
   };
 
   const toggleShowNext = () => {
@@ -249,6 +256,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
       value={{
         showLabels,
         showPlayed,
+        showHint,
         showNext,
         playedNotes,
         setPlayedNotes,
@@ -265,9 +273,10 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
         handleCheckExercise,
         toggleShowLabels,
         toggleShowNext,
+        toggleShowHint,
         toggleShowPlayed,
         isNextKey,
-        scale,
+        exercise,
         checkExercise,
         getNote,
         type,

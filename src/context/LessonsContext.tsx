@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState, createContext, useContext } from "react";
+import { useParams } from "next/navigation";
 import lessonsData from "@/lessons/lessons.json";
 import { Lesson } from "@/types/lessons.types";
 
 interface LessonsContextValue {
   lessons: Lesson[];
+  currentLesson: Lesson | undefined;
   getLessonById: (id: number) => Lesson | undefined;
 }
 
@@ -20,17 +22,28 @@ export const LessonsProvider: React.FC<LessonsProviderProps> = ({
   children,
 }) => {
   const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [currentLesson, setCurrentLesson] = useState<Lesson | undefined>(
+    undefined
+  );
+  const { lessonId } = useParams<{ lessonId: string }>();
 
   useEffect(() => {
     setLessons(lessonsData.lessons as Lesson[]);
   }, []);
+
+  useEffect(() => {
+    if (lessonId) {
+      const foundLesson = lessons.find((l) => l.id === parseInt(lessonId));
+      setCurrentLesson(foundLesson);
+    }
+  }, [lessonId, lessons]);
 
   const getLessonById = (id: number): Lesson | undefined => {
     return lessons.find((lesson) => lesson.id === id);
   };
 
   return (
-    <LessonsContext.Provider value={{ lessons, getLessonById }}>
+    <LessonsContext.Provider value={{ lessons, currentLesson, getLessonById }}>
       {children}
     </LessonsContext.Provider>
   );

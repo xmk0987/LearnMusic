@@ -1,0 +1,5 @@
+.hint {
+  font-size: var(--s-font);
+  max-width: 600px;
+  margin-bottom: var(--margin-m);
+}
