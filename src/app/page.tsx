@@ -7,7 +7,6 @@ export default function Home() {
   const router = useRouter();
 
   const goToLessons = () => {
-    console.log("Go to lessons");
     router.push("/lessons");
   };
 

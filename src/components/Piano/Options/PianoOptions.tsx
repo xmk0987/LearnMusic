@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import styles from "./PianoOptions.module.css";
 import { usePiano } from "@/context/PianoContext";
@@ -11,12 +11,31 @@ export const PianoOptions = () => {
     showLabels,
     showNext,
     showPlayed,
+    showKeyboardKeys,
     toggleShowLabels,
+    toggleShowKeyboardKeys,
     toggleShowNext,
     toggleShowPlayed,
     resetNotes,
     handleCheckExercise,
   } = usePiano();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Backspace") {
+        resetNotes();
+      }
+      if (e.key === "Enter") {
+        handleCheckExercise();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleCheckExercise, resetNotes]);
 
   return (
     <div className={styles.options}>
@@ -36,6 +55,10 @@ export const PianoOptions = () => {
         <PrimaryButton
           text={showPlayed ? "Hide Played" : "Show Played"}
           onClick={toggleShowPlayed}
+        />
+        <PrimaryButton
+          text={showKeyboardKeys ? "Hide Keyboard Keys" : "Show Keyboard Keys"}
+          onClick={toggleShowKeyboardKeys}
         />
       </div>
       <div className={styles.optionsItem}>

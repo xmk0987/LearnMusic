@@ -1,14 +1,14 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useLessonData } from "@/context/LessonDataContext";
-import { LessonKey, Lessons } from "@/types/lessons.types";
+import { useLessonsData } from "@/context/LessonsProvider";
 import ScaleExercise from "@/components/ScaleExercise/ScaleExercise";
+import { LessonCategory, Lesson } from "@/types/lessons.types";
 
 const exerciseComponents: {
-  [key in LessonKey]: React.FC<{
-    exercise: string;
-    lessonContent: Lessons[LessonKey];
+  [key in LessonCategory]: React.FC<{
+    exerciseId: number;
+    lessonContent: Lesson;
   }>;
 } = {
   scales: ScaleExercise,
@@ -16,26 +16,30 @@ const exerciseComponents: {
 
 const ExercisePage = () => {
   const router = useRouter();
-  const params = useParams() as { exercise: string };
-  const decodedExercise = decodeURIComponent(params.exercise);
-  const { lessonContent, lesson } = useLessonData() as {
-    lessonContent: Lessons[LessonKey];
-    lesson: LessonKey;
-  };
-
-  const ExerciseComponent = exerciseComponents[lesson];
+  const { lesson, exercise } = useParams<{
+    lesson: string;
+    exercise: string;
+  }>();
+  const { getLessonById } = useLessonsData();
+  const lessonContent = getLessonById(parseInt(lesson));
 
   useEffect(() => {
-    if (!ExerciseComponent) {
+    if (!lessonContent) {
       router.push("/lessons");
     }
-  }, [ExerciseComponent, router]);
+  }, [lessonContent, router]);
 
-  if (!ExerciseComponent || !lessonContent) return null;
+  if (!lessonContent) return <h1>Loading lesson...</h1>;
+
+  const ExerciseComponent = exerciseComponents[lessonContent.category];
+
+  if (!ExerciseComponent) {
+    return <h1>Category not supported</h1>;
+  }
 
   return (
     <ExerciseComponent
-      exercise={decodedExercise}
+      exerciseId={parseInt(exercise)}
       lessonContent={lessonContent}
     />
   );

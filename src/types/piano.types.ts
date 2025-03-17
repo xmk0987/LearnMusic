@@ -5,4 +5,5 @@ export interface Key {
   label: string;
   octave: number;
   midiKey: number;
+  keyboardKey: string;
 }

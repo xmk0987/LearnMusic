@@ -2,23 +2,28 @@
 import React from "react";
 import styles from "./LessonCard.module.css";
 import { useRouter } from "next/navigation";
+import { Lesson } from "@/types/lessons.types";
 
-const LessonCard = () => {
+interface LessonCardProps {
+  lesson: Lesson;
+}
+
+const LessonCard: React.FC<LessonCardProps> = ({ lesson }) => {
   const router = useRouter();
 
   const goToLessons = () => {
-    router.push("/lessons/scales");
+    router.push("/lessons/" + lesson.id);
   };
 
   return (
     <div className={styles.card}>
-      <div className={styles.cardHeader}>Basic Scales</div>
+      <div className={styles.cardHeader}>{lesson.name}</div>
       <div className={styles.cardInfo}>
         <div className={styles.cardInfoItem}>
           <button className={styles.circleButton} onClick={goToLessons}>
             &gt;
-          </button>{" "}
-          <span>24</span>
+          </button>
+          <span>{lesson.exercises.length}</span>
           <p>Exercises</p>
         </div>
         <div className={styles.cardInfoItem}>

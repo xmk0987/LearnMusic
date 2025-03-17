@@ -1,11 +1,11 @@
 // app/lessons/layout.tsx
 import React from "react";
-import { LessonDataProvider } from "../../context/LessonDataContext";
+import { LessonsProvider } from "@/context/LessonsProvider";
 
 export default function LessonsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <LessonDataProvider>{children}</LessonDataProvider>;
+  return <LessonsProvider>{children}</LessonsProvider>;
 }

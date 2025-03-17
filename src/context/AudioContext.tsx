@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useRef,
+  useCallback,
 } from "react";
 import type { Sampler } from "tone";
 
@@ -26,6 +27,7 @@ interface AudioContextValue {
    */
   initAudio: () => Promise<void>;
 
+  loadingSampler: boolean;
   audioAllowed: boolean;
   audioAllowedRef: React.RefObject<boolean>;
 }
@@ -35,6 +37,7 @@ const AudioCtx = createContext<AudioContextValue>({
   triggerRelease: async () => {},
   initAudio: async () => {},
   audioAllowed: false,
+  loadingSampler: false,
   audioAllowedRef: { current: false },
 });
 
@@ -43,6 +46,7 @@ export const useAudioContext = () => useContext(AudioCtx);
 export const AudioContextProvider = ({ children }: { children: ReactNode }) => {
   const [sampler, setSampler] = useState<Sampler | null>(null);
   const [audioAllowed, setAudioAllowed] = useState(false);
+  const [loadingSampler, setLoadingSampler] = useState(false);
   const [samplerLoaded, setSamplerLoaded] = useState(false);
 
   // Refs to always hold the latest values.
@@ -66,75 +70,88 @@ export const AudioContextProvider = ({ children }: { children: ReactNode }) => {
    * Initializes Tone.js and the sampler.
    * Must be triggered by a user gesture.
    */
-  const initAudio = async () => {
-    const Tone = await import("tone");
-    const toneContext = Tone.getContext();
-    const rawContext = toneContext.rawContext;
-    if (rawContext.state !== "suspended") {
-      await rawContext.suspend(0);
+  const initAudio = useCallback(async () => {
+    if (loadingSampler) return;
+    setLoadingSampler(true);
+    try {
+      const Tone = await import("tone");
+      const toneContext = Tone.getContext();
+      const rawContext = toneContext.rawContext;
+
+      if (rawContext.state !== "suspended") {
+        await rawContext.suspend(0);
+      }
+      await Tone.start();
+
+      const noteMapping = Object.fromEntries(
+        Array.from({ length: 24 }, (_, i) => {
+          const midi = 60 + i;
+          const noteName = Tone.Frequency(midi, "midi").toNote();
+          return [noteName, `${midi}.wav`];
+        })
+      );
+
+      const loadedSampler = new Tone.Sampler({
+        urls: noteMapping,
+        baseUrl: "/pianoKeys/",
+        onload: () => {
+          console.log("Sampler loaded.");
+          setSamplerLoaded(true);
+        },
+      }).toDestination();
+
+      setSampler(loadedSampler);
+      setAudioAllowed(true);
+    } catch (error) {
+      console.error("Error initializing audio:", error);
+    } finally {
+      setLoadingSampler(false);
     }
-    await Tone.start();
-
-    // Create a mapping of note names to file names.
-    const noteMapping: { [note: string]: string } = {};
-    for (let midi = 60; midi <= 83; midi++) {
-      const noteName = Tone.Frequency(midi, "midi").toNote();
-      noteMapping[noteName] = `${midi}.wav`;
-    }
-
-    // Create and load the sampler.
-    const loadedSampler = new Tone.Sampler({
-      urls: noteMapping,
-      baseUrl: "/pianoKeys/",
-      onload: () => {
-        console.log("Sampler loaded and ready to use.");
-        setSamplerLoaded(true);
-      },
-    }).toDestination();
-
-    setSampler(loadedSampler);
-    setAudioAllowed(true);
-  };
+  }, [loadingSampler]);
 
   // This useEffect listens for a user gesture if audio isn't allowed yet.
   useEffect(() => {
-    if (!audioAllowed) {
+    if (!audioAllowed && !loadingSampler) {
       const handleUserGesture = async () => {
-        await initAudio();
-        document.removeEventListener("click", handleUserGesture, true);
-        document.removeEventListener("touchstart", handleUserGesture, true);
+        if (!audioAllowedRef.current) {
+          await initAudio();
+        }
       };
 
-      document.addEventListener("click", handleUserGesture, true);
-      document.addEventListener("touchstart", handleUserGesture, true);
+      document.addEventListener("click", handleUserGesture, { once: true });
+      document.addEventListener("touchstart", handleUserGesture, {
+        once: true,
+      });
 
       return () => {
-        document.removeEventListener("click", handleUserGesture, true);
-        document.removeEventListener("touchstart", handleUserGesture, true);
+        document.removeEventListener("click", handleUserGesture);
+        document.removeEventListener("touchstart", handleUserGesture);
       };
     }
-  }, [audioAllowed]);
+  }, [audioAllowed, initAudio, loadingSampler]);
 
-  /**
-   * Triggers the note attack.
-   */
-  const triggerAttack = async (note: string) => {
+  const triggerAttack = async (note: string | string[]) => {
     if (!samplerRef.current || !audioAllowedRef.current) {
-      console.warn("Sampler or audio not available even after initialization.");
+      console.warn("Sampler not initialized.");
       return;
     }
-    samplerRef.current.triggerAttack(note);
+    if (Array.isArray(note)) {
+      note.forEach((n) => samplerRef.current?.triggerAttack(n));
+    } else {
+      samplerRef.current.triggerAttack(note);
+    }
   };
 
-  /**
-   * Triggers the note release.
-   */
-  const triggerRelease = async (note: string) => {
+  const triggerRelease = async (note: string | string[]) => {
     if (!samplerRef.current || !audioAllowedRef.current) {
-      console.warn("Sampler or audio not available even after initialization.");
+      console.warn("Sampler not initialized.");
       return;
     }
-    samplerRef.current.triggerRelease(note);
+    if (Array.isArray(note)) {
+      note.forEach((n) => samplerRef.current?.triggerRelease(n));
+    } else {
+      samplerRef.current.triggerRelease(note);
+    }
   };
 
   return (
@@ -145,6 +162,7 @@ export const AudioContextProvider = ({ children }: { children: ReactNode }) => {
         initAudio,
         audioAllowed,
         audioAllowedRef,
+        loadingSampler,
       }}
     >
       {children}

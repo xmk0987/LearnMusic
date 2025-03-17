@@ -5,12 +5,12 @@ import Piano from "../Piano/Piano";
 import { Key } from "@/types/piano.types";
 import { useRouter, useSearchParams } from "next/navigation";
 import DynamicBreadcrumbs from "../DynamicBreadcrumbs/DynamicBreadcrumbs";
-import { Lessons, Scale } from "@/types/lessons.types";
+import { Exercise, Lesson } from "@/types/lessons.types";
 import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
 
 interface ScaleExerciseProps {
-  exercise: string;
-  lessonContent: Lessons["scales"];
+  exerciseId: number;
+  lessonContent: Lesson;
 }
 
 export interface CheckResponse {
@@ -24,10 +24,10 @@ export interface CheckResponse {
 }
 
 const ScaleExercise: React.FC<ScaleExerciseProps> = ({
-  exercise,
+  exerciseId,
   lessonContent,
 }) => {
-  const [scale, setScale] = useState<Scale | undefined>(undefined);
+  const [scale, setScale] = useState<Exercise | undefined>(undefined);
   const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams.get("type") as "test" | "practice";
@@ -41,35 +41,11 @@ const ScaleExercise: React.FC<ScaleExerciseProps> = ({
   }, [goToScales, router, type]);
 
   useEffect(() => {
-    if (lessonContent) {
-      const parts = exercise.split("-");
-
-      const normalizeWord = (word: string) => {
-        if (word.includes("/")) {
-          return word
-            .split("/")
-            .map(
-              (segment) => segment.charAt(0).toUpperCase() + segment.slice(1)
-            )
-            .join("/");
-        }
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      };
-
-      const normalizedName = parts.map(normalizeWord).join(" ");
-
-      const scaleList =
-        parts[1].toLowerCase() === "major"
-          ? lessonContent.majors
-          : lessonContent.minors;
-
-      const foundScale = scaleList.find(
-        (scale) => scale.name === normalizedName
-      );
-
-      setScale(foundScale);
-    }
-  }, [exercise, lessonContent]);
+    const foundExercise = lessonContent.exercises.find(
+      (exercise) => exercise.id === exerciseId
+    );
+    setScale(foundExercise);
+  }, [exerciseId, lessonContent]);
 
   const checkExercise = (playedKeys: Key[]): CheckResponse => {
     if (!scale) {

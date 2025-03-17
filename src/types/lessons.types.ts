@@ -1,16 +1,22 @@
-export interface Scale {
+export interface Exercise {
   id: number;
   name: string;
+  description?: string;
   notes: string[];
 }
 
-export interface ScalesLessons {
-  majors: Scale[];
-  minors: Scale[];
+export interface Lesson {
+  id: number;
+  name: string;
+  description?: string;
+  category: LessonCategory;
+  type?: LessonTypes;
+  exercises: Exercise[];
 }
 
+export type LessonTypes = "Major" | "Minor" | "Chords";
+
+export type LessonCategory = "scales";
 export interface Lessons {
-  scales: ScalesLessons;
+  lessons: Lesson[];
 }
-
-export type LessonKey = "scales";

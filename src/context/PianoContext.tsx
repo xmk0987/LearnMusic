@@ -1,9 +1,16 @@
 // PianoContext.tsx
 "use client";
-import { useEffect, useState, createContext, useContext, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import { CheckResponse } from "@/components/ScaleExercise/ScaleExercise";
 import { Key } from "@/types/piano.types";
-import { Scale } from "@/types/lessons.types";
+import { Exercise } from "@/types/lessons.types";
 import { useMidi } from "@/hooks/useMidiInput";
 import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
 import { useAudioContext } from "./AudioContext";
@@ -12,11 +19,9 @@ import EnableAudioModal from "@/components/EnableAudioModal/EnableAudioModal";
 interface PianoContextProps {
   // States
   showLabels: boolean;
-  setShowLabels: React.Dispatch<React.SetStateAction<boolean>>;
   showPlayed: boolean;
-  setShowPlayed: React.Dispatch<React.SetStateAction<boolean>>;
+  showKeyboardKeys: boolean;
   showNext: boolean;
-  setShowNext: React.Dispatch<React.SetStateAction<boolean>>;
   playedNotes: Key[];
   setPlayedNotes: React.Dispatch<React.SetStateAction<Key[]>>;
   checkResponse: CheckResponse | null;
@@ -24,7 +29,6 @@ interface PianoContextProps {
   activeNotes: Set<Key>;
   setActiveNotes: React.Dispatch<React.SetStateAction<Set<Key>>>;
   // Functions
-  registerKeyClick: (key: Key) => void;
   resetNotes: () => void;
   isPlayed: (key: Key) => boolean;
   getPositionOfKey: (key: Key) => number;
@@ -32,12 +36,12 @@ interface PianoContextProps {
   toggleShowLabels: () => void;
   toggleShowNext: () => void;
   toggleShowPlayed: () => void;
+  toggleShowKeyboardKeys: () => void;
   isNextKey: (key: Key) => boolean;
   getNote: (key: Key) => string;
-  handleKeyDown: (key: Key) => void;
-  handleKeyUp: (key: Key) => void;
+  handleKeyEvent: (key: Key, isPressing: boolean, isMidi?: boolean) => void;
   // Props passed to provider
-  scale?: Scale;
+  scale?: Exercise;
   checkExercise: (playedNotes: Key[]) => CheckResponse;
   type: "test" | "practice";
   isTest: boolean;
@@ -47,7 +51,7 @@ interface PianoProviderProps {
   children: React.ReactNode;
   checkExercise: (playedNotes: Key[]) => CheckResponse;
   type?: "test" | "practice";
-  scale?: Scale;
+  scale?: Exercise;
 }
 
 const PianoContext = createContext<PianoContextProps | undefined>(undefined);
@@ -62,6 +66,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   const [showLabels, setShowLabels] = useState<boolean>(!isTest);
   const [showPlayed, setShowPlayed] = useState<boolean>(true);
   const [showNext, setShowNext] = useState<boolean>(!isTest);
+  const [showKeyboardKeys, setShowKeyboardKeys] = useState<boolean>(false);
 
   const [playedNotes, setPlayedNotes] = useState<Key[]>([]);
   const [checkResponse, setCheckResponse] = useState<CheckResponse | null>(
@@ -77,7 +82,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
     initAudio,
     triggerAttack,
     triggerRelease,
-    audioAllowedRef,
+    loadingSampler,
   } = useAudioContext();
 
   useEffect(() => {
@@ -89,21 +94,23 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   }, [playedNotes]);
 
   const registerKeyClick = (key: Key) => {
-    if (checkResponseRef.current !== null) setCheckResponse(null);
-
     setPlayedNotes((prevPlayedNotes) => {
       const keyExists = prevPlayedNotes.some(
         (playedKey) =>
           playedKey.label === key.label && playedKey.octave === key.octave
       );
-      if (keyExists) {
-        return prevPlayedNotes.filter(
-          (playedKey) =>
-            !(playedKey.label === key.label && playedKey.octave === key.octave)
-        );
-      } else {
-        return [...prevPlayedNotes, key];
-      }
+
+      const updatedPlayedNotes = keyExists
+        ? prevPlayedNotes.filter(
+            (playedKey) =>
+              !(
+                playedKey.label === key.label && playedKey.octave === key.octave
+              )
+          )
+        : [...prevPlayedNotes, key];
+
+      setCheckResponse(null);
+      return updatedPlayedNotes;
     });
   };
 
@@ -112,21 +119,23 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
     setCheckResponse(null);
   };
 
-  const isPlayed = (key: Key) => {
-    return playedNotes.some(
-      (playedKey) =>
-        playedKey.label === key.label && playedKey.octave === key.octave
-    );
-  };
+  const isPlayed = useCallback(
+    (key: Key) =>
+      playedNotes.some(
+        (playedKey) =>
+          playedKey.label === key.label && playedKey.octave === key.octave
+      ),
+    [playedNotes]
+  );
 
-  const getPositionOfKey = (key: Key): number => {
-    return (
+  const getPositionOfKey = useCallback(
+    (key: Key) =>
       playedNotes.findIndex(
         (playedKey) =>
           playedKey.label === key.label && playedKey.octave === key.octave
-      ) + 1
-    );
-  };
+      ) + 1,
+    [playedNotes]
+  );
 
   const handleCheckExercise = () => {
     if (checkResponse !== null) {
@@ -148,26 +157,23 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   const isNextKey = (key: Key): boolean => {
     if (!scale) return false;
 
-    if (playedNotes.length === 0) {
-      return key.label === scale.notes[0];
-    }
-
-    const startingOctave = playedNotes[0].octave;
+    const startingOctave =
+      playedNotes.length > 0 ? playedNotes[0].octave : key.octave;
     const expectedNotes = calculateExpectedNotesWithOctaves(
       scale.notes,
       startingOctave
     );
 
-    for (let i = 0; i < playedNotes.length; i++) {
-      if (
-        `${playedNotes[i].label}${playedNotes[i].octave}` !== expectedNotes[i]
-      ) {
-        return false;
-      }
+    const playedSlice = playedNotes.map(
+      (playedKey) => `${playedKey.label}${playedKey.octave}`
+    );
+    const expectedSlice = expectedNotes.slice(0, playedSlice.length);
+
+    if (JSON.stringify(playedSlice) !== JSON.stringify(expectedSlice)) {
+      return false;
     }
 
-    const nextIndex = playedNotes.length;
-    return `${key.label}${key.octave}` === expectedNotes[nextIndex];
+    return `${key.label}${key.octave}` === expectedNotes[playedNotes.length];
   };
 
   const toggleShowLabels = () => {
@@ -182,63 +188,57 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
     setShowPlayed(!showPlayed);
   };
 
+  const toggleShowKeyboardKeys = () => {
+    setShowKeyboardKeys(!showKeyboardKeys);
+  };
+
   const getNote = (key: Key) => {
     return `${key.label.includes("/") ? key.label.split("/")[0] : key.label}${
       key.octave
     }`;
   };
 
-  const handleKeyDown = async (key: Key) => {
-    registerKeyClick(key);
+  const handleKeyEvent = async (
+    key: Key,
+    isPressing: boolean,
+    isMidi: boolean = false
+  ) => {
     const note = getNote(key);
-    keyPressTimes.current[note] = performance.now();
-    await triggerAttack(note);
-  };
 
-  const handleKeyUp = async (key: Key) => {
-    const note = getNote(key);
-    const now = performance.now();
-    const pressTime = keyPressTimes.current[note] || now;
-    const elapsed = (now - pressTime) / 1000;
-    const Tone = await import("tone");
-    const minDuration = Tone.Time("4n").toSeconds();
-    if (elapsed < minDuration) {
-      const waitTime = (minDuration - elapsed) * 1000;
-      setTimeout(async () => {
-        await triggerRelease(note);
-      }, waitTime);
+    if (isPressing) {
+      if (!audioAllowed && isMidi) await initAudio();
+      keyPressTimes.current[note] = performance.now();
+      await triggerAttack(note);
+
+      setActiveNotes((prev) => new Set(prev).add(key));
+      registerKeyClick(key);
     } else {
-      await triggerRelease(note);
-    }
-  };
+      const now = performance.now();
+      const pressTime = keyPressTimes.current[note] || now;
+      const elapsed = (now - pressTime) / 1000;
+      const Tone = await import("tone");
+      const minDuration = Tone.Time("4n").toSeconds();
 
-  const handleMidiKeyPress = async (midiKey: Key) => {
-    if (!audioAllowedRef.current) {
-      await initAudio();
-    }
-    handleKeyDown(midiKey);
-    setActiveNotes((prev) => {
-      const newSet = new Set(prev);
-      newSet.add(midiKey);
-      return newSet;
-    });
-  };
+      if (elapsed < minDuration) {
+        setTimeout(() => triggerRelease(note), (minDuration - elapsed) * 1000);
+      } else {
+        await triggerRelease(note);
+      }
 
-  const handleStopMidiKeyPress = async (midiKey: Key) => {
-    handleKeyUp(midiKey);
-    setActiveNotes((prev) => {
-      const newSet = new Set(prev);
-      newSet.delete(midiKey);
-      return newSet;
-    });
+      setActiveNotes((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(key);
+        return newSet;
+      });
+    }
   };
 
   useMidi(
     (midiKey: Key) => {
-      handleMidiKeyPress(midiKey);
+      handleKeyEvent(midiKey, true, true);
     },
     (midiKey: Key) => {
-      handleStopMidiKeyPress(midiKey);
+      handleKeyEvent(midiKey, false, true);
     },
     () => resetNotes(),
     () => handleCheckExercise()
@@ -248,20 +248,17 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
     <PianoContext.Provider
       value={{
         showLabels,
-        setShowLabels,
         showPlayed,
-        setShowPlayed,
         showNext,
-        setShowNext,
         playedNotes,
         setPlayedNotes,
         checkResponse,
         setCheckResponse,
         activeNotes,
+        showKeyboardKeys,
+        toggleShowKeyboardKeys,
         setActiveNotes,
-        registerKeyClick,
-        handleKeyDown,
-        handleKeyUp,
+        handleKeyEvent,
         resetNotes,
         isPlayed,
         getPositionOfKey,
@@ -278,7 +275,9 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
       }}
     >
       {children}
-      {!audioAllowed && <EnableAudioModal initAudio={initAudio} />}
+      {!audioAllowed && !loadingSampler && (
+        <EnableAudioModal initAudio={initAudio} />
+      )}
     </PianoContext.Provider>
   );
 };

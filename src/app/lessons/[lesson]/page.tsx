@@ -1,19 +1,35 @@
 "use client";
-import { useLessonData } from "@/context/LessonDataContext";
-import ScaleLesson from "@/components/ScaleLesson/ScaleLesson";
+import { useRouter, useParams } from "next/navigation";
+import { useLessonsData } from "@/context/LessonsProvider";
+import ExercisesLayout from "@/app/layouts/Exercises/ExercisesLayout";
+import styles from "./Lesson.module.css";
+import ExerciseCard from "@/components/ExerciseCard/ExerciseCard";
 
 const LessonPage = () => {
-  const { lesson, lessonContent, valid } = useLessonData();
+  const { lesson } = useParams<{ lesson: string }>();
+  const { getLessonById } = useLessonsData();
+  const lessonContent = getLessonById(parseInt(lesson));
+  const router = useRouter();
 
-  if (!valid || !lessonContent) {
-    return null;
-  }
+  const goToExercise = (exerciseId: number, type: "test" | "practice") => {
+    router.push(`/lessons/${lesson}/${exerciseId}?type=${type}`);
+  };
 
-  if (lesson === "scales" && lessonContent) {
-    return <ScaleLesson lessonContent={lessonContent} />;
-  }
+  if (!lessonContent) return null;
 
-  return null;
+  return (
+    <div className={styles.container}>
+      <ExercisesLayout key={lessonContent.name} title={lessonContent.name}>
+        {lessonContent.exercises.map((exercise) => (
+          <ExerciseCard
+            key={exercise.name}
+            exercise={exercise}
+            goToExercise={goToExercise}
+          />
+        ))}
+      </ExercisesLayout>
+    </div>
+  );
 };
 
 export default LessonPage;

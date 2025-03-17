@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { Key } from "@/types/piano.types";
 import styles from "./PianoKeys.module.css";
 import { usePiano } from "@/context/PianoContext";
@@ -14,12 +14,12 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
     getPositionOfKey,
     isNextKey,
     showLabels,
+    showKeyboardKeys,
     showNext,
     showPlayed,
     checkResponse,
     activeNotes,
-    handleKeyDown,
-    handleKeyUp,
+    handleKeyEvent,
   } = usePiano();
 
   const isActive = activeNotes.has(keyData);
@@ -35,21 +35,43 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
   // Touch events for mobile devices.
   const handleTouchStart = async (e: React.TouchEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleKeyDown(keyData);
+    handleKeyEvent(keyData, true);
   };
 
   const handleTouchEnd = async (e: React.TouchEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleKeyUp(keyData);
+    handleKeyEvent(keyData, false);
   };
 
-  const handleMouseDown = () => {
-    handleKeyDown(keyData);
-  };
+  const handleMouseDown = useCallback(() => {
+    handleKeyEvent(keyData, true);
+  }, [handleKeyEvent, keyData]);
 
-  const handleMouseUp = () => {
-    handleKeyUp(keyData);
-  };
+  const handleMouseUp = useCallback(() => {
+    handleKeyEvent(keyData, false);
+  }, [handleKeyEvent, keyData]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === keyData.keyboardKey && !e.repeat) {
+        handleMouseDown();
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === keyData.keyboardKey && !e.repeat) {
+        handleMouseUp();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [keyData, handleMouseDown, handleMouseUp]);
 
   return (
     <button
@@ -68,10 +90,22 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
           <span className={`${styles.played} ${spanStyle}`}>
             {getPositionOfKey(keyData)}
           </span>
-          {showLabels && <span>{keyLabel}</span>}
+          {showLabels && (
+            <>
+              <span>{keyLabel}</span>
+              {showKeyboardKeys && <span>{keyData.keyboardKey}</span>}
+            </>
+          )}
         </div>
       ) : (
-        <>{showLabels && <span>{keyLabel}</span>}</>
+        <>
+          {showLabels && (
+            <div className={styles.playedContainer}>
+              <span>{keyLabel}</span>
+              {showKeyboardKeys && <span>{keyData.keyboardKey}</span>}
+            </div>
+          )}
+        </>
       )}
     </button>
   );

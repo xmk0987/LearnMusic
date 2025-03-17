@@ -1,39 +1,34 @@
 "use client";
 import React from "react";
 import styles from "./ExerciseCard.module.css";
-import { useRouter } from "next/navigation";
+import { Exercise } from "@/types/lessons.types";
 
 interface ExerciseCardProps {
-  exerciseName: string;
+  exercise: Exercise;
+  goToExercise: (exerciseId: number, type: "test" | "practice") => void;
 }
 
-const ExerciseCard: React.FC<ExerciseCardProps> = ({ exerciseName }) => {
-  const router = useRouter();
-
-  const goToLessons = (practice: boolean) => {
-    const type = practice ? "practice" : "test";
-    const rawName = exerciseName.replace(/\s+/g, "-").toLowerCase();
-    const encodedName = encodeURIComponent(rawName);
-    router.push(`/lessons/scales/${encodedName}?type=${type}`);
-  };
-
+const ExerciseCard: React.FC<ExerciseCardProps> = ({
+  exercise,
+  goToExercise,
+}) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <span className={styles.completed}>X</span>
-        <p>{exerciseName}</p>
+        <p>{exercise.name}</p>
       </div>
       <div className={styles.cardInfo}>
         <button
           className={styles.circleButton}
-          onClick={() => goToLessons(true)}
+          onClick={() => goToExercise(exercise.id, "practice")}
         >
           <span>&gt;</span>
           Practice
         </button>
         <button
           className={`${styles.circleButton} ${styles.test}`}
-          onClick={() => goToLessons(false)}
+          onClick={() => goToExercise(exercise.id, "test")}
         >
           <span>&gt;</span>
           Test
