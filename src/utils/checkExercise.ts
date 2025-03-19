@@ -1,5 +1,5 @@
 import type { Key } from "@/types/piano.types";
-import type { CheckResponse } from "@/components/Exercise/Exercise";
+import type { CheckResponse } from "@/app/lessons/[lessonId]/[exerciseId]/Exercise";
 import { calculateExpectedNotesWithOctaves } from "./helpers";
 import type { Exercise } from "@/types/lessons.types";
 

@@ -3,6 +3,7 @@ import React, { useEffect, useCallback } from "react";
 import { Key } from "@/types/piano.types";
 import styles from "./PianoKeys.module.css";
 import { usePiano } from "@/context/PianoContext";
+import type { CheckResponseNote } from "@/context/ExerciseContext";
 
 interface PianoKeyProps {
   keyData: Key;
@@ -25,7 +26,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
   const isActive = activeNotes.has(keyData);
   const keyLabel = `${keyData.label}${keyData.octave}`;
   const noteFeedback = checkResponse?.notes.find(
-    (feedback) =>
+    (feedback: CheckResponseNote) =>
       feedback.note === keyData.label && feedback.octave === keyData.octave
   );
   const noteStatus = noteFeedback?.status;

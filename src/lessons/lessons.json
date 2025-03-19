@@ -193,7 +193,7 @@
       "description": "Learn all the chords in a C major scale and how to find them.",
       "category": "chords",
       "task": "Play all the notes of the chord.",
-      "hint": "To create chords in a scale, use the 1st, 3rd, and 5th notes of the scale for major and minor chords. For example, in the C major scale, the C major chord is made up of the notes C, E, and G.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
       "exercises": [
         {
@@ -228,8 +228,1066 @@
         },
         {
           "id": 7,
-          "name": "B Sus",
+          "name": "B Diminished",
           "notes": ["B", "D", "F"]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Chords in D Major Scale",
+      "description": "Learn all the chords in a D major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "D Major",
+          "notes": ["D", "F#/Gb", "A"]
+        },
+        {
+          "id": 2,
+          "name": "E Minor",
+          "notes": ["E", "G", "B"]
+        },
+        {
+          "id": 3,
+          "name": "F# Minor",
+          "notes": ["F#/Gb", "A", "C#"]
+        },
+        {
+          "id": 4,
+          "name": "G Major",
+          "notes": ["G", "B", "D"]
+        },
+        {
+          "id": 5,
+          "name": "A Major",
+          "notes": ["A", "C#/Db", "E"]
+        },
+        {
+          "id": 6,
+          "name": "B Minor",
+          "notes": ["B", "D", "F#"]
+        },
+        {
+          "id": 7,
+          "name": "C# Diminished",
+          "notes": ["C#/Db", "E", "G"]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Chords in E Major Scale",
+      "description": "Learn all the chords in an E major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "E Major",
+          "notes": ["E", "G#/Ab", "B"]
+        },
+        {
+          "id": 2,
+          "name": "F# Minor",
+          "notes": ["F#/Gb", "A", "C#"]
+        },
+        {
+          "id": 3,
+          "name": "G# Minor",
+          "notes": ["G#/Ab", "B", "D#"]
+        },
+        {
+          "id": 4,
+          "name": "A Major",
+          "notes": ["A", "C#/Db", "E"]
+        },
+        {
+          "id": 5,
+          "name": "B Major",
+          "notes": ["B", "D#/Eb", "F#"]
+        },
+        {
+          "id": 6,
+          "name": "C# Minor",
+          "notes": ["C#/Db", "E", "G#/Ab"]
+        },
+        {
+          "id": 7,
+          "name": "D# Diminished",
+          "notes": ["D#/Eb", "F#/Gb", "A"]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Chords in F Major Scale",
+      "description": "Learn all the chords in an F major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "F Major",
+          "notes": ["F", "A", "C"]
+        },
+        {
+          "id": 2,
+          "name": "G Minor",
+          "notes": ["G", "A#/Bb", "D"]
+        },
+        {
+          "id": 3,
+          "name": "A Minor",
+          "notes": ["A", "C", "E"]
+        },
+        {
+          "id": 4,
+          "name": "Bb Major",
+          "notes": ["A#/Bb", "D", "F"]
+        },
+        {
+          "id": 5,
+          "name": "C Major",
+          "notes": ["C", "E", "G"]
+        },
+        {
+          "id": 6,
+          "name": "D Minor",
+          "notes": ["D", "F", "A"]
+        },
+        {
+          "id": 7,
+          "name": "E Diminished",
+          "notes": ["E", "G", "A#/Bb"]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Chords in G Major Scale",
+      "description": "Learn all the chords in a G major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "G Major",
+          "notes": ["G", "B", "D"]
+        },
+        {
+          "id": 2,
+          "name": "A Minor",
+          "notes": ["A", "C", "E"]
+        },
+        {
+          "id": 3,
+          "name": "B Minor",
+          "notes": ["B", "D", "F#"]
+        },
+        {
+          "id": 4,
+          "name": "C Major",
+          "notes": ["C", "E", "G"]
+        },
+        {
+          "id": 5,
+          "name": "D Major",
+          "notes": ["D", "F#/Gb", "A"]
+        },
+        {
+          "id": 6,
+          "name": "E Minor",
+          "notes": ["E", "G", "B"]
+        },
+        {
+          "id": 7,
+          "name": "F# Diminished",
+          "notes": ["F#/Gb", "A", "C"]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Chords in A Major Scale",
+      "description": "Learn all the chords in an A major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "A Major",
+          "notes": ["A", "C#/Db", "E"]
+        },
+        {
+          "id": 2,
+          "name": "B Minor",
+          "notes": ["B", "D", "F#/Gb"]
+        },
+        {
+          "id": 3,
+          "name": "C# Minor",
+          "notes": ["C#/Db", "E", "G#/Ab"]
+        },
+        {
+          "id": 4,
+          "name": "D Major",
+          "notes": ["D", "F#/Gb", "A"]
+        },
+        {
+          "id": 5,
+          "name": "E Major",
+          "notes": ["E", "G#/Ab", "B"]
+        },
+        {
+          "id": 6,
+          "name": "F# Minor",
+          "notes": ["F#/Gb", "A", "C#/Db"]
+        },
+        {
+          "id": 7,
+          "name": "G# Diminished",
+          "notes": ["G#/Ab", "B", "D"]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Chords in B Major Scale",
+      "description": "Learn all the chords in a B major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "B Major",
+          "notes": ["B", "D#/Eb", "F#/Gb"]
+        },
+        {
+          "id": 2,
+          "name": "C# Minor",
+          "notes": ["C#/Db", "E", "G#/Ab"]
+        },
+        {
+          "id": 3,
+          "name": "D# Minor",
+          "notes": ["D#/Eb", "F#/Gb", "A#/Bb"]
+        },
+        {
+          "id": 4,
+          "name": "E Major",
+          "notes": ["E", "G#/Ab", "B"]
+        },
+        {
+          "id": 5,
+          "name": "F# Major",
+          "notes": ["F#/Gb", "A#/Bb", "C#/Db"]
+        },
+        {
+          "id": 6,
+          "name": "G# Minor",
+          "notes": ["G#/Ab", "B", "D#/Eb"]
+        },
+        {
+          "id": 7,
+          "name": "A# Diminished",
+          "notes": ["A#/Bb", "C#/Db", "E"]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Chords in C#/Db Major Scale",
+      "description": "Learn all the chords in a C#/Db major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "C#/Db Major",
+          "notes": ["C#/Db", "F", "G#/Ab"]
+        },
+        {
+          "id": 2,
+          "name": "D#/Eb Minor",
+          "notes": ["D#/Eb", "F#/Gb", "A#/Bb"]
+        },
+        {
+          "id": 3,
+          "name": "E#/F Minor",
+          "notes": ["F", "G#/Ab", "C"]
+        },
+        {
+          "id": 4,
+          "name": "F#/Gb Major",
+          "notes": ["F#/Gb", "A#/Bb", "C#/Db"]
+        },
+        {
+          "id": 5,
+          "name": "G#/Ab Major",
+          "notes": ["G#/Ab", "C", "D#/Eb"]
+        },
+        {
+          "id": 6,
+          "name": "A#/Bb Minor",
+          "notes": ["A#/Bb", "C#/Db", "E#/F"]
+        },
+        {
+          "id": 7,
+          "name": "B#/C Diminished",
+          "notes": ["C", "D#/Eb", "F#/Gb"]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Chords in D#/Eb Major Scale",
+      "description": "Learn all the chords in a D#/Eb major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "D#/Eb Major",
+          "notes": ["D#/Eb", "G", "A#/Bb"]
+        },
+        {
+          "id": 2,
+          "name": "D#/Eb Minor",
+          "notes": ["F", "G#/Ab", "C"]
+        },
+        {
+          "id": 3,
+          "name": "E#/F Minor",
+          "notes": ["G", "A#/Bb", "D"]
+        },
+        {
+          "id": 4,
+          "name": "G#/Ab Major",
+          "notes": ["G#/Ab", "C", "D#/Eb"]
+        },
+        {
+          "id": 5,
+          "name": "A#/Bb Major",
+          "notes": ["A#/Bb", "D", "F"]
+        },
+        {
+          "id": 6,
+          "name": "C Minor",
+          "notes": ["C", "D#/Eb", "G"]
+        },
+        {
+          "id": 7,
+          "name": "D Diminished",
+          "notes": ["D", "F", "G#/Ab"]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Chords in F#/Gb Major Scale",
+      "description": "Learn all the chords in a F#/Gb major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "F#/Gb Major",
+          "notes": ["F#/Gb", "A#/Bb", "C#/Db"]
+        },
+        {
+          "id": 2,
+          "name": "G#/Ab Minor",
+          "notes": ["G#/Ab", "B", "D#/Eb"]
+        },
+        {
+          "id": 3,
+          "name": "A#/Bb Minor",
+          "notes": ["A#/Bb", "C#/Db", "F"]
+        },
+        {
+          "id": 4,
+          "name": "B Major",
+          "notes": ["B", "D#/Eb", "F#/Gb"]
+        },
+        {
+          "id": 5,
+          "name": "C#/Db Major",
+          "notes": ["C#/Db", "F", "G#/Ab"]
+        },
+        {
+          "id": 6,
+          "name": "D#/Eb Minor",
+          "notes": ["D#/Eb", "F#/Gb", "A#/Bb"]
+        },
+        {
+          "id": 7,
+          "name": "F Diminished",
+          "notes": ["F", "G#/Ab", "B"]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Chords in G#/Ab Major Scale",
+      "description": "Learn all the chords in a G#/Ab major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "G#/Ab Major",
+          "notes": ["G#/Ab", "C", "D#/Eb"]
+        },
+        {
+          "id": 2,
+          "name": "A#/Bb Minor",
+          "notes": ["A#/Bb", "C#/Db", "F"]
+        },
+        {
+          "id": 3,
+          "name": "C Minor",
+          "notes": ["C", "D#/Eb", "G"]
+        },
+        {
+          "id": 4,
+          "name": "C#/Db Major",
+          "notes": ["C#/Db", "F", "G#/Ab"]
+        },
+        {
+          "id": 5,
+          "name": "D#/Eb Major",
+          "notes": ["D#/Eb", "G", "A#/Bb"]
+        },
+        {
+          "id": 6,
+          "name": "F Minor",
+          "notes": ["F", "G#/Ab", "C"]
+        },
+        {
+          "id": 7,
+          "name": "G Diminished",
+          "notes": ["G", "A#/Bb", "C#/Db"]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Chords in A#/Bb Major Scale",
+      "description": "Learn all the chords in a A#/Bb major scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "A#/Bb Major",
+          "notes": ["A#/Bb", "D", "F"]
+        },
+        {
+          "id": 2,
+          "name": "C Minor",
+          "notes": ["C", "D#/Eb", "G"]
+        },
+        {
+          "id": 3,
+          "name": "D Minor",
+          "notes": ["D", "F", "A"]
+        },
+        {
+          "id": 4,
+          "name": "D#/Eb Major",
+          "notes": ["D#/Eb", "G", "A#/Bb"]
+        },
+        {
+          "id": 5,
+          "name": "F Major",
+          "notes": ["F", "A", "C"]
+        },
+        {
+          "id": 6,
+          "name": "G Minor",
+          "notes": ["G", "A#/Bb", "D"]
+        },
+        {
+          "id": 7,
+          "name": "A Diminished",
+          "notes": ["A", "C", "D#/Eb"]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Chords in C Minor Scale",
+      "description": "Learn all the chords in a C minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "C Minor",
+          "notes": ["C", "D#/Eb", "G"]
+        },
+        {
+          "id": 2,
+          "name": "D Dimnished",
+          "notes": ["D", "F", "G#/Ab"]
+        },
+        {
+          "id": 3,
+          "name": "D#/Eb Major",
+          "notes": ["D#/Eb", "G", "A#/Bb"]
+        },
+        {
+          "id": 4,
+          "name": "F Minor",
+          "notes": ["F", "G#/Ab", "C"]
+        },
+        {
+          "id": 5,
+          "name": "G Minor",
+          "notes": ["G", "A#/Bb", "D"]
+        },
+        {
+          "id": 6,
+          "name": "G#/Ab Major",
+          "notes": ["G#/Ab", "C", "D#/Eb"]
+        },
+        {
+          "id": 7,
+          "name": "A#/Bb Major",
+          "notes": ["A#/Bb", "D", "F"]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Chords in D Minor Scale",
+      "description": "Learn all the chords in a D minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "D Minor",
+          "notes": ["D", "F", "A"]
+        },
+        {
+          "id": 2,
+          "name": "E Diminished",
+          "notes": ["E", "G", "A#/Bb"]
+        },
+        {
+          "id": 3,
+          "name": "F Major",
+          "notes": ["F", "A", "C"]
+        },
+        {
+          "id": 4,
+          "name": "G Minor",
+          "notes": ["G", "A#/Bb", "D"]
+        },
+        {
+          "id": 5,
+          "name": "A Minor",
+          "notes": ["A", "C", "E"]
+        },
+        {
+          "id": 6,
+          "name": "A#/Bb Major",
+          "notes": ["A#/Bb", "D", "F"]
+        },
+        {
+          "id": 7,
+          "name": "C Major",
+          "notes": ["C", "E", "G"]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Chords in E Minor Scale",
+      "description": "Learn all the chords in a E minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "E Minor",
+          "notes": ["E", "G", "B"]
+        },
+        {
+          "id": 2,
+          "name": "F#/Gb Diminished",
+          "notes": ["F#/Gb", "A", "C"]
+        },
+        {
+          "id": 3,
+          "name": "G Major",
+          "notes": ["G", "B", "D"]
+        },
+        {
+          "id": 4,
+          "name": "A Minor",
+          "notes": ["A", "C", "E"]
+        },
+        {
+          "id": 5,
+          "name": "B Minor",
+          "notes": ["B", "D", "F#/Gb"]
+        },
+        {
+          "id": 6,
+          "name": "C Major",
+          "notes": ["C", "E", "G"]
+        },
+        {
+          "id": 7,
+          "name": "D Major",
+          "notes": ["D", "F#/Gb", "A"]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Chords in F Minor Scale",
+      "description": "Learn all the chords in a F minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "F Minor",
+          "notes": ["F", "G#/Ab", "C"]
+        },
+        {
+          "id": 2,
+          "name": "G Diminished",
+          "notes": ["G", "A#/Bb", "C#/Db"]
+        },
+        {
+          "id": 3,
+          "name": "G#/Ab Major",
+          "notes": ["G#/Ab", "C", "D#/Eb"]
+        },
+        {
+          "id": 4,
+          "name": "A#/Bb Minor",
+          "notes": ["A#/Bb", "C#/Db", "F"]
+        },
+        {
+          "id": 5,
+          "name": "C Minor",
+          "notes": ["C", "D#/Eb", "G"]
+        },
+        {
+          "id": 6,
+          "name": "C#/Db Major",
+          "notes": ["C#/Db", "F", "G#/Ab"]
+        },
+        {
+          "id": 7,
+          "name": "D#/Eb Major",
+          "notes": ["D#/Eb", "G", "A#/Bb"]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Chords in G Minor Scale",
+      "description": "Learn all the chords in a G minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "G Minor",
+          "notes": ["G", "A#/Bb", "D"]
+        },
+        {
+          "id": 2,
+          "name": "A Diminished",
+          "notes": ["A", "C", "D#/Eb"]
+        },
+        {
+          "id": 3,
+          "name": "A#/Bb Major",
+          "notes": ["A#/Bb", "D", "F"]
+        },
+        {
+          "id": 4,
+          "name": "C Minor",
+          "notes": ["C", "D#/Eb", "G"]
+        },
+        {
+          "id": 5,
+          "name": "D Minor",
+          "notes": ["D", "F", "A"]
+        },
+        {
+          "id": 6,
+          "name": "D#/Eb Major",
+          "notes": ["D#/Eb", "G", "A#/Bb"]
+        },
+        {
+          "id": 7,
+          "name": "F Major",
+          "notes": ["F", "A", "C"]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Chords in A Minor Scale",
+      "description": "Learn all the chords in a A minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "A Minor",
+          "notes": ["A", "C", "E"]
+        },
+        {
+          "id": 2,
+          "name": "B Diminished",
+          "notes": ["B", "D", "F"]
+        },
+        {
+          "id": 3,
+          "name": "C Major",
+          "notes": ["C", "E", "G"]
+        },
+        {
+          "id": 4,
+          "name": "D Minor",
+          "notes": ["D", "F", "A"]
+        },
+        {
+          "id": 5,
+          "name": "E Minor",
+          "notes": ["E", "G", "B"]
+        },
+        {
+          "id": 6,
+          "name": "F Major",
+          "notes": ["F", "A", "C"]
+        },
+        {
+          "id": 7,
+          "name": "G Major",
+          "notes": ["G", "B", "D"]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Chords in B Minor Scale",
+      "description": "Learn all the chords in a B minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "B Minor",
+          "notes": ["B", "D", "F#/Gb"]
+        },
+        {
+          "id": 2,
+          "name": "C#/Db Diminished",
+          "notes": ["C#/Db", "E", "G"]
+        },
+        {
+          "id": 3,
+          "name": "D Major",
+          "notes": ["D", "F#/Gb", "A"]
+        },
+        {
+          "id": 4,
+          "name": "E Minor",
+          "notes": ["E", "G", "B"]
+        },
+        {
+          "id": 5,
+          "name": "F#/Gb Minor",
+          "notes": ["F#/Gb", "A", "C#/Db"]
+        },
+        {
+          "id": 6,
+          "name": "G Major",
+          "notes": ["G", "B", "D"]
+        },
+        {
+          "id": 7,
+          "name": "A Major",
+          "notes": ["A", "C#/Db", "E"]
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Chords in C#/Db Minor Scale",
+      "description": "Learn all the chords in a C#/Db minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "C#/Db Minor",
+          "notes": ["C#/Db", "E", "G#/Ab"]
+        },
+        {
+          "id": 2,
+          "name": "D#/Eb Diminished",
+          "notes": ["D#/Eb", "F#/Gb", "A"]
+        },
+        {
+          "id": 3,
+          "name": "E Major",
+          "notes": ["E", "G#/Ab", "B"]
+        },
+        {
+          "id": 4,
+          "name": "F#/Gb Minor",
+          "notes": ["F#/Gb", "A", "C#/Db"]
+        },
+        {
+          "id": 5,
+          "name": "G#/Ab Minor",
+          "notes": ["G#/Ab", "B", "D#/Eb"]
+        },
+        {
+          "id": 6,
+          "name": "A Major",
+          "notes": ["A", "C#/Db", "E"]
+        },
+        {
+          "id": 7,
+          "name": "B Major",
+          "notes": ["B", "D#/Eb", "F#/Gb"]
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Chords in D#/Eb Minor Scale",
+      "description": "Learn all the chords in a D#/Eb minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "D#/Eb Minor",
+          "notes": ["D#/Eb", "F#/Gb", "A#/Bb"]
+        },
+        {
+          "id": 2,
+          "name": "F Diminished",
+          "notes": ["F", "G#/Ab", "B"]
+        },
+        {
+          "id": 3,
+          "name": "F#/Gb Major",
+          "notes": ["F#/Gb", "A#/Bb", "C#/Db"]
+        },
+        {
+          "id": 4,
+          "name": "G#/Ab Minor",
+          "notes": ["G#/Ab", "B", "D#/Eb"]
+        },
+        {
+          "id": 5,
+          "name": "A#/Bb Minor",
+          "notes": ["A#/Bb", "C#/Db", "F"]
+        },
+        {
+          "id": 6,
+          "name": "B Major",
+          "notes": ["B", "D#/Eb", "F#/Gb"]
+        },
+        {
+          "id": 7,
+          "name": "C#/Db Major",
+          "notes": ["C#/Db", "F", "A#/Bb"]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Chords in F#/Gb Minor Scale",
+      "description": "Learn all the chords in a F#/Gb minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "F#/Gb Minor",
+          "notes": ["F#/Gb", "A", "C#/Db"]
+        },
+        {
+          "id": 2,
+          "name": "G#/Ab Diminished",
+          "notes": ["G#/Ab", "B", "D"]
+        },
+        {
+          "id": 3,
+          "name": "A Major",
+          "notes": ["A", "C#/Db", "E"]
+        },
+        {
+          "id": 4,
+          "name": "B Minor",
+          "notes": ["B", "D", "F#/Gb"]
+        },
+        {
+          "id": 5,
+          "name": "C#/Db Minor",
+          "notes": ["C#/Db", "E", "G#/Ab"]
+        },
+        {
+          "id": 6,
+          "name": "D Major",
+          "notes": ["D", "F#/Gb", "A"]
+        },
+        {
+          "id": 7,
+          "name": "E Major",
+          "notes": ["E", "G#/Ab", "B"]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Chords in G#/Ab Minor Scale",
+      "description": "Learn all the chords in a G#/Ab minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "G#/Ab Minor",
+          "notes": ["G#/Ab", "B", "D#/Eb"]
+        },
+        {
+          "id": 2,
+          "name": "A#/Bb Diminished",
+          "notes": ["A#/Bb", "C#/Db", "E"]
+        },
+        {
+          "id": 3,
+          "name": "B Major",
+          "notes": ["B", "D#/Eb", "F#/Gb"]
+        },
+        {
+          "id": 4,
+          "name": "C#/Db Minor",
+          "notes": ["C#/Db", "E", "G#/Ab"]
+        },
+        {
+          "id": 5,
+          "name": "D#/Eb Minor",
+          "notes": ["D#/Eb", "F#/Gb", "A#/Bb"]
+        },
+        {
+          "id": 6,
+          "name": "E Major",
+          "notes": ["E", "G#/Ab", "B"]
+        },
+        {
+          "id": 7,
+          "name": "F#/Gb Major",
+          "notes": ["F#/Gb", "A#/Bb", "C#/Db"]
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Chords in A#/Bb Minor Scale",
+      "description": "Learn all the chords in a A#/Bb minor scale and how to find them.",
+      "category": "chords",
+      "task": "Play all the notes of the chord.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
+      "type": "play",
+      "exercises": [
+        {
+          "id": 1,
+          "name": "A#/Bb Minor",
+          "notes": ["A#/Bb", "C#/Db", "F"]
+        },
+        {
+          "id": 2,
+          "name": "C Diminished",
+          "notes": ["C", "D#/Eb", "F#/Gb"]
+        },
+        {
+          "id": 3,
+          "name": "C#/Db Major",
+          "notes": ["C#/Db", "F", "G#/Ab"]
+        },
+        {
+          "id": 4,
+          "name": "D#/Eb Minor",
+          "notes": ["D#/Eb", "F#/Gb", "A#/Bb"]
+        },
+        {
+          "id": 5,
+          "name": "F Minor",
+          "notes": ["F", "G#/Ab", "C"]
+        },
+        {
+          "id": 6,
+          "name": "F#/Gb Major",
+          "notes": ["F#/Gb", "A#/Bb", "C#/Db"]
+        },
+        {
+          "id": 7,
+          "name": "G#/Ab Major",
+          "notes": ["G#/Ab", "C", "D#/Eb"]
         }
       ]
     }

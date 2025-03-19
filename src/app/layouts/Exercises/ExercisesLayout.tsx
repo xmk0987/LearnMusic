@@ -6,14 +6,9 @@ import DynamicBreadcrumbs from "@/components/DynamicBreadcrumbs/DynamicBreadcrum
 interface ExercisesLayout {
   title: string;
   children: React.ReactNode;
-  hasBreadcrumbs?: boolean;
 }
 
-const ExercisesLayout: React.FC<ExercisesLayout> = ({
-  title,
-  children,
-  hasBreadcrumbs = true,
-}) => {
+const ExercisesLayout: React.FC<ExercisesLayout> = ({ title, children }) => {
   const [showContent, setShowContent] = useState<boolean>(true);
 
   return (
@@ -21,7 +16,7 @@ const ExercisesLayout: React.FC<ExercisesLayout> = ({
       <div className={styles.header}>
         <div className={styles.headerItem}>
           <h1 className={styles.title}>{title}</h1>
-          {hasBreadcrumbs && <DynamicBreadcrumbs />}
+          <DynamicBreadcrumbs lessonName={title} />
         </div>
         <button
           className={styles.headerButton}

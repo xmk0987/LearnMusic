@@ -15,6 +15,11 @@
   align-items: center;
 }
 
+.titleButtons {
+  display: inline-flex;
+  gap: var(--margin-s);
+}
+
 .title button {
   width: 20px;
   height: 20px;
@@ -34,4 +39,13 @@
 .instructions {
   font-size: var(--m-font);
   margin-bottom: var(--margin-m);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--margin-xs);
+  text-align: center;
+}
+
+.hint {
+  font-size: var(--s-font);
 }
