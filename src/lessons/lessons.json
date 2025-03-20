@@ -95,7 +95,7 @@
       "description": "Learn basic minor scales for beginners",
       "category": "scales",
       "task": "Play through all the notes of the scale",
-      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "hint": "All minor scales follow the same step pattern starting from the main key of the scale. W H W W H W W",
       "type": "play",
       "exercises": [
         {
@@ -515,7 +515,7 @@
       "description": "Learn all the chords in a C#/Db major scale and how to find them.",
       "category": "chords",
       "task": "Play all the notes of the chord.",
-      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
       "exercises": [
         {
@@ -561,7 +561,7 @@
       "description": "Learn all the chords in a D#/Eb major scale and how to find them.",
       "category": "chords",
       "task": "Play all the notes of the chord.",
-      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
       "exercises": [
         {
@@ -607,7 +607,7 @@
       "description": "Learn all the chords in a F#/Gb major scale and how to find them.",
       "category": "chords",
       "task": "Play all the notes of the chord.",
-      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
       "exercises": [
         {
@@ -653,7 +653,7 @@
       "description": "Learn all the chords in a G#/Ab major scale and how to find them.",
       "category": "chords",
       "task": "Play all the notes of the chord.",
-      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
       "exercises": [
         {
@@ -699,7 +699,7 @@
       "description": "Learn all the chords in a A#/Bb major scale and how to find them.",
       "category": "chords",
       "task": "Play all the notes of the chord.",
-      "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Half Whole Whole  Half Whole Whole.",
+      "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
       "exercises": [
         {

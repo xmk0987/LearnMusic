@@ -68,7 +68,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
   const isTest = type === "test";
   const [showLabels, setShowLabels] = useState<boolean>(!isTest);
   const [showPlayed, setShowPlayed] = useState<boolean>(true);
-  const [showNext, setShowNext] = useState<boolean>(!isTest);
+  const [showNext, setShowNext] = useState<boolean>(false);
   const [showKeyboardKeys, setShowKeyboardKeys] = useState<boolean>(false);
 
   const [playedNotes, setPlayedNotes] = useState<Key[]>([]);

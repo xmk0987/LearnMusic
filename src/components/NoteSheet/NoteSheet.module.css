@@ -1,0 +1,30 @@
+.container {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--margin-m);
+  height: 150px;
+  font: var(--font-noto-music);
+  font-size: 50px;
+}
+
+.noteSheet {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  row-gap: 0;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows:
+    [B5] 0.25em [A5] 0.25em [G5] 0.25em [F5] 0.25em [E5] 0.25em
+    [D5] 0.25em [C5] 0.25em [B4] 0.25em [A4] 0.25em
+    [G4] 0.25em [F4] 0.25em [E4] 0.25em [D4] 0.25em
+    [C4] 0.25em;
+}
+
+.staffLine {
+  grid-column: 1 / -1;
+  border-bottom: 1px solid black;
+  height: 0;
+  z-index: 0;
+}

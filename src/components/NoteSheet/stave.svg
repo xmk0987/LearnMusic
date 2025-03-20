@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200">
+  <!-- First line -->
+  <line x1="50" y1="50" x2="950" y2="50" stroke="black" stroke-width="2" />
+  <!-- Second line -->
+  <line x1="50" y1="80" x2="950" y2="80" stroke="black" stroke-width="2" />
+  <!-- Third line -->
+  <line x1="50" y1="110" x2="950" y2="110" stroke="black" stroke-width="2" />
+  <!-- Fourth line -->
+  <line x1="50" y1="140" x2="950" y2="140" stroke="black" stroke-width="2" />
+  <!-- Fifth line -->
+  <line x1="50" y1="170" x2="950" y2="170" stroke="black" stroke-width="2" />
+</svg>
