@@ -1,3 +1,5 @@
+import type { NoteValue } from "@/types/lessons.types";
+
 export function capitalizeFirstLetter(val: string) {
   return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
@@ -11,6 +13,7 @@ export const calculateExpectedNotesWithOctaves = (
     C: 0,
     "C#/Db": 1,
     "C#": 1,
+
     D: 2,
     "D#": 3,
     "D#/Eb": 3,
@@ -40,18 +43,32 @@ export const calculateExpectedNotesWithOctaves = (
   });
 };
 
-export const formatNotesToVexFlow = (notes: string[]) => {
-  const splitNotes = notes.map((note) => {
-    const splitNote = note.split("/");
-    return splitNote[0];
+export const getNoteObjects = (notes: string[], useFlats = false) => {
+  const notesWithOctaves = calculateExpectedNotesWithOctaves(notes, 4);
+
+  return notesWithOctaves.map((note: string, index) => {
+    const match = note.match(/([A-G]#?b?\/?[A-G]?#?b?)(\d)/);
+    if (!match) {
+      throw new Error(`Invalid note format: ${note}`);
+    }
+    const [, noteName, octave] = match;
+
+    let noteNameToUse = noteName;
+    if (noteName.includes("/")) {
+      const [sharpNote, flatNote] = noteName.split("/");
+      if (useFlats === true) {
+        noteNameToUse = flatNote;
+      } else {
+        noteNameToUse = sharpNote;
+      }
+    }
+
+    return {
+      noteName: noteNameToUse as NoteValue,
+      octave: parseInt(octave, 10),
+      position: index + 2,
+      value: note,
+      index: index,
+    };
   });
-
-  const expectedNotes = calculateExpectedNotesWithOctaves(splitNotes, 4);
-
-  const parsedNotes = expectedNotes.map((note) => {
-    return note;
-  });
-
-  const noteStr = parsedNotes.join(", ");
-  return noteStr;
 };

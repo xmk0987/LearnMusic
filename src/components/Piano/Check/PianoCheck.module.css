@@ -32,16 +32,16 @@
 }
 
 .redLabel {
-  background-color: red;
-  border: 1px solid red;
+  background-color: var(--wrong-note);
+  border: 1px solid var(--wrong-note);
 }
 
 .greenLabel {
-  background-color: green;
-  border: 1px solid green;
+  background-color: var(--right-note);
+  border: 1px solid var(--right-note);
 }
 
 .orangeLabel {
-  background-color: orange;
-  border: 1px solid orange;
+  background-color: var(--wrong-note-position);
+  border: 1px solid var(--wrong-note-position);
 }

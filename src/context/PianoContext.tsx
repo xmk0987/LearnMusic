@@ -146,11 +146,9 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
   const isNextKey = (key: Key): boolean => {
     if (!currentExercise) return false;
 
-    const startingOctave =
-      playedNotes.length > 0 ? playedNotes[0].octave : key.octave;
     const expectedNotes = calculateExpectedNotesWithOctaves(
       currentExercise.notes,
-      startingOctave
+      4
     );
 
     const playedSlice = playedNotes.map(

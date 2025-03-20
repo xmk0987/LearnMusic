@@ -34,11 +34,35 @@
   font-size: 180px;
 }
 
+.nextKey {
+  color: var(--next-note) !important;
+}
+
+.wrong {
+  color: var(--wrong-note) !important;
+}
+
+.correct {
+  color: var(--right-note) !important;
+}
+
 .noteLine {
   position: absolute;
   width: 30px;
   height: 3px;
-  background-color: black;
   bottom: 27%;
   transform: translateX(55%);
+  background-color: black;
+}
+
+.nextKey .noteLine {
+  background-color: var(--next-note) !important;
+}
+
+.wrong .noteLine {
+  background-color: var(--wrong-note);
+}
+
+.correct .noteLine {
+  background-color: var(--right-note);
 }

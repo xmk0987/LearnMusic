@@ -37,6 +37,10 @@
 
   /* PIANO */
   --black-key-w: 60px;
+  --wrong-note: red;
+  --wrong-note-position: orange;
+  --right-note: green;
+  --next-note: purple;
 }
 
 h1,

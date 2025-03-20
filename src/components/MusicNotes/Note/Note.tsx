@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "../Note.module.css";
+import type { NoteType } from "@/types/lessons.types";
+import { usePiano } from "@/context/PianoContext";
+import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
+import { CheckResponseNote } from "@/context/ExerciseContext";
 
 const NOTE_MAPPING = {
   q: "♩",
@@ -14,54 +18,69 @@ const NOTE_MAPPING = {
   bar: "𝄀",
 };
 
-export type NoteValue =
-  | "C"
-  | "C#"
-  | "Db"
-  | "D"
-  | "D#"
-  | "Eb"
-  | "E"
-  | "F"
-  | "F#"
-  | "Gb"
-  | "G"
-  | "G#"
-  | "Ab"
-  | "A"
-  | "A#"
-  | "Bb"
-  | "B";
-
 interface NoteProps {
-  note: NoteValue;
-  octave?: 4 | 5;
-  sharp?: boolean;
-  flat?: boolean;
-  notePosition: number;
+  note: NoteType;
   noteLength?: "q" | "e" | "be" | "bs";
 }
 
-const Note: React.FC<NoteProps> = ({
-  note,
-  octave = 4,
-  sharp = false,
-  flat = false,
-  notePosition,
-  noteLength = "q",
-}) => {
-  const noteCombo = `${note}${octave}`;
+const Note: React.FC<NoteProps> = ({ note, noteLength = "q" }) => {
+  const { playedNotes, currentExercise, checkResponse } = usePiano();
+
+  // Determine accidental information
+  const isSharp = note.noteName.includes("#");
+  const isFlat = note.noteName.includes("b");
+
+  // Remove accidental from note name (assumes only one accidental)
+  const noteLetter = note.noteName.replace(/[#b]/, "");
+  const noteCombo = `${noteLetter}${note.octave}`;
   const needLine = noteCombo === "C4" || noteCombo === "B5";
+
+  // Memoize expected notes based on currentExercise
+  const expectedNotes = useMemo(
+    () => calculateExpectedNotesWithOctaves(currentExercise.notes, 4),
+    [currentExercise.notes]
+  );
+
+  // Memoize note matching and status feedback
+  const { noteIsNextKey, noteStatus } = useMemo(() => {
+    const noteIsNextKey = expectedNotes[playedNotes.length] === note.value;
+    const noteFeedback = checkResponse?.notes.find(
+      (feedback: CheckResponseNote) =>
+        `${feedback.note}${feedback.octave}` === note.value
+    );
+    const noteStatus = noteFeedback?.status === "correct" ? "correct" : "wrong";
+    return { noteIsNextKey, noteStatus };
+  }, [expectedNotes, playedNotes.length, note.value, checkResponse]);
+
+  // Apply feedback class if checkResponse exists and noteStatus is defined.
+  const feedbackClass =
+    checkResponse && noteStatus
+      ? styles[noteStatus]
+      : noteIsNextKey
+      ? styles["nextKey"]
+      : "";
+
+  // Determine accidental symbol if present
+  const accidentalSymbol = isFlat
+    ? NOTE_MAPPING.flat
+    : isSharp
+    ? NOTE_MAPPING.sharp
+    : "";
+
   return (
     <div
-      className={styles.noteContainer}
-      style={{ gridRow: `${note}${octave}`, gridColumn: notePosition }}
+      className={`${styles.noteContainer}`}
+      style={{
+        gridRow: noteCombo,
+        gridColumn: note.position,
+      }}
     >
-      <span className={styles.sharp}>
-        {flat && NOTE_MAPPING["flat"]}
-        {sharp && NOTE_MAPPING["sharp"]}
-      </span>
-      <span className={styles.note}>
+      {accidentalSymbol && (
+        <span className={`${styles.sharp} ${feedbackClass}`}>
+          {accidentalSymbol}
+        </span>
+      )}
+      <span className={`${styles.note} ${feedbackClass}`}>
         {NOTE_MAPPING[noteLength]}
         {needLine && <span className={styles.noteLine}></span>}
       </span>
@@ -69,4 +88,4 @@ const Note: React.FC<NoteProps> = ({
   );
 };
 
-export default Note;
+export default React.memo(Note);

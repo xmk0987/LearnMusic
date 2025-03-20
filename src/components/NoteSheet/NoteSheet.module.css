@@ -1,20 +1,17 @@
 .container {
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: var(--margin-m);
-  height: 150px;
   font: var(--font-noto-music);
   font-size: 50px;
 }
 
 .noteSheet {
-  height: 100%;
   width: 100%;
   display: grid;
   row-gap: 0;
-  grid-template-columns: repeat(7, 1fr);
   grid-template-rows:
     [B5] 0.25em [A5] 0.25em [G5] 0.25em [F5] 0.25em [E5] 0.25em
     [D5] 0.25em [C5] 0.25em [B4] 0.25em [A4] 0.25em

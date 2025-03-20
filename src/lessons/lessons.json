@@ -17,32 +17,38 @@
         {
           "id": 2,
           "name": "D Major",
-          "notes": ["D", "E", "F#/Gb", "G", "A", "B", "C#/Db", "D"]
+          "notes": ["D", "E", "F#/Gb", "G", "A", "B", "C#/Db", "D"],
+          "useFlats": false
         },
         {
           "id": 3,
           "name": "E Major",
-          "notes": ["E", "F#/Gb", "G#/Ab", "A", "B", "C#/Db", "D#/Eb", "E"]
+          "notes": ["E", "F#/Gb", "G#/Ab", "A", "B", "C#/Db", "D#/Eb", "E"],
+          "useFlats": false
         },
         {
           "id": 4,
           "name": "F Major",
-          "notes": ["F", "G", "A", "A#/Bb", "C", "D", "E", "F"]
+          "notes": ["F", "G", "A", "A#/Bb", "C", "D", "E", "F"],
+          "useFlats": true
         },
         {
           "id": 5,
           "name": "G Major",
-          "notes": ["G", "A", "B", "C", "D", "E", "F#/Gb", "G"]
+          "notes": ["G", "A", "B", "C", "D", "E", "F#/Gb", "G"],
+          "useFlats": false
         },
         {
           "id": 6,
           "name": "A Major",
-          "notes": ["A", "B", "C#/Db", "D", "E", "F#/Gb", "G#/Ab", "A"]
+          "notes": ["A", "B", "C#/Db", "D", "E", "F#/Gb", "G#/Ab", "A"],
+          "useFlats": false
         },
         {
           "id": 7,
           "name": "B Major",
-          "notes": ["B", "C#/Db", "D#/Eb", "E", "F#/Gb", "G#/Ab", "A#/Bb", "B"]
+          "notes": ["B", "C#/Db", "D#/Eb", "E", "F#/Gb", "G#/Ab", "A#/Bb", "B"],
+          "useFlats": false
         },
         {
           "id": 8,
@@ -56,12 +62,14 @@
             "A#/Bb",
             "C",
             "C#/Db"
-          ]
+          ],
+          "useFlats": true
         },
         {
           "id": 9,
           "name": "D#/Eb Major",
-          "notes": ["D#/Eb", "F", "G", "G#/Ab", "A#/Bb", "C", "D", "D#/Eb"]
+          "notes": ["D#/Eb", "F", "G", "G#/Ab", "A#/Bb", "C", "D", "D#/Eb"],
+          "useFlats": true
         },
         {
           "id": 10,
@@ -75,17 +83,20 @@
             "D#/Eb",
             "F",
             "F#/Gb"
-          ]
+          ],
+          "useFlats": false
         },
         {
           "id": 11,
           "name": "G#/Ab Major",
-          "notes": ["G#/Ab", "A#/Bb", "C", "C#/Db", "D#/Eb", "F", "G", "G#/Ab"]
+          "notes": ["G#/Ab", "A#/Bb", "C", "C#/Db", "D#/Eb", "F", "G", "G#/Ab"],
+          "useFlats": true
         },
         {
           "id": 12,
           "name": "A#/Bb Major",
-          "notes": ["A#/Bb", "C", "D", "D#/Eb", "F", "G", "A", "A#/Bb"]
+          "notes": ["A#/Bb", "C", "D", "D#/Eb", "F", "G", "A", "A#/Bb"],
+          "useFlats": true
         }
       ]
     },
@@ -101,27 +112,32 @@
         {
           "id": 1,
           "name": "C Minor",
-          "notes": ["C", "D", "D#/Eb", "F", "G", "G#/Ab", "A#/Bb", "C"]
+          "notes": ["C", "D", "D#/Eb", "F", "G", "G#/Ab", "A#/Bb", "C"],
+          "useFlats": true
         },
         {
           "id": 2,
           "name": "D Minor",
-          "notes": ["D", "E", "F", "G", "A", "A#/Bb", "C", "D"]
+          "notes": ["D", "E", "F", "G", "A", "A#/Bb", "C", "D"],
+          "useFlats": true
         },
         {
           "id": 3,
           "name": "E Minor",
-          "notes": ["E", "F#/Gb", "G", "A", "B", "C", "D", "E"]
+          "notes": ["E", "F#/Gb", "G", "A", "B", "C", "D", "E"],
+          "useFlats": false
         },
         {
           "id": 4,
           "name": "F Minor",
-          "notes": ["F", "G", "G#/Ab", "A#/Bb", "C", "C#/Db", "D#/Eb", "F"]
+          "notes": ["F", "G", "G#/Ab", "A#/Bb", "C", "C#/Db", "D#/Eb", "F"],
+          "useFlats": true
         },
         {
           "id": 5,
           "name": "G Minor",
-          "notes": ["G", "A", "A#/Bb", "C", "D", "D#/Eb", "F", "G"]
+          "notes": ["G", "A", "A#/Bb", "C", "D", "D#/Eb", "F", "G"],
+          "useFlats": true
         },
         {
           "id": 6,
@@ -131,12 +147,14 @@
         {
           "id": 7,
           "name": "B Minor",
-          "notes": ["B", "C#/Db", "D", "E", "F#/Gb", "G", "A", "B"]
+          "notes": ["B", "C#/Db", "D", "E", "F#/Gb", "G", "A", "B"],
+          "useFlats": false
         },
         {
           "id": 8,
           "name": "C#/Db Minor",
-          "notes": ["C#/Db", "D#/Eb", "E", "F#/Gb", "G#/Ab", "A", "B", "C#/Db"]
+          "notes": ["C#/Db", "D#/Eb", "E", "F#/Gb", "G#/Ab", "A", "B", "C#/Db"],
+          "useFlats": false
         },
         {
           "id": 9,
@@ -150,12 +168,14 @@
             "B",
             "C#/Db",
             "D#/Eb"
-          ]
+          ],
+          "useFlats": true
         },
         {
           "id": 10,
           "name": "F#/Gb Minor",
-          "notes": ["F#/Gb", "G#/Ab", "A", "B", "C#/Db", "D", "E", "F#/Gb"]
+          "notes": ["F#/Gb", "G#/Ab", "A", "B", "C#/Db", "D", "E", "F#/Gb"],
+          "useFlats": false
         },
         {
           "id": 11,
@@ -169,7 +189,8 @@
             "E",
             "F#/Gb",
             "G#/Ab"
-          ]
+          ],
+          "useFlats": false
         },
         {
           "id": 12,
@@ -183,7 +204,8 @@
             "F#/Gb",
             "G#/Ab",
             "A#/Bb"
-          ]
+          ],
+          "useFlats": true
         }
       ]
     },

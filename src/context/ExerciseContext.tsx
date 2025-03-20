@@ -72,6 +72,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
         (exercise) => exercise.id === parseInt(exerciseId)
       );
       if (foundExercise) {
+        console.log("Found exercise", foundExercise);
         setCurrentExercise(foundExercise);
         setError(null);
       } else {
