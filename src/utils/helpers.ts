@@ -72,3 +72,15 @@ export const getNoteObjects = (notes: string[], useFlats = false) => {
     };
   });
 };
+
+// Function to get state from sessionStorage
+export const getSessionStorage = (key: string, defaultValue: unknown) => {
+  const storedValue = sessionStorage.getItem(key);
+  return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
+};
+
+export const setSessionStorage = (key: string, value: unknown) => {
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  }
+};

@@ -13,13 +13,10 @@ const staffLines = ["F5", "D5", "B4", "G4", "E4"];
  * Renders a note sheet grid with a fixed-width clef column and dynamic note columns.
  */
 const NoteSheet = () => {
-  // Retrieve the current exercise data from the context.
   const { currentExercise } = usePiano();
 
-  // Generate note objects based on the exercise's notes and flat settings.
   const notes = getNoteObjects(currentExercise.notes, currentExercise.useFlats);
 
-  // Define grid columns with a fixed 50px for the clef, followed by one 1fr column per note.
   const gridTemplateColumns = `70px repeat(${notes.length}, 1fr)`;
 
   return (

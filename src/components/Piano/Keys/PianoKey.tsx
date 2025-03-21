@@ -14,10 +14,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
     isPlayed,
     getPositionOfKey,
     isNextKey,
-    showLabels,
-    showKeyboardKeys,
-    showNext,
-    showPlayed,
+    uiSettings,
     checkResponse,
     activeNotes,
     handleKeyEvent,
@@ -94,38 +91,37 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
 
   // Memoize the content to be rendered inside the key button
   const playedContent = useMemo(() => {
-    if (showPlayed && isPlayed(keyData)) {
+    if (uiSettings.showPlayed && isPlayed(keyData)) {
       return (
         <div className={styles.playedContainer}>
           <span className={`${styles.played} ${spanStyle}`}>
             {getPositionOfKey(keyData)}
           </span>
-          {showLabels && (
-            <>
-              <span>{keyLabel}</span>
-              {showKeyboardKeys && <span>{keyData.keyboardKey}</span>}
-            </>
-          )}
-        </div>
-      );
-    } else if (showLabels) {
-      return (
-        <div className={styles.playedContainer}>
-          <span>{keyLabel}</span>
-          {showKeyboardKeys && <span>{keyData.keyboardKey}</span>}
+          {uiSettings.showLabels && <span>{keyLabel}</span>}
+          {uiSettings.showKeyboardKeys && <span>{keyData.keyboardKey}</span>}
         </div>
       );
     }
+
+    if (uiSettings.showLabels || uiSettings.showKeyboardKeys) {
+      return (
+        <div className={styles.playedContainer}>
+          {uiSettings.showLabels && <span>{keyLabel}</span>}
+          {uiSettings.showKeyboardKeys && <span>{keyData.keyboardKey}</span>}
+        </div>
+      );
+    }
+
     return null;
   }, [
+    uiSettings.showPlayed,
+    uiSettings.showLabels,
+    uiSettings.showKeyboardKeys,
     isPlayed,
     keyData,
+    spanStyle,
     getPositionOfKey,
     keyLabel,
-    showLabels,
-    showKeyboardKeys,
-    showPlayed,
-    spanStyle,
   ]);
 
   return (
@@ -133,7 +129,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
       className={`${styles.key} ${
         keyData.type === "white" ? styles.whiteKey : styles.blackKey
       } ${isActive ? styles.activeNote : ""} ${
-        isNext && showNext ? styles.nextKey : ""
+        isNext && uiSettings.showNext ? styles.nextKey : ""
       }`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

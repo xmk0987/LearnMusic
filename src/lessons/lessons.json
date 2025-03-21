@@ -277,7 +277,7 @@
         {
           "id": 3,
           "name": "F# Minor",
-          "notes": ["F#/Gb", "A", "C#"]
+          "notes": ["F#/Gb", "A", "C#/Db"]
         },
         {
           "id": 4,
@@ -292,7 +292,7 @@
         {
           "id": 6,
           "name": "B Minor",
-          "notes": ["B", "D", "F#"]
+          "notes": ["B", "D", "F#/Gb"]
         },
         {
           "id": 7,
@@ -318,12 +318,12 @@
         {
           "id": 2,
           "name": "F# Minor",
-          "notes": ["F#/Gb", "A", "C#"]
+          "notes": ["F#/Gb", "A", "C#/Db"]
         },
         {
           "id": 3,
           "name": "G# Minor",
-          "notes": ["G#/Ab", "B", "D#"]
+          "notes": ["G#/Ab", "B", "D#/Eb"]
         },
         {
           "id": 4,
@@ -333,7 +333,7 @@
         {
           "id": 5,
           "name": "B Major",
-          "notes": ["B", "D#/Eb", "F#"]
+          "notes": ["B", "D#/Eb", "F#/Gb"]
         },
         {
           "id": 6,
@@ -415,7 +415,7 @@
         {
           "id": 3,
           "name": "B Minor",
-          "notes": ["B", "D", "F#"]
+          "notes": ["B", "D", "F#/Gb"]
         },
         {
           "id": 4,

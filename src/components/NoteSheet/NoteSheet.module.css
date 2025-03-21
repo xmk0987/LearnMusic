@@ -5,7 +5,7 @@
   align-items: center;
   margin-bottom: var(--margin-m);
   font: var(--font-noto-music);
-  font-size: 50px;
+  font-size: var(--piano-sheet-size);
 }
 
 .noteSheet {

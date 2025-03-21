@@ -36,7 +36,11 @@
   --drop-shadow-s: 0 2px 5px 2px rgba(0, 0, 0, 0.25);
 
   /* PIANO */
-  --black-key-w: 60px;
+  --black-key-w: 45px;
+  --piano-key-h: 250px;
+  --piano-sheet-size: 40px;
+  --piano-note-size: 80px;
+
   --wrong-note: red;
   --wrong-note-position: orange;
   --right-note: green;
@@ -111,4 +115,32 @@ button:disabled {
 button:disabled:hover {
   cursor: default;
   background-color: gray !important;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: var(--margin-m);
+  border-radius: 8px;
+  text-align: center;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--margin-m);
+  flex-shrink: 0;
+  flex-basis: auto;
+  z-index: 1001;
 }

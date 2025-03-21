@@ -12,17 +12,25 @@ import type { CheckResponse } from "./ExerciseContext";
 import { Key } from "@/types/piano.types";
 import { Exercise } from "@/types/lessons.types";
 import { useMidi } from "@/hooks/useMidiInput";
-import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
+import {
+  calculateExpectedNotesWithOctaves,
+  getSessionStorage,
+  setSessionStorage,
+} from "@/utils/helpers";
 import { useAudioContext } from "./AudioContext";
 import EnableAudioModal from "@/components/Modals/EnableAudio/EnableAudioModal";
 import { useExercise } from "./ExerciseContext";
 
-interface PianoContextProps {
-  // States
+interface PianoUiSettings {
   showLabels: boolean;
   showPlayed: boolean;
-  showKeyboardKeys: boolean;
   showNext: boolean;
+  showKeyboardKeys: boolean;
+  showCheckModal: boolean;
+}
+interface PianoContextProps {
+  // States
+  uiSettings: PianoUiSettings;
   playedNotes: Key[];
   isTest: boolean;
   setPlayedNotes: React.Dispatch<React.SetStateAction<Key[]>>;
@@ -33,11 +41,8 @@ interface PianoContextProps {
   isPlayed: (key: Key) => boolean;
   getPositionOfKey: (key: Key) => number;
   handleCheckExercise: () => void;
-  toggleShowLabels: () => void;
-  toggleShowNext: () => void;
-  toggleShowPlayed: () => void;
-  toggleShowKeyboardKeys: () => void;
   isNextKey: (key: Key) => boolean;
+  toggleSetting: (key: keyof PianoUiSettings) => void;
   getNote: (key: Key) => string;
   handleKeyEvent: (key: Key, isPressing: boolean, isMidi?: boolean) => void;
   // Exercise Provider
@@ -65,11 +70,48 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
     goToNextExercise,
     isLastExercise,
   } = useExercise();
+
   const isTest = type === "test";
-  const [showLabels, setShowLabels] = useState<boolean>(!isTest);
-  const [showPlayed, setShowPlayed] = useState<boolean>(true);
-  const [showNext, setShowNext] = useState<boolean>(false);
-  const [showKeyboardKeys, setShowKeyboardKeys] = useState<boolean>(false);
+  const previousType =
+    typeof window !== "undefined" ? sessionStorage.getItem("pianoType") : null;
+
+  const [uiSettings, setUiSettings] = useState<PianoUiSettings>(() => {
+    if (previousType !== null && previousType !== type) {
+      return {
+        showLabels: !isTest,
+        showPlayed: true,
+        showNext: false,
+        showKeyboardKeys: false,
+        showCheckModal: false,
+      };
+    }
+    return getSessionStorage("pianoUiSettings", {
+      showLabels: !isTest,
+      showPlayed: true,
+      showNext: false,
+      showKeyboardKeys: false,
+      showCheckModal: false,
+    });
+  });
+
+  useEffect(() => {
+    setSessionStorage("pianoUiSettings", uiSettings);
+  }, [uiSettings]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("pianoType", type);
+    }
+  }, [type]);
+
+  // Generic toggle function
+  const toggleSetting = (key: keyof typeof uiSettings) => {
+    console.log("Toggle", key)
+    setUiSettings((prev: PianoUiSettings) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   const [playedNotes, setPlayedNotes] = useState<Key[]>([]);
   const [activeNotes, setActiveNotes] = useState<Set<Key>>(new Set());
@@ -140,7 +182,11 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
 
     const currentPlayedNotes = playedNotesRef.current;
     checkExerciseByCategoryAndType(currentPlayedNotes);
-    setShowPlayed(true);
+    setUiSettings((prev) => ({
+      ...prev,
+      showPlayed: true,
+      showCheckModal: true,
+    }));
   };
 
   const isNextKey = (key: Key): boolean => {
@@ -161,22 +207,6 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
     }
 
     return `${key.label}${key.octave}` === expectedNotes[playedNotes.length];
-  };
-
-  const toggleShowLabels = () => {
-    setShowLabels(!showLabels);
-  };
-
-  const toggleShowNext = () => {
-    setShowNext(!showNext);
-  };
-
-  const toggleShowPlayed = () => {
-    setShowPlayed(!showPlayed);
-  };
-
-  const toggleShowKeyboardKeys = () => {
-    setShowKeyboardKeys(!showKeyboardKeys);
   };
 
   const getNote = (key: Key) => {
@@ -234,24 +264,18 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
   return (
     <PianoContext.Provider
       value={{
-        showLabels,
-        showPlayed,
-        showNext,
         playedNotes,
+        uiSettings,
+        toggleSetting,
         setPlayedNotes,
         checkResponse,
         activeNotes,
-        showKeyboardKeys,
-        toggleShowKeyboardKeys,
         setActiveNotes,
         handleKeyEvent,
         resetNotes,
         isPlayed,
         getPositionOfKey,
         handleCheckExercise,
-        toggleShowLabels,
-        toggleShowNext,
-        toggleShowPlayed,
         isNextKey,
         getNote,
         goToNextExercise,

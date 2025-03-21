@@ -8,15 +8,12 @@ export const PianoOptions = () => {
   const {
     isTest,
     playedNotes,
-    showLabels,
-    showNext,
-    showPlayed,
-    showKeyboardKeys,
-    toggleShowLabels,
-    toggleShowKeyboardKeys,
-    toggleShowNext,
-    toggleShowPlayed,
+    uiSettings,
+    toggleSetting,
     resetNotes,
+    isLastExercise,
+    checkResponse,
+    goToNextExercise,
     handleCheckExercise,
   } = usePiano();
 
@@ -43,22 +40,30 @@ export const PianoOptions = () => {
         {!isTest && (
           <>
             <PrimaryButton
-              text={showLabels ? "Hide Labels" : "Show Labels"}
-              onClick={toggleShowLabels}
+              text={uiSettings.showLabels ? "Hide Labels" : "Show Labels"}
+              onClick={() => toggleSetting("showLabels")}
             />
             <PrimaryButton
-              text={showNext ? "Hide Show Next Key" : "Show Show Next Key"}
-              onClick={toggleShowNext}
+              text={
+                uiSettings.showNext
+                  ? "Hide Show Next Key"
+                  : "Show Show Next Key"
+              }
+              onClick={() => toggleSetting("showNext")}
             />
           </>
         )}
         <PrimaryButton
-          text={showPlayed ? "Hide Played" : "Show Played"}
-          onClick={toggleShowPlayed}
+          text={uiSettings.showPlayed ? "Hide Played" : "Show Played"}
+          onClick={() => toggleSetting("showPlayed")}
         />
         <PrimaryButton
-          text={showKeyboardKeys ? "Hide Keyboard Keys" : "Show Keyboard Keys"}
-          onClick={toggleShowKeyboardKeys}
+          text={
+            uiSettings.showKeyboardKeys
+              ? "Hide Keyboard Keys"
+              : "Show Keyboard Keys"
+          }
+          onClick={() => toggleSetting("showKeyboardKeys")}
         />
       </div>
       <div className={styles.optionsItem}>
@@ -68,11 +73,19 @@ export const PianoOptions = () => {
           color={playedNotes.length === 0 ? "var(--secondary)" : "red"}
           isDisabled={playedNotes.length === 0}
         />
-        <PrimaryButton
-          text={"Check"}
-          onClick={handleCheckExercise}
-          color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
-        />
+        {checkResponse?.completed ? (
+          <PrimaryButton
+            text={isLastExercise ? "Go back to lessons" : "Next exercise"}
+            onClick={goToNextExercise}
+            color="green"
+          />
+        ) : (
+          <PrimaryButton
+            text={"Check"}
+            onClick={handleCheckExercise}
+            color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
+          />
+        )}
       </div>
     </div>
   );
