@@ -4,6 +4,7 @@ import { useExercise } from "@/context/ExerciseContext";
 import styles from "./Exercise.module.css";
 import DynamicBreadcrumbs from "@/components/DynamicBreadcrumbs/DynamicBreadcrumbs";
 import Piano from "@/components/Piano/Piano";
+import { capitalizeFirstLetter } from "@/utils/helpers";
 
 const ExercisePage = () => {
   const {
@@ -11,6 +12,7 @@ const ExercisePage = () => {
     currentLesson,
     toggleShowHint,
     showHint,
+    type,
     goToLesson,
   } = useExercise();
 
@@ -18,7 +20,9 @@ const ExercisePage = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>
-          <h1>{currentExercise.name}</h1>
+          <h1>
+            {currentExercise.name} - {capitalizeFirstLetter(type)}
+          </h1>
           <div className={styles.titleButtons}>
             <button onClick={toggleShowHint}>?</button>
             <button onClick={goToLesson}>X</button>

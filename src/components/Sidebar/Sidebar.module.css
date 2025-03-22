@@ -4,7 +4,7 @@
   font-size: var(--s-font);
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: var(--margin-m) var(--margin-l) 50px var(--margin-l);
+  padding: var(--margin-s) var(--margin-s) 50px var(--margin-s);
   border-right: 1px solid var(--border-color);
 }
 
@@ -14,7 +14,7 @@
 
 .bold {
   font-weight: bold;
-  font-size: 0.9em;
+  color: var(--accent);
 }
 
 .categories,
@@ -27,11 +27,22 @@
 
 .category,
 .lesson,
-.exercise {
+.exercise,
+.goTo {
   width: 100%;
   display: inline-flex;
+  align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  border-radius: var(--border-radius);
+  font-size: 0.8em;
+}
+
+.category:hover,
+.lesson:hover,
+.exercise:hover,
+.goTo:hover {
+  color: var(--accent);
 }
 
 .lessons {
@@ -40,11 +51,14 @@
 
 .exercises {
   margin-left: 15px;
-  font-size: 0.8em;
 }
 
 .guideLine {
   position: relative;
+}
+
+.exercisesHeader {
+  font-weight: bold;
 }
 
 .guideLine::before {

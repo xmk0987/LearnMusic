@@ -5,90 +5,174 @@ import { useState } from "react";
 import styles from "./Sidebar.module.css";
 import { capitalizeFirstLetter } from "@/utils/helpers";
 import { ChevronDownIcon, ChevronRightIcon } from "@/assets/icons";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const { groupedLessons } = useLessonsData();
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-  const [expandedLesson, setExpandedLesson] = useState<number | null>(null);
+  const router = useRouter();
+
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set()
+  );
+  const [expandedLessons, setExpandedLessons] = useState<Set<number>>(
+    new Set()
+  );
+  const [expandedLessonExercises, setExpandedLessonExercises] = useState<
+    Set<number>
+  >(new Set());
 
   const toggleCategory = (category: string) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
-    setExpandedLesson(null); // Reset lesson selection when changing category
+    setExpandedCategories((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(category)) {
+        newSet.delete(category);
+      } else {
+        newSet.add(category);
+      }
+      return newSet;
+    });
   };
 
   const toggleLesson = (lessonId: number) => {
-    setExpandedLesson(expandedLesson === lessonId ? null : lessonId);
+    setExpandedLessons((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(lessonId)) {
+        newSet.delete(lessonId);
+      } else {
+        newSet.add(lessonId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleLessonExercises = (lessonId: number) => {
+    setExpandedLessonExercises((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(lessonId)) {
+        newSet.delete(lessonId);
+      } else {
+        newSet.add(lessonId);
+      }
+      return newSet;
+    });
+  };
+
+  const goToLesson = (lessonId: number) => {
+    router.push("/lessons/" + lessonId);
+  };
+
+  const goToExercise = (lessonId: number, exerciseId: number) => {
+    router.push("/lessons/" + lessonId + "/" + exerciseId + "?type=practice");
   };
 
   return (
     <div className={styles.container}>
-      <>
-        <h2>Learn</h2>
-        <div className={styles.categories}>
-          {groupedLessons &&
-            Object.entries(groupedLessons).map(([category, lessons]) => (
-              <div key={category} className={styles.items}>
-                <div
-                  onClick={() => toggleCategory(category)}
-                  className={styles.category}
+      <h2>Learn</h2>
+      <div className={styles.categories}>
+        {groupedLessons &&
+          Object.entries(groupedLessons).map(([category, lessons]) => (
+            <div key={category} className={styles.items}>
+              <div
+                onClick={() => toggleCategory(category)}
+                className={styles.category}
+              >
+                <span
+                  className={
+                    expandedCategories.has(category) ? styles.bold : ""
+                  }
                 >
-                  <span
-                    className={expandedCategory === category ? styles.bold : ""}
-                  >
-                    {capitalizeFirstLetter(category)}
-                  </span>
-                  <button>
-                    {expandedCategory === category ? (
-                      <ChevronDownIcon />
-                    ) : (
-                      <ChevronRightIcon />
-                    )}
-                  </button>
-                </div>
-                {expandedCategory === category && (
-                  <div
-                    className={`${styles.items} ${styles.guideLine} ${styles.lessons}`}
-                  >
-                    {lessons?.map((lesson: Lesson) => (
-                      <div key={lesson.id} className={`${styles.items}`}>
-                        <div
-                          onClick={() => toggleLesson(lesson.id)}
-                          className={styles.lesson}
-                        >
-                          <span
-                            className={
-                              expandedLesson === lesson.id ? styles.bold : ""
-                            }
-                          >
-                            {lesson.name}
-                          </span>
-                          <button>
-                            {expandedLesson === lesson.id ? (
-                              <ChevronDownIcon />
-                            ) : (
-                              <ChevronRightIcon />
-                            )}
-                          </button>
-                        </div>
-                        {expandedLesson === lesson.id && (
-                          <ul
-                            className={`${styles.items} ${styles.exercises}  ${styles.guideLine}`}
-                          >
-                            {lesson.exercises.map((exercise: Exercise) => (
-                              <li className={styles.exercise} key={exercise.id}>
-                                {exercise.name}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  {capitalizeFirstLetter(category)}
+                </span>
+                <button>
+                  {expandedCategories.has(category) ? (
+                    <ChevronDownIcon />
+                  ) : (
+                    <ChevronRightIcon />
+                  )}
+                </button>
               </div>
-            ))}
-        </div>
-      </>
+              {expandedCategories.has(category) && (
+                <div
+                  className={`${styles.items} ${styles.guideLine} ${styles.lessons}`}
+                >
+                  {lessons?.map((lesson: Lesson) => (
+                    <div key={lesson.id} className={`${styles.items}`}>
+                      <div
+                        onClick={() => toggleLesson(lesson.id)}
+                        className={styles.lesson}
+                      >
+                        <span
+                          className={
+                            expandedLessons.has(lesson.id) ? styles.bold : ""
+                          }
+                        >
+                          {lesson.name}
+                        </span>
+                        <button>
+                          {expandedLessons.has(lesson.id) ? (
+                            <ChevronDownIcon />
+                          ) : (
+                            <ChevronRightIcon />
+                          )}
+                        </button>
+                      </div>
+                      {expandedLessons.has(lesson.id) && (
+                        <div
+                          className={`${styles.items} ${styles.exercises} ${styles.guideLine}`}
+                        >
+                          <button
+                            className={styles.goTo}
+                            onClick={() => goToLesson(lesson.id)}
+                          >
+                            Go to lesson
+                          </button>
+                          <div
+                            onClick={() => toggleLessonExercises(lesson.id)}
+                            className={styles.lesson}
+                          >
+                            <span
+                              className={
+                                expandedLessonExercises.has(lesson.id)
+                                  ? styles.bold
+                                  : ""
+                              }
+                            >
+                              Exercises
+                            </span>
+                            <button>
+                              {expandedLessonExercises.has(lesson.id) ? (
+                                <ChevronDownIcon />
+                              ) : (
+                                <ChevronRightIcon />
+                              )}
+                            </button>
+                          </div>
+                          {expandedLessonExercises.has(lesson.id) && (
+                            <ul
+                              className={`${styles.items} ${styles.exercises} ${styles.guideLine}`}
+                            >
+                              {lesson.exercises.map((exercise: Exercise) => (
+                                <li
+                                  className={styles.exercise}
+                                  onClick={() =>
+                                    goToExercise(lesson.id, exercise.id)
+                                  }
+                                  key={exercise.id}
+                                >
+                                  {exercise.name}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

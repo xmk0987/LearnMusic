@@ -28,10 +28,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -70%);
-  transform-origin: bottom;
-  z-index: 1;
-  font-size: calc(var(--piano-note-size) * 2);
+  transform: translate(-50%, -72%);
+  font-size: calc(var(--piano-note-size) * 1.7);
 }
 
 .nextKey {
