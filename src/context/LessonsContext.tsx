@@ -1,14 +1,18 @@
 "use client";
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, createContext, useContext, useMemo } from "react";
 import { useParams } from "next/navigation";
 import lessonsData from "@/lessons/lessons.json";
-import { Lesson } from "@/types/lessons.types";
+import type {
+  Lesson,
+  LessonCategory,
+  GroupedLessons,
+} from "@/types/lessons.types";
 
 interface LessonsContextValue {
   lessons: Lesson[];
   currentLesson: Lesson | undefined;
+  groupedLessons: GroupedLessons;
 }
-
 interface LessonsProviderProps {
   children: React.ReactNode;
 }
@@ -32,6 +36,13 @@ export const LessonsProvider: React.FC<LessonsProviderProps> = ({
     setLessons(lessonsData.lessons as Lesson[]);
     setLoading(false);
   }, []);
+
+  const groupedLessons = useMemo(() => {
+    return lessons.reduce((acc, lesson) => {
+      (acc[lesson.category] = acc[lesson.category] || []).push(lesson);
+      return acc;
+    }, {} as { [key in LessonCategory]?: Lesson[] });
+  }, [lessons]);
 
   useEffect(() => {
     if (lessonId) {
@@ -57,7 +68,7 @@ export const LessonsProvider: React.FC<LessonsProviderProps> = ({
   }
 
   return (
-    <LessonsContext.Provider value={{ lessons, currentLesson }}>
+    <LessonsContext.Provider value={{ lessons, currentLesson, groupedLessons }}>
       {children}
     </LessonsContext.Provider>
   );

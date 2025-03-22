@@ -22,11 +22,13 @@
   --margin-xxl: 2.5rem;
 
   /* COLORS */
-  --background: #ffffff;
-  --secondary: #8083ff;
+  --background: #f5f9ff;
+  --accent: #008cff;
+  --special: #e56500;
+  --secondary: #e6f4f1;
   --text: black;
   --contrast-text: #fff;
-  --accent: #684afa;
+  --border-color: black;
 
   --accent2: red;
 
@@ -62,24 +64,9 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   height: 100vh;
   overflow-y: hidden;
-}
-
-main {
-  width: 100%;
-  height: 100%;
-  padding: var(--margin-m) var(--margin-xxl);
-  overflow-y: auto;
-}
-
-.maxWidth {
-  margin: 0 auto;
-  max-width: 1200px;
-  height: 100%;
+  background-color: var(--background);
 }
 
 /* Hide scrollbars for all browsers */
@@ -90,12 +77,6 @@ main {
 * {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-}
-
-@media only screen and (max-width: 768px) {
-  main {
-    padding: var(--margin-m) var(--margin-l);
-  }
 }
 
 button:hover {

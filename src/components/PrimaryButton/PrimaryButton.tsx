@@ -12,7 +12,7 @@ interface PrimaryButtonProps {
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   text,
   onClick,
-  color = "var(--secondary)",
+  color = "var(--accent)",
   isDisabled = false,
 }) => {
   return (

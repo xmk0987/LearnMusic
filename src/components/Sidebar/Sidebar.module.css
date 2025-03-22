@@ -1,0 +1,58 @@
+.container {
+  height: 100%;
+  width: 100%;
+  font-size: var(--s-font);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: var(--margin-m) var(--margin-l) 50px var(--margin-l);
+  border-right: 1px solid var(--border-color);
+}
+
+.container h2 {
+  font-size: 1.2em;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.categories,
+.container,
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category,
+.lesson,
+.exercise {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.lessons {
+  margin-left: 15px;
+}
+
+.exercises {
+  margin-left: 15px;
+  font-size: 0.8em;
+}
+
+.guideLine {
+  position: relative;
+}
+
+.guideLine::before {
+  content: "";
+  position: absolute;
+  left: -13px;
+  top: 0;
+  bottom: 0;
+  width: 0.5px;
+  background-color: black;
+}

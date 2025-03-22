@@ -5,6 +5,7 @@
       "name": "Major Scales",
       "description": "Learn basic major scales for beginners",
       "task": "Play through all the notes of the scale",
+      "lesson": "Major scales are the foundation of Western music, built on a specific pattern of whole and half steps: W-W-H-W-W-W-H. This pattern creates a sequence of notes that sound bright, stable, and consonant. Each major scale consists of seven unique notes before returning to the starting pitch an octave higher. The first note, called the tonic, establishes the key, while the other notes create relationships that define melody and harmony. Major scales are essential for composing, improvising, and understanding chord progressions, as they form the basis of major keys, diatonic chords, and functional harmony in classical, jazz, and popular music.",
       "category": "scales",
       "type": "play",
       "hint": "All major scales follow the same step pattern starting from the main key of the scale. Whole Whole Half Whole Whole Whole Half.",
@@ -104,6 +105,7 @@
       "id": 2,
       "name": "Minor Scales",
       "description": "Learn basic minor scales for beginners",
+      "lesson": "The natural minor scale is a seven-note scale that follows the pattern W-H-W-W-H-W-W. It has a darker, more somber sound compared to the major scale. Every major scale has a relative minor, which shares the same notes but starts on the sixth degree of the major scale. For example, A minor is the relative minor of C major because both use the same notes (A-B-C-D-E-F-G) but center around different tonics. The natural minor scale is essential in music theory, as it forms the basis for minor key melodies, harmonies, and chord progressions, providing a distinct emotional quality compared to its major counterpart.",
       "category": "scales",
       "task": "Play through all the notes of the scale",
       "hint": "All minor scales follow the same step pattern starting from the main key of the scale. W H W W H W W",
@@ -217,6 +219,7 @@
       "task": "Play all the notes of the chord.",
       "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
+      "lesson": "When creating songs in the C major scale, it's essential to understand how chords are formed and how they function within the key. The C major scale consists of the notes C-D-E-F-G-A-B, and its chords are built by stacking every other note to form triads. The primary chords in C major are: C major (I): C-E-G, D minor (ii): D-F-A, E minor (iii): E-G-B, F major (IV): F-A-C, G major (V): G-B-D, A minor (vi): A-C-E, B diminished (vii°): B-D-F. These chords create the harmonic foundation for many songs. Understanding how to play within a scale is crucial because it ensures musical coherence, makes chord progressions sound natural, and helps with improvisation and songwriting. A common progression in C major is I-IV-V-I (C-F-G-C), which appears in countless songs. Famous songs in C major include 'Let It Be' by The Beatles, 'Imagine' by John Lennon, and 'Twinkle, Twinkle, Little Star.' By practicing chord progressions and melodies in C major, you can develop a strong foundation for composing and understanding music.",
       "exercises": [
         {
           "id": 1,
@@ -263,6 +266,7 @@
       "task": "Play all the notes of the chord.",
       "hint": "To create chords within a scale, select every other note starting from the desired root note. For example, in the C major scale, to create a D minor chord, you start with D (the 2nd note), then skip E and take F (the 4th note), skip G and take A (the 6th note). This gives you the notes D, F, and A, forming the D minor chord.",
       "type": "play",
+      "lesson": "In the D major scale, chords are built by stacking every other note from the scale: D-E-F#-G-A-B-C#. The primary chords in D major are: D major (I): D-F#-A, E minor (ii): E-G-B, F# minor (iii): F#-A-C#, G major (IV): G-B-D, A major (V): A-C#-E, B minor (vi): B-D-F#, C# diminished (vii°): C#-E-G. These chords form the harmonic structure for songs in the key of D major. Understanding how to use these chords is essential for creating smooth progressions and harmonies. A common progression in D major is I-IV-V-I (D-G-A-D), which is found in many popular songs. Some well-known songs in D major include 'With or Without You' by U2 and 'Sweet Child O' Mine' by Guns N' Roses. Practicing chord progressions in D major will help you develop a solid understanding of harmony and composition.",
       "exercises": [
         {
           "id": 1,

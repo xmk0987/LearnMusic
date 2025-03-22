@@ -15,7 +15,7 @@ const LessonPage = () => {
   if (!currentLesson) return <h1>Loading lesson...</h1>;
 
   return (
-    <ExercisesLayout key={currentLesson.name} title={currentLesson.name}>
+    <ExercisesLayout key={currentLesson.name}>
       {currentLesson.exercises.map((exercise) => (
         <ExerciseCard
           key={exercise.name}

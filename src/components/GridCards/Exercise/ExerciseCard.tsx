@@ -2,6 +2,7 @@
 import React from "react";
 import styles from "./ExerciseCard.module.css";
 import { Exercise } from "@/types/lessons.types";
+import { GoIcon } from "@/assets/icons";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -23,14 +24,18 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           className={styles.circleButton}
           onClick={() => goToExercise(exercise.id, "practice")}
         >
-          <span>&gt;</span>
+          <span>
+            <GoIcon color="white" />
+          </span>
           Practice
         </button>
         <button
           className={`${styles.circleButton} ${styles.test}`}
           onClick={() => goToExercise(exercise.id, "test")}
         >
-          <span>&gt;</span>
+          <span>
+            <GoIcon color="white" />
+          </span>
           Test
         </button>
       </div>

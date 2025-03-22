@@ -83,6 +83,7 @@ export const PianoOptions = () => {
           <PrimaryButton
             text={"Check"}
             onClick={handleCheckExercise}
+            isDisabled={playedNotes.length === 0}
             color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
           />
         )}

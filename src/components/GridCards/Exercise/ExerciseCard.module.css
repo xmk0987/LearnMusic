@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   border-radius: var(--border-radius);
-  border: 1px solid rgb(121, 121, 121);
+  border: 1px solid var(--border-color);
   padding: 5px 10px;
   font-size: var(--s-font);
   white-space: nowrap;
@@ -33,14 +33,18 @@
 }
 
 .card button:hover span {
-  background-color: var(--accent);
+  background-color: var(--special);
+}
+
+.card button:active span {
+  box-shadow: none;
 }
 
 .card span {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: var(--secondary);
+  background-color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;

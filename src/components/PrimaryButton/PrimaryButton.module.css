@@ -8,5 +8,5 @@
 }
 
 .button:hover {
-  background-color: var(--accent) !important;
+  background-color: var(--special) !important;
 }

@@ -17,7 +17,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -72%);
+  transform: translate(-50%, -69%);
   transform-origin: bottom;
   z-index: 1;
   display: inline-flex;
@@ -28,7 +28,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -75%);
+  transform: translate(-50%, -70%);
   transform-origin: bottom;
   z-index: 1;
   font-size: calc(var(--piano-note-size) * 2);
@@ -50,7 +50,7 @@
   position: absolute;
   width: 30px;
   height: 3px;
-  bottom: 27%;
+  bottom: 29%;
   transform: translateX(55%);
   background-color: black;
 }
