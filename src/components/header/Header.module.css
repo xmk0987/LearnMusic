@@ -4,7 +4,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--margin-m);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 0.1px solid var(--border-color);
 }
 
 .titleContainer button {

@@ -5,7 +5,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   padding: var(--margin-s) var(--margin-s) 50px var(--margin-s);
-  border-right: 1px solid var(--border-color);
+  border-right: 0.1px solid var(--border-color);
 }
 
 .container h2 {
