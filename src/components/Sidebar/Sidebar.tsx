@@ -1,6 +1,5 @@
 "use client";
-import { useLessonsData } from "@/context/LessonsContext";
-import { Exercise, Lesson } from "@/types/lessons.types";
+import { useChaptersData } from "@/context/ChaptersContext";
 import { useState } from "react";
 import styles from "./Sidebar.module.css";
 import { capitalizeFirstLetter } from "@/utils/helpers";
@@ -8,21 +7,23 @@ import { ChevronDownIcon, ChevronRightIcon } from "@/assets/icons";
 import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
-  const { groupedLessons } = useLessonsData();
+  const { chapters, goToExercise } = useChaptersData();
   const router = useRouter();
 
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+  const [expandedChapters, setExpandedChapters] = useState<Set<string>>(
     new Set()
   );
-  const [expandedLessons, setExpandedLessons] = useState<Set<number>>(
-    new Set()
-  );
-  const [expandedLessonExercises, setExpandedLessonExercises] = useState<
-    Set<number>
-  >(new Set());
 
-  const toggleCategory = (category: string) => {
-    setExpandedCategories((prev) => {
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set()
+  );
+
+  const [expandedExercises, setExpandedExercises] = useState<Set<string>>(
+    new Set()
+  );
+
+  const toggleChapters = (category: string) => {
+    setExpandedChapters((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(category)) {
         newSet.delete(category);
@@ -33,106 +34,106 @@ const Sidebar = () => {
     });
   };
 
-  const toggleLesson = (lessonId: number) => {
-    setExpandedLessons((prev) => {
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(lessonId)) {
-        newSet.delete(lessonId);
+      if (newSet.has(sectionId)) {
+        newSet.delete(sectionId);
       } else {
-        newSet.add(lessonId);
+        newSet.add(sectionId);
       }
       return newSet;
     });
   };
 
-  const toggleLessonExercises = (lessonId: number) => {
-    setExpandedLessonExercises((prev) => {
+  const toggleExercises = (sectionId: string) => {
+    setExpandedExercises((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(lessonId)) {
-        newSet.delete(lessonId);
+      if (newSet.has(sectionId)) {
+        newSet.delete(sectionId);
       } else {
-        newSet.add(lessonId);
+        newSet.add(sectionId);
       }
       return newSet;
     });
   };
 
-  const goToLesson = (lessonId: number) => {
-    router.push("/lessons/" + lessonId);
-  };
-
-  const goToExercise = (lessonId: number, exerciseId: number) => {
-    router.push("/lessons/" + lessonId + "/" + exerciseId + "?type=practice");
+  const goToSection = (chapterId: string, sectionTitle: string) => {
+    const encodedSectionTitle = encodeURIComponent(sectionTitle);
+    router.push(`/chapters/${chapterId}#${encodedSectionTitle}`);
   };
 
   return (
     <div className={styles.container}>
       <h2>Learn</h2>
       <div className={styles.categories}>
-        {groupedLessons &&
-          Object.entries(groupedLessons).map(([category, lessons]) => (
-            <div key={category} className={styles.items}>
-              <div
-                onClick={() => toggleCategory(category)}
-                className={styles.category}
+        {chapters.map((chapter) => (
+          <div key={chapter.id} className={styles.items}>
+            <div
+              onClick={() => toggleChapters(chapter.id)}
+              className={styles.sidebarItem}
+            >
+              <span
+                className={expandedChapters.has(chapter.id) ? styles.bold : ""}
               >
-                <span
-                  className={
-                    expandedCategories.has(category) ? styles.bold : ""
-                  }
-                >
-                  {capitalizeFirstLetter(category)}
-                </span>
-                <button>
-                  {expandedCategories.has(category) ? (
-                    <ChevronDownIcon />
-                  ) : (
-                    <ChevronRightIcon />
-                  )}
-                </button>
-              </div>
-              {expandedCategories.has(category) && (
-                <div
-                  className={`${styles.items} ${styles.guideLine} ${styles.lessons}`}
-                >
-                  {lessons?.map((lesson: Lesson) => (
-                    <div key={lesson.id} className={`${styles.items}`}>
-                      <div
-                        onClick={() => toggleLesson(lesson.id)}
-                        className={styles.lesson}
+                {capitalizeFirstLetter(chapter.name)}
+              </span>
+              <button>
+                {expandedChapters.has(chapter.id) ? (
+                  <ChevronDownIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </button>
+            </div>
+            {expandedChapters.has(chapter.id) && (
+              <div
+                className={`${styles.items} ${styles.guideLine} ${styles.section}`}
+              >
+                {chapter.lesson.sections.map((section) => (
+                  <div key={section.title} className={`${styles.items} `}>
+                    <div
+                      onClick={() => toggleSection(section.title)}
+                      className={`${styles.sidebarItem}`}
+                    >
+                      <span
+                        className={
+                          expandedSections.has(section.title) ? styles.bold : ""
+                        }
                       >
-                        <span
-                          className={
-                            expandedLessons.has(lesson.id) ? styles.bold : ""
-                          }
-                        >
-                          {lesson.name}
-                        </span>
-                        <button>
-                          {expandedLessons.has(lesson.id) ? (
-                            <ChevronDownIcon />
-                          ) : (
-                            <ChevronRightIcon />
-                          )}
-                        </button>
-                      </div>
-                      {expandedLessons.has(lesson.id) && (
-                        <div
-                          className={`${styles.items} ${styles.exercises} ${styles.guideLine}`}
-                        >
-                          <button
-                            className={styles.goTo}
-                            onClick={() => goToLesson(lesson.id)}
-                          >
-                            Go to lesson
-                          </button>
+                        {capitalizeFirstLetter(section.title)}
+                      </span>
+                      <button>
+                        {expandedSections.has(section.title) ? (
+                          <ChevronDownIcon />
+                        ) : (
+                          <ChevronRightIcon />
+                        )}
+                      </button>
+                    </div>
+                    {expandedSections.has(section.title) && (
+                      <div
+                        className={`${styles.items} ${styles.guideLine} ${styles.section}`}
+                      >
+                        <div className={`${styles.items} `}>
+                          <div className={`${styles.sidebarItem}`}>
+                            <button
+                              onClick={() =>
+                                goToSection(chapter.id, section.title)
+                              }
+                            >
+                              Go to Section
+                            </button>
+                          </div>
+                        </div>
+                        {section.exercises && (
                           <div
-                            onClick={() => toggleLessonExercises(lesson.id)}
-                            className={styles.lesson}
+                            onClick={() => toggleExercises(section.title)}
+                            className={`${styles.sidebarItem}`}
                           >
                             <span
                               className={
-                                expandedLessonExercises.has(lesson.id)
+                                expandedExercises.has(section.title)
                                   ? styles.bold
                                   : ""
                               }
@@ -140,38 +141,49 @@ const Sidebar = () => {
                               Exercises
                             </span>
                             <button>
-                              {expandedLessonExercises.has(lesson.id) ? (
+                              {expandedExercises.has(section.title) ? (
                                 <ChevronDownIcon />
                               ) : (
                                 <ChevronRightIcon />
                               )}
                             </button>
                           </div>
-                          {expandedLessonExercises.has(lesson.id) && (
-                            <ul
-                              className={`${styles.items} ${styles.exercises} ${styles.guideLine}`}
+                        )}
+                        {expandedExercises.has(section.title) &&
+                          section.exercises && (
+                            <div
+                              className={`${styles.items} ${styles.guideLine} ${styles.section}`}
                             >
-                              {lesson.exercises.map((exercise: Exercise) => (
-                                <li
-                                  className={styles.exercise}
-                                  onClick={() =>
-                                    goToExercise(lesson.id, exercise.id)
-                                  }
+                              {section.exercises.map((exercise) => (
+                                <div
                                   key={exercise.id}
+                                  className={`${styles.items} `}
                                 >
-                                  {exercise.name}
-                                </li>
+                                  <div className={`${styles.sidebarItem}`}>
+                                    <button
+                                      onClick={() =>
+                                        goToExercise(
+                                          exercise.id,
+                                          "practice",
+                                          chapter.id
+                                        )
+                                      }
+                                    >
+                                      {exercise.title}
+                                    </button>
+                                  </div>
+                                </div>
                               ))}
-                            </ul>
+                            </div>
                           )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[0]}`,
+    value: [WHITE_KEYS[0]],
     octave: 4,
     midiKey: 60,
     keyboardKey: "a",
@@ -24,6 +25,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[0].sharp}/${BLACK_KEY_NAMES[0].flat}`,
+    value: [BLACK_KEY_NAMES[0].sharp, BLACK_KEY_NAMES[0].flat],
     octave: 4,
     midiKey: 61,
     keyboardKey: "w",
@@ -31,6 +33,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[1]}`,
+    value: [WHITE_KEYS[1]],
     octave: 4,
     midiKey: 62,
     keyboardKey: "s",
@@ -38,6 +41,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[1].sharp}/${BLACK_KEY_NAMES[1].flat}`,
+    value: [BLACK_KEY_NAMES[1].sharp, BLACK_KEY_NAMES[1].flat],
     octave: 4,
     midiKey: 63,
     keyboardKey: "e",
@@ -45,6 +49,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[2]}`,
+    value: [WHITE_KEYS[2]],
     octave: 4,
     midiKey: 64,
     keyboardKey: "d",
@@ -52,6 +57,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[3]}`,
+    value: [WHITE_KEYS[3]],
     octave: 4,
     midiKey: 65,
     keyboardKey: "f",
@@ -59,6 +65,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[3].sharp}/${BLACK_KEY_NAMES[3].flat}`,
+    value: [BLACK_KEY_NAMES[3].sharp, BLACK_KEY_NAMES[3].flat],
     octave: 4,
     midiKey: 66,
     keyboardKey: "t",
@@ -66,6 +73,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[4]}`,
+    value: [WHITE_KEYS[4]],
     octave: 4,
     midiKey: 67,
     keyboardKey: "g",
@@ -73,6 +81,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[4].sharp}/${BLACK_KEY_NAMES[4].flat}`,
+    value: [BLACK_KEY_NAMES[4].sharp, BLACK_KEY_NAMES[4].flat],
     octave: 4,
     midiKey: 68,
     keyboardKey: "y",
@@ -80,6 +89,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[5]}`,
+    value: [WHITE_KEYS[5]],
     octave: 4,
     midiKey: 69,
     keyboardKey: "h",
@@ -87,6 +97,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[5].sharp}/${BLACK_KEY_NAMES[5].flat}`,
+    value: [BLACK_KEY_NAMES[5].sharp, BLACK_KEY_NAMES[5].flat],
     octave: 4,
     midiKey: 70,
     keyboardKey: "u",
@@ -94,6 +105,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[6]}`,
+    value: [WHITE_KEYS[6]],
     octave: 4,
     midiKey: 71,
     keyboardKey: "j",
@@ -102,6 +114,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[0]}`,
+    value: [WHITE_KEYS[0]],
     octave: 5,
     midiKey: 72,
     keyboardKey: "A",
@@ -109,6 +122,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[0].sharp}/${BLACK_KEY_NAMES[0].flat}`,
+    value: [BLACK_KEY_NAMES[0].sharp, BLACK_KEY_NAMES[0].flat],
     octave: 5,
     midiKey: 73,
     keyboardKey: "W",
@@ -116,6 +130,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[1]}`,
+    value: [WHITE_KEYS[1]],
     octave: 5,
     midiKey: 74,
     keyboardKey: "S",
@@ -123,6 +138,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[1].sharp}/${BLACK_KEY_NAMES[1].flat}`,
+    value: [BLACK_KEY_NAMES[1].sharp, BLACK_KEY_NAMES[1].flat],
     octave: 5,
     midiKey: 75,
     keyboardKey: "E",
@@ -130,6 +146,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[2]}`,
+    value: [WHITE_KEYS[2]],
     octave: 5,
     midiKey: 76,
     keyboardKey: "D",
@@ -137,6 +154,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[3]}`,
+    value: [WHITE_KEYS[3]],
     octave: 5,
     midiKey: 77,
     keyboardKey: "F",
@@ -144,6 +162,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[3].sharp}/${BLACK_KEY_NAMES[3].flat}`,
+    value: [BLACK_KEY_NAMES[3].sharp, BLACK_KEY_NAMES[3].flat],
     octave: 5,
     midiKey: 78,
     keyboardKey: "T",
@@ -151,6 +170,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[4]}`,
+    value: [WHITE_KEYS[4]],
     octave: 5,
     midiKey: 79,
     keyboardKey: "G",
@@ -158,6 +178,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[4].sharp}/${BLACK_KEY_NAMES[4].flat}`,
+    value: [BLACK_KEY_NAMES[4].sharp, BLACK_KEY_NAMES[4].flat],
     octave: 5,
     midiKey: 80,
     keyboardKey: "Y",
@@ -165,6 +186,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[5]}`,
+    value: [WHITE_KEYS[5]],
     octave: 5,
     midiKey: 81,
     keyboardKey: "H",
@@ -172,6 +194,7 @@ export const KEYS: Key[] = [
   {
     type: "black",
     label: `${BLACK_KEY_NAMES[5].sharp}/${BLACK_KEY_NAMES[5].flat}`,
+    value: [BLACK_KEY_NAMES[5].sharp, BLACK_KEY_NAMES[5].flat],
     octave: 5,
     midiKey: 82,
     keyboardKey: "U",
@@ -179,6 +202,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[6]}`,
+    value: [WHITE_KEYS[6]],
     octave: 5,
     midiKey: 83,
     keyboardKey: "J",

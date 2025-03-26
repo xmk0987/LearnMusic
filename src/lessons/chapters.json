@@ -1,0 +1,272 @@
+{
+  "chapters": [
+    {
+      "id": "chap_1",
+      "name": "Getting Started",
+      "lesson": {
+        "header": "Introduction to Notes and Scales in Music Theory",
+        "sections": [
+          {
+            "title": "Understanding Notes",
+            "content": "Notes are the building blocks of music. They represent specific pitches, which are the sounds we hear. In Western music, there are 12 unique notes: A, A#, B, C, C#, D, D#, E, F, F#, G, and G#. These notes repeat in higher or lower pitches, forming what we call octaves.",
+            "exercises": [
+              {
+                "id": "ex_1",
+                "title": "Identify Basic Notes",
+                "type": "play_single_note",
+                "task": "Play individual white notes by the letter from the keyboard",
+                "tip": "White keys are the basic notes and they keep repeating through the keyboard. The notes are C, D, E, F, G, A, B. The C note is the white key immediately to the left of each group of two black keys.",
+                "notes": ["C", "D", "E", "F", "G", "A", "B"]
+              },
+              {
+                "id": "ex_2",
+                "title": "Identify Notes",
+                "type": "play_single_note",
+                "task": "Play individual notes by the letter from the keyboard",
+                "tip": "The black keys are called sharps or flats. Each black key is the sharp of the white key before it and the flat of the white key after it. For example the first black key after C is called C# (C-sharp) and Db (D-flat).",
+                "notes": [
+                  "C",
+                  "C#",
+                  "Db",
+                  "D",
+                  "D#",
+                  "Eb",
+                  "E",
+                  "F",
+                  "F#",
+                  "Gb",
+                  "G",
+                  "G#",
+                  "Ab",
+                  "A",
+                  "A#",
+                  "Bb",
+                  "B"
+                ]
+              }
+            ]
+          },
+          {
+            "title": "What are Scales?",
+            "content": "A scale is a sequence of notes arranged in ascending or descending order. Scales are fundamental to music because they provide a framework for melodies and harmonies. There are many types of scales, but we'll focus on the two most common: major and minor scales."
+          },
+          {
+            "title": "Major Scales",
+            "content": "A major scale is a series of seven notes with a specific pattern of whole and half steps (intervals). The pattern is: whole, whole, half, whole, whole, whole, half. Whole step means to go two keys up or down, including the black keys, and Half step is just going to the next key. For example, the C major scale consists of the notes: C, D, E, F, G, A, B, and then back to C.",
+            "subsections": [
+              {
+                "title": "Importance of Major Scales",
+                "content": "Major scales are often associated with happy, bright, and uplifting music. They are used as the foundation for many songs and compositions."
+              },
+              {
+                "title": "Relative Minor Scale",
+                "content": "Each major scale has a relative minor scale. The relative minor scale consists of all the same notes as the major scale, but starts with the relative minor key. You can find the relative minor scale by looking at the 6th note of the major scale or by going three half steps down of your major scales root note."
+              }
+            ],
+            "exercises": [
+              {
+                "id": "ex_3",
+                "title": "Learn C Major",
+                "type": "play_scale",
+                "task": "Play the C Major Scale in ascending order",
+                "scaleId": "scale_c_major"
+              },
+              {
+                "id": "ex_4",
+                "title": "Learn D Major",
+                "type": "play_scale",
+                "task": "Play the D Major Scale in ascending order",
+                "scaleId": "scale_d_major"
+              },
+              {
+                "id": "ex_5",
+                "title": "Learn E Major",
+                "type": "play_scale",
+                "task": "Play the E Major Scale in ascending order",
+                "scaleId": "scale_e_major"
+              },
+              {
+                "id": "ex_6",
+                "title": "Learn F Major",
+                "type": "play_scale",
+                "task": "Play the F Major Scale in ascending order",
+                "scaleId": "scale_f_major"
+              },
+              {
+                "id": "ex_7",
+                "title": "Learn G Major",
+                "type": "play_scale",
+                "task": "Play the G Major Scale in ascending order",
+                "scaleId": "scale_g_major"
+              },
+              {
+                "id": "ex_8",
+                "title": "Learn A Major",
+                "type": "play_scale",
+                "task": "Play the A Major Scale in ascending order",
+                "scaleId": "scale_a_major"
+              },
+              {
+                "id": "ex_9",
+                "title": "Learn B Major",
+                "type": "play_scale",
+                "task": "Play the B Major Scale in ascending order",
+                "scaleId": "scale_b_major"
+              },
+              {
+                "id": "ex_10",
+                "title": "Learn Db Major",
+                "type": "play_scale",
+                "task": "Play the Db Major Scale in ascending order",
+                "scaleId": "scale_db_major"
+              },
+              {
+                "id": "ex_11",
+                "title": "Learn Eb Major",
+                "type": "play_scale",
+                "task": "Play the Eb Major Scale in ascending order",
+                "scaleId": "scale_eb_major"
+              },
+              {
+                "id": "ex_12",
+                "title": "Learn F# Major",
+                "type": "play_scale",
+                "task": "Play the F# Major Scale in ascending order",
+                "scaleId": "scale_f#_major"
+              },
+              {
+                "id": "ex_13",
+                "title": "Learn Ab Major",
+                "type": "play_scale",
+                "task": "Play the Ab Major Scale in ascending order",
+                "scaleId": "scale_ab_major"
+              },
+              {
+                "id": "ex_14",
+                "title": "Learn Bb Major",
+                "type": "play_scale",
+                "task": "Play the Bb Major Scale in ascending order",
+                "scaleId": "scale_bb_major"
+              }
+            ]
+          },
+          {
+            "title": "Minor Scales",
+            "content": "A minor scale also consists of seven notes but has a different pattern of intervals: whole, half, whole, whole, half, whole, whole. For example, the A minor scale includes the notes: A, B, C, D, E, F, G, and back to A.",
+            "subsections": [
+              {
+                "title": "Importance of Minor Scales",
+                "content": "Minor scales are often associated with sad, melancholic, or dramatic music. They provide a contrasting mood to major scales, adding emotional depth to music."
+              }
+            ],
+            "exercises": [
+              {
+                "id": "ex_15",
+                "type": "play_scale",
+                "title": "Learn C Minor",
+                "task": "Play the C Minor Scale in ascending order",
+                "scaleId": "scale_c_minor"
+              },
+              {
+                "id": "ex_16",
+                "title": "Learn D Minor",
+                "type": "play_scale",
+                "task": "Play the D Minor Scale in ascending order",
+                "scaleId": "scale_d_minor"
+              },
+              {
+                "id": "ex_17",
+                "title": "Learn E Minor",
+                "type": "play_scale",
+                "task": "Play the E Minor Scale in ascending order",
+                "scaleId": "scale_e_minor"
+              },
+              {
+                "id": "ex_18",
+                "title": "Learn F Minor",
+                "type": "play_scale",
+                "task": "Play the F Minor Scale in ascending order",
+                "scaleId": "scale_f_minor"
+              },
+              {
+                "id": "ex_19",
+                "title": "Learn G Minor",
+                "type": "play_scale",
+                "task": "Play the G Minor Scale in ascending order",
+                "scaleId": "scale_g_minor"
+              },
+              {
+                "id": "ex_20",
+                "title": "Learn A Minor",
+                "type": "play_scale",
+                "task": "Play the A Minor Scale in ascending order",
+                "scaleId": "scale_a_minor"
+              },
+              {
+                "id": "ex_21",
+                "title": "Learn B Minor",
+
+                "type": "play_scale",
+                "task": "Play the B Minor Scale in ascending order",
+                "scaleId": "scale_b_minor"
+              },
+              {
+                "id": "ex_22",
+                "title": "Learn Db Minor",
+                "type": "play_scale",
+                "task": "Play the Db Minor Scale in ascending order",
+                "scaleId": "scale_db_minor"
+              },
+              {
+                "id": "ex_23",
+                "title": "Learn Eb Minor",
+                "type": "play_scale",
+                "task": "Play the Eb Minor Scale in ascending order",
+                "scaleId": "scale_eb_minor"
+              },
+              {
+                "id": "ex_24",
+                "title": "Learn F# Minor",
+                "type": "play_scale",
+                "task": "Play the F# Minor Scale in ascending order",
+                "scaleId": "scale_f#_minor"
+              },
+              {
+                "id": "ex_25",
+                "title": "Learn Ab Minor",
+                "type": "play_scale",
+                "task": "Play the Ab Minor Scale in ascending order",
+                "scaleId": "scale_ab_minor"
+              },
+              {
+                "id": "ex_26",
+                "title": "Learn Bb Minor",
+                "type": "play_scale",
+                "task": "Play the Bb Minor Scale in ascending order",
+                "scaleId": "scale_bb_minor"
+              }
+            ]
+          },
+          {
+            "title": "Why Notes and Scales Matter",
+            "content": "Understanding notes and scales is crucial for several reasons: Composition: They help musicians create melodies and harmonies. Improvisation: Knowing scales allows musicians to improvise and play solos. Analysis: They provide a framework for analyzing and understanding music. By mastering major and minor scales, you'll have a solid foundation to explore more complex musical concepts and enhance your musical creativity.",
+            "exercises": [
+              {
+                "id": "ex_27",
+                "title": "Identify Scales",
+                "type": "identify_scales",
+                "task": "Identify each scale shown based on the notes."
+              },
+              {
+                "id": "ex_28",
+                "title": "Identify Scales with Accidentals",
+                "type": "identify_scales_accidentals",
+                "task": "Identify each scale shown based on the amount of accidentals."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

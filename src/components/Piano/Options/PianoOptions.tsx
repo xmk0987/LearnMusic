@@ -3,24 +3,24 @@ import React, { useEffect } from "react";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import styles from "./PianoOptions.module.css";
 import { usePiano } from "@/context/PianoContext";
+import { useExercise } from "@/context/ExerciseContext";
 
 export const PianoOptions = () => {
   const {
     isTest,
-    playedNotes,
     uiSettings,
     toggleSetting,
-    resetNotes,
-    isLastExercise,
-    checkResponse,
-    goToNextExercise,
+    playedNotes,
     handleCheckExercise,
+    exerciseType,
+    exerciseConfig,
   } = usePiano();
+  const { goToChapter } = useExercise();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Backspace") {
-        resetNotes();
+        exerciseConfig.resetExercise();
       }
       if (e.key === "Enter") {
         handleCheckExercise();
@@ -32,7 +32,7 @@ export const PianoOptions = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleCheckExercise, resetNotes]);
+  }, [exerciseConfig, handleCheckExercise]);
 
   return (
     <div className={styles.options}>
@@ -43,20 +43,24 @@ export const PianoOptions = () => {
               text={uiSettings.showLabels ? "Hide Labels" : "Show Labels"}
               onClick={() => toggleSetting("showLabels")}
             />
-            <PrimaryButton
-              text={
-                uiSettings.showNext
-                  ? "Hide Show Next Key"
-                  : "Show Show Next Key"
-              }
-              onClick={() => toggleSetting("showNext")}
-            />
+            {exerciseType === "play_scale" && (
+              <PrimaryButton
+                text={
+                  uiSettings.showNext
+                    ? "Hide Show Next Key"
+                    : "Show Show Next Key"
+                }
+                onClick={() => toggleSetting("showNext")}
+              />
+            )}
           </>
         )}
-        <PrimaryButton
-          text={uiSettings.showPlayed ? "Hide Played" : "Show Played"}
-          onClick={() => toggleSetting("showPlayed")}
-        />
+        {exerciseType === "play_scale" && (
+          <PrimaryButton
+            text={uiSettings.showPlayed ? "Hide Played" : "Show Played"}
+            onClick={() => toggleSetting("showPlayed")}
+          />
+        )}
         <PrimaryButton
           text={
             uiSettings.showKeyboardKeys
@@ -67,26 +71,35 @@ export const PianoOptions = () => {
         />
       </div>
       <div className={styles.optionsItem}>
-        <PrimaryButton
-          text={"Reset Played"}
-          onClick={resetNotes}
-          color={playedNotes.length === 0 ? "var(--secondary)" : "red"}
-          isDisabled={playedNotes.length === 0}
-        />
-        {checkResponse?.completed ? (
-          <PrimaryButton
-            text={isLastExercise ? "Go back to lessons" : "Next exercise"}
-            onClick={goToNextExercise}
-            color="green"
-          />
-        ) : (
-          <PrimaryButton
-            text={"Check"}
-            onClick={handleCheckExercise}
-            isDisabled={playedNotes.length === 0}
-            color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
-          />
-        )}
+        {exerciseConfig.exercise.type !== "play_single_note" ? (
+          <>
+            <PrimaryButton
+              text={"Reset Played"}
+              onClick={() => exerciseConfig.resetExercise()}
+              color={playedNotes.length === 0 ? "var(--secondary)" : "red"}
+              isDisabled={playedNotes.length === 0}
+            />
+            <PrimaryButton
+              text={"Check"}
+              onClick={handleCheckExercise}
+              isDisabled={playedNotes.length === 0}
+              color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
+            />
+          </>
+        ) : exerciseConfig.exerciseFinished ? (
+          <>
+            <PrimaryButton
+              text={"Try Again"}
+              onClick={() => exerciseConfig.resetExercise()}
+              color={"red"}
+            />
+            <PrimaryButton
+              text={"Go Back"}
+              onClick={goToChapter}
+              color={"green"}
+            />
+          </>
+        ) : null}
       </div>
     </div>
   );

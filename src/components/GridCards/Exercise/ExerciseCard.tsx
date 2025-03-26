@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 import styles from "./ExerciseCard.module.css";
-import { Exercise } from "@/types/lessons.types";
+import { BaseExercise, PracticeType } from "@/types/chapters.types";
 import { GoIcon } from "@/assets/icons";
 
 interface ExerciseCardProps {
-  exercise: Exercise;
-  goToExercise: (exerciseId: number, type: "test" | "practice") => void;
+  exercise: BaseExercise;
+  goToExercise: (exerciseId: string, type?: PracticeType) => void;
 }
 
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
@@ -17,7 +17,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <span className={styles.completed}>X</span>
-        <p>{exercise.name}</p>
+        <p>{exercise.title}</p>
       </div>
       <div className={styles.cardInfo}>
         <button

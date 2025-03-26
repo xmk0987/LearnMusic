@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Music } from "next/font/google";
 import "./globals.css";
 import { AudioContextProvider } from "@/context/AudioContext";
-import { LessonsProvider } from "@/context/LessonsContext";
 import { SidebarProvider } from "@/context/SidebarContext";
 import AppLayout from "./layouts/AppLayout/AppLayout";
+import { ChaptersProvider } from "@/context/ChaptersContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,13 +37,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoMusic.variable} antialiased`}
       >
-        <AudioContextProvider>
-          <LessonsProvider>
+        <ChaptersProvider>
+          <AudioContextProvider>
             <SidebarProvider>
               <AppLayout>{children}</AppLayout>
             </SidebarProvider>
-          </LessonsProvider>
-        </AudioContextProvider>
+          </AudioContextProvider>
+        </ChaptersProvider>
       </body>
     </html>
   );

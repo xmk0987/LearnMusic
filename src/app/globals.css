@@ -39,7 +39,7 @@
 
   /* PIANO */
   --black-key-w: 45px;
-  --piano-key-h: 250px;
+  --piano-key-h: 270px;
   --piano-sheet-size: 40px;
   --piano-note-size: 80px;
 
@@ -77,6 +77,7 @@ body {
 * {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
 }
 
 button:hover {

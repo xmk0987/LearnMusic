@@ -3,7 +3,6 @@ import React, { useEffect, useCallback, useMemo } from "react";
 import { Key } from "@/types/piano.types";
 import styles from "./PianoKeys.module.css";
 import { usePiano } from "@/context/PianoContext";
-import type { CheckResponseNote } from "@/context/ExerciseContext";
 
 interface PianoKeyProps {
   keyData: Key;
@@ -15,9 +14,9 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
     getPositionOfKey,
     isNextKey,
     uiSettings,
-    checkResponse,
     activeNotes,
     handleKeyEvent,
+    exerciseConfig,
   } = usePiano();
 
   // Memoize active status and key label
@@ -29,16 +28,6 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
     () => `${keyData.label}${keyData.octave}`,
     [keyData]
   );
-
-  // Memoize note feedback and status from checkResponse
-  const noteFeedback = useMemo(() => {
-    return checkResponse?.notes.find(
-      (feedback: CheckResponseNote) =>
-        feedback.note === keyData.label && feedback.octave === keyData.octave
-    );
-  }, [checkResponse, keyData]);
-  const noteStatus = noteFeedback?.status;
-  const spanStyle = noteStatus ? styles[noteStatus] : "";
 
   // Determine if this key is the next expected key
   const isNext = useMemo(() => isNextKey(keyData), [isNextKey, keyData]);
@@ -89,12 +78,20 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
     };
   }, [keyData.keyboardKey, handleMouseDown, handleMouseUp]);
 
+  const noteStatus =
+    exerciseConfig.noteFeedback?.[`${keyData.label}/${keyData.octave}`];
+  const spanStyle = noteStatus ? styles[noteStatus] : "";
+
   // Memoize the content to be rendered inside the key button
   const playedContent = useMemo(() => {
-    if (uiSettings.showPlayed && isPlayed(keyData)) {
+    if (
+      uiSettings.showPlayed &&
+      isPlayed(keyData) &&
+      exerciseConfig.exercise.type !== "play_single_note"
+    ) {
       return (
         <div className={styles.playedContainer}>
-          <span className={`${styles.played} ${spanStyle}`}>
+          <span className={`${styles.played} `}>
             {getPositionOfKey(keyData)}
           </span>
           {uiSettings.showLabels && <span>{keyLabel}</span>}
@@ -119,7 +116,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
     uiSettings.showKeyboardKeys,
     isPlayed,
     keyData,
-    spanStyle,
+    exerciseConfig.exercise.type,
     getPositionOfKey,
     keyLabel,
   ]);
@@ -130,7 +127,7 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
         keyData.type === "white" ? styles.whiteKey : styles.blackKey
       } ${isActive ? styles.activeNote : ""} ${
         isNext && uiSettings.showNext ? styles.nextKey : ""
-      }`}
+      } ${spanStyle}`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onTouchStart={handleTouchStart}

@@ -14,7 +14,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
   font-size: var(--xs-font);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -91,6 +91,14 @@
 
 .whiteKey .played {
   border: 1px solid black;
+}
+
+.wrong {
+  background-color: var(--wrong-note);
+}
+
+.correct {
+  background-color: var(--right-note);
 }
 
 .played.wrong {

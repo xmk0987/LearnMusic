@@ -8,18 +8,12 @@ import {
   useRef,
   useCallback,
 } from "react";
-import type { CheckResponse } from "./ExerciseContext";
-import { Key } from "@/types/piano.types";
-import { Exercise } from "@/types/lessons.types";
+import { ExerciseConfig, Key } from "@/types/piano.types";
 import { useMidi } from "@/hooks/useMidiInput";
-import {
-  calculateExpectedNotesWithOctaves,
-  getSessionStorage,
-  setSessionStorage,
-} from "@/utils/helpers";
+import { getSessionStorage, setSessionStorage } from "@/utils/helpers";
 import { useAudioContext } from "./AudioContext";
 import EnableAudioModal from "@/components/Modals/EnableAudio/EnableAudioModal";
-import { useExercise } from "./ExerciseContext";
+import type { ExerciseTypes } from "@/types/chapters.types";
 
 interface PianoUiSettings {
   showLabels: boolean;
@@ -32,12 +26,10 @@ interface PianoContextProps {
   // States
   uiSettings: PianoUiSettings;
   playedNotes: Key[];
-  isTest: boolean;
   setPlayedNotes: React.Dispatch<React.SetStateAction<Key[]>>;
   activeNotes: Set<Key>;
   setActiveNotes: React.Dispatch<React.SetStateAction<Set<Key>>>;
   // Functions
-  resetNotes: () => void;
   isPlayed: (key: Key) => boolean;
   getPositionOfKey: (key: Key) => number;
   handleCheckExercise: () => void;
@@ -45,46 +37,24 @@ interface PianoContextProps {
   toggleSetting: (key: keyof PianoUiSettings) => void;
   getNote: (key: Key) => string;
   handleKeyEvent: (key: Key, isPressing: boolean, isMidi?: boolean) => void;
-  // Exercise Provider
-  currentExercise: Exercise;
-  type: "test" | "practice";
-  checkResponse: CheckResponse | null;
-  closeCheckResponse: () => void;
-  checkExerciseByCategoryAndType: (playedKeys: Key[]) => void;
-  goToNextExercise: () => void;
-  isLastExercise: boolean;
+  // Other values
+  isTest: boolean;
+  exerciseType: ExerciseTypes;
+  exerciseConfig: ExerciseConfig;
 }
 
 interface PianoProviderProps {
   children: React.ReactNode;
+  exerciseConfig: ExerciseConfig;
 }
 const PianoContext = createContext<PianoContextProps | undefined>(undefined);
 
-export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
-  const {
-    type,
-    closeCheckResponse,
-    checkResponse,
-    checkExerciseByCategoryAndType,
-    currentExercise,
-    goToNextExercise,
-    isLastExercise,
-  } = useExercise();
-
-  const isTest = type === "test";
-  const previousType =
-    typeof window !== "undefined" ? sessionStorage.getItem("pianoType") : null;
-
+export const PianoProvider: React.FC<PianoProviderProps> = ({
+  exerciseConfig,
+  children,
+}) => {
+  const isTest = exerciseConfig.isTest;
   const [uiSettings, setUiSettings] = useState<PianoUiSettings>(() => {
-    if (previousType !== null && previousType !== type) {
-      return {
-        showLabels: !isTest,
-        showPlayed: true,
-        showNext: false,
-        showKeyboardKeys: false,
-        showCheckModal: false,
-      };
-    }
     return getSessionStorage("pianoUiSettings", {
       showLabels: !isTest,
       showPlayed: true,
@@ -98,15 +68,8 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
     setSessionStorage("pianoUiSettings", uiSettings);
   }, [uiSettings]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("pianoType", type);
-    }
-  }, [type]);
-
   // Generic toggle function
   const toggleSetting = (key: keyof typeof uiSettings) => {
-    console.log("Toggle", key)
     setUiSettings((prev: PianoUiSettings) => ({
       ...prev,
       [key]: !prev[key],
@@ -131,40 +94,32 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
   }, [playedNotes]);
 
   const registerKeyClick = (key: Key) => {
-    closeCheckResponse();
-
-    setPlayedNotes((prevPlayedNotes) => {
-      const keyExists = prevPlayedNotes.some(
-        (playedKey) =>
-          playedKey.label === key.label && playedKey.octave === key.octave
-      );
-
-      const updatedPlayedNotes = keyExists
-        ? prevPlayedNotes.filter(
+    switch (exerciseConfig.exercise.type) {
+      case "play_single_note":
+        exerciseConfig.handleKeyClick(key);
+        break;
+      case "play_scale":
+        setPlayedNotes((prevPlayedNotes) => {
+          const keyExists = prevPlayedNotes.some(
             (playedKey) =>
-              !(
-                playedKey.label === key.label && playedKey.octave === key.octave
+              playedKey.label === key.label && playedKey.octave === key.octave
+          );
+
+          const updatedPlayedNotes = keyExists
+            ? prevPlayedNotes.filter(
+                (playedKey) =>
+                  !(
+                    playedKey.label === key.label &&
+                    playedKey.octave === key.octave
+                  )
               )
-          )
-        : [...prevPlayedNotes, key];
+            : [...prevPlayedNotes, key];
 
-      return updatedPlayedNotes;
-    });
+          return updatedPlayedNotes;
+        });
+        break;
+    }
   };
-
-  const resetNotes = () => {
-    setPlayedNotes([]);
-    closeCheckResponse();
-  };
-
-  const isPlayed = useCallback(
-    (key: Key) =>
-      playedNotes.some(
-        (playedKey) =>
-          playedKey.label === key.label && playedKey.octave === key.octave
-      ),
-    [playedNotes]
-  );
 
   const getPositionOfKey = useCallback(
     (key: Key) =>
@@ -175,38 +130,55 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
     [playedNotes]
   );
 
-  const handleCheckExercise = () => {
-    if (checkResponse !== null) {
-      closeCheckResponse();
-    }
+  const isPlayed = useCallback(
+    (key: Key) => {
+      switch (exerciseConfig.exercise.type) {
+        case "play_single_note":
+          if (exerciseConfig.noteFeedback)
+            return Object.keys(exerciseConfig.noteFeedback).includes(
+              `${key.label}/${key.octave}`
+            );
+          return false;
+        case "play_scale":
+          return playedNotes.some(
+            (playedKey) =>
+              playedKey.label === key.label && playedKey.octave === key.octave
+          );
 
-    const currentPlayedNotes = playedNotesRef.current;
-    checkExerciseByCategoryAndType(currentPlayedNotes);
+        default:
+          return false;
+      }
+    },
+    [exerciseConfig.exercise.type, exerciseConfig.noteFeedback, playedNotes]
+  );
+
+  const handleCheckExercise = () => {
     setUiSettings((prev) => ({
       ...prev,
       showPlayed: true,
       showCheckModal: true,
     }));
+
+    console.log("Lets check exercise");
+    switch (exerciseConfig.exercise.type) {
+      case "play_single_note":
+        return;
+      case "play_scale":
+        return;
+      default:
+        return;
+    }
   };
 
-  const isNextKey = (key: Key): boolean => {
-    if (!currentExercise) return false;
-
-    const expectedNotes = calculateExpectedNotesWithOctaves(
-      currentExercise.notes,
-      4
-    );
-
-    const playedSlice = playedNotes.map(
-      (playedKey) => `${playedKey.label}${playedKey.octave}`
-    );
-    const expectedSlice = expectedNotes.slice(0, playedSlice.length);
-
-    if (JSON.stringify(playedSlice) !== JSON.stringify(expectedSlice)) {
-      return false;
+  const isNextKey = (/* key: Key */): boolean => {
+    switch (exerciseConfig.exercise.type) {
+      case "play_single_note":
+        return false;
+      case "play_scale":
+        return false;
+      default:
+        return false;
     }
-
-    return `${key.label}${key.octave}` === expectedNotes[playedNotes.length];
   };
 
   const getNote = (key: Key) => {
@@ -257,7 +229,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
     (midiKey: Key) => {
       handleKeyEvent(midiKey, false, true);
     },
-    () => resetNotes(),
+    () => exerciseConfig.resetExercise(),
     () => handleCheckExercise()
   );
 
@@ -268,23 +240,17 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({ children }) => {
         uiSettings,
         toggleSetting,
         setPlayedNotes,
-        checkResponse,
         activeNotes,
         setActiveNotes,
         handleKeyEvent,
-        resetNotes,
         isPlayed,
         getPositionOfKey,
         handleCheckExercise,
         isNextKey,
         getNote,
-        goToNextExercise,
-        isLastExercise,
         isTest,
-        currentExercise,
-        type,
-        closeCheckResponse,
-        checkExerciseByCategoryAndType,
+        exerciseType: exerciseConfig.exercise.type,
+        exerciseConfig,
       }}
     >
       {children}

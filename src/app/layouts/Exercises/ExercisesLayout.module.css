@@ -4,17 +4,11 @@
   flex-direction: column;
   gap: 20px;
   min-width: 270px;
-}
-
-.lesson {
-  font-size: var(--s-font);
-}
-
-.exercises {
-  display: flex;
-  flex-direction: column;
-  gap: var(--margin-m);
-  padding-bottom: var(--margin-l);
+  margin-top: var(--margin-m);
+  background-color: var(--secondary);
+  padding: var(--margin-s);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
 }
 
 .exercisesHeader {
@@ -24,6 +18,12 @@
   font-size: var(--s-font);
   font-weight: bold;
   cursor: pointer;
+}
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-m);
 }
 
 @media only screen and (max-width: 600px) {

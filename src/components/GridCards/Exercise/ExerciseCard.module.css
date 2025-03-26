@@ -1,23 +1,19 @@
 .card {
+  height: 100%;
   display: inline-flex;
-  align-items: center;
   justify-content: space-between;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
   padding: 5px 10px;
   font-size: var(--s-font);
-  white-space: nowrap;
   gap: var(--margin-xs);
 }
 
 .cardHeader {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: var(--margin-xs);
-}
-
-.cardHeader p {
-  font-weight: 600;
 }
 
 .cardInfo {

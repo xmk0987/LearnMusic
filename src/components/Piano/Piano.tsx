@@ -3,18 +3,19 @@ import PianoKeys from "./Keys/PianoKeys";
 import { PianoOptions } from "./Options/PianoOptions";
 import React from "react";
 import styles from "./Piano.module.css";
-import PianoCheck from "./Check/PianoCheck";
 import { PianoProvider } from "@/context/PianoContext";
-import NoteSheet from "../NoteSheet/NoteSheet";
+import type { ExerciseConfig } from "@/types/piano.types";
 
-const Piano = () => {
+interface PianoProps {
+  exerciseConfig: ExerciseConfig;
+}
+
+const Piano: React.FC<PianoProps> = ({ exerciseConfig }) => {
   return (
-    <PianoProvider>
+    <PianoProvider exerciseConfig={exerciseConfig}>
       <div className={styles.container}>
-        <NoteSheet />
         <PianoOptions />
         <PianoKeys />
-        <PianoCheck />
       </div>
     </PianoProvider>
   );

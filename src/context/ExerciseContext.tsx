@@ -1,11 +1,9 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import { useLessonsData } from "@/context/LessonsContext";
 import { useEffect, useState, createContext, useContext, useMemo } from "react";
-import type { Exercise, Lesson } from "@/types/lessons.types";
-import type { Key } from "@/types/piano.types";
-import { checkPlayExercise } from "@/utils/checkExercise";
+import type { Chapter, Exercise } from "@/types/chapters.types";
+import { useChaptersData } from "./ChaptersContext";
 
 export interface CheckResponseNote {
   note: string;
@@ -20,14 +18,13 @@ export interface CheckResponse {
 
 interface ExerciseContextValue {
   currentExercise: Exercise;
-  currentLesson: Lesson;
+  currentChapter: Chapter;
   type: "test" | "practice";
   checkResponse: CheckResponse | null;
   showHint: boolean;
   toggleShowHint: () => void;
-  goToLesson: () => void;
+  goToChapter: () => void;
   closeCheckResponse: () => void;
-  checkExerciseByCategoryAndType: (playedKeys: Key[]) => void;
   goToNextExercise: () => void;
   isLastExercise: boolean;
 }
@@ -48,104 +45,58 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
   const searchParams = useSearchParams();
   const type = (searchParams.get("type") as "test" | "practice") || "practice";
 
-  const { currentLesson } = useLessonsData();
-  const [currentExercise, setCurrentExercise] = useState<Exercise | undefined>(
-    undefined
-  );
-  const [showHint, setShowHint] = useState<boolean>(false);
+  const { currentChapter } = useChaptersData();
+
+  const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
+  const [showHint, setShowHint] = useState(false);
   const [checkResponse, setCheckResponse] = useState<CheckResponse | null>(
     null
   );
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!currentLesson) {
-      setError("Lesson not found");
-      router.push("/lessons");
-    }
-  }, [currentLesson, router]);
+  const allExercises = useMemo(() => {
+    return (
+      currentChapter?.lesson?.sections?.flatMap((section) =>
+        Array.isArray(section.exercises) ? section.exercises : []
+      ) || []
+    );
+  }, [currentChapter]);
 
   useEffect(() => {
-    if (exerciseId && currentLesson) {
-      const foundExercise = currentLesson.exercises.find(
-        (exercise) => exercise.id === parseInt(exerciseId)
-      );
+    if (!currentChapter) {
+      setError("Chapter not found");
+      router.push("/lessons");
+    }
+  }, [currentChapter, router]);
+
+  useEffect(() => {
+    if (exerciseId) {
+      const foundExercise = allExercises.find((ex) => ex.id === exerciseId);
       if (foundExercise) {
-        console.log("Found exercise", foundExercise);
         setCurrentExercise(foundExercise);
         setError(null);
       } else {
         setError("Exercise not found");
       }
-      setLoading(false);
     }
-  }, [currentLesson, exerciseId]);
+  }, [allExercises, exerciseId]);
 
-  const isLastExercise = useMemo(
-    () =>
-      currentLesson?.exercises[currentLesson.exercises.length - 1].id ===
-      currentExercise?.id,
-    [currentExercise?.id, currentLesson?.exercises]
-  );
+  const isLastExercise = useMemo(() => {
+    return allExercises.length > 0
+      ? allExercises[allExercises.length - 1].id === currentExercise?.id
+      : false;
+  }, [currentExercise, allExercises]);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
+  if (error || !currentExercise || !currentChapter) {
+    return <h1>{error || "Exercise not found"}</h1>;
   }
 
-  if (error || !currentExercise || !currentLesson) {
-    return <h1>{error || "Exercise or Lesson not found"}</h1>;
-  }
-
-  const checkExerciseByCategoryAndType = (playedKeys: Key[]): void => {
-    let response: CheckResponse | null = null;
-    switch (currentLesson.category) {
-      case "scales":
-        switch (currentLesson.type) {
-          case "play":
-            response = checkPlayExercise(currentExercise, playedKeys);
-            break;
-          default:
-            response = {
-              completed: false,
-              message: "Unknown exercise type",
-              notes: [],
-            };
-            break;
-        }
-        break;
-      case "chords":
-        switch (currentLesson.type) {
-          case "play":
-            response = checkPlayExercise(currentExercise, playedKeys);
-            break;
-          default:
-            response = {
-              completed: false,
-              message: "Unknown exercise type",
-              notes: [],
-            };
-            break;
-        }
-        break;
-      default:
-        console.log("Arrives here");
-        response = {
-          completed: false,
-          message: "Unknown exercise category",
-          notes: [],
-        };
-        break;
-    }
-    setCheckResponse(response);
-  };
-
-  const goToLesson = () => {
-    router.push("/lessons/" + currentLesson.id);
+  const goToChapter = () => {
+    router.push("/chapters/" + currentChapter.id);
   };
 
   const goToNextExercise = () => {
-    const baseUrl = `/lessons/${currentLesson.id}`;
+    const baseUrl = `/chapters/${currentChapter.id}`;
     if (isLastExercise) {
       router.push(baseUrl);
     } else {
@@ -165,7 +116,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
     <ExerciseContext.Provider
       value={{
         currentExercise,
-        currentLesson,
+        currentChapter,
         showHint,
         checkResponse,
         isLastExercise,
@@ -173,8 +124,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
         toggleShowHint,
         type,
         closeCheckResponse,
-        checkExerciseByCategoryAndType,
-        goToLesson,
+        goToChapter,
       }}
     >
       {children}

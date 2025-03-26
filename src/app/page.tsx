@@ -7,13 +7,13 @@ export default function Home() {
   const router = useRouter();
 
   const goToLessons = () => {
-    router.push("/lessons");
+    router.push("/chapters");
   };
 
   return (
     <>
       <h1 className={styles.title}>Welcome</h1>
-      <button onClick={goToLessons}>Go to Lessons</button>
+      <button onClick={goToLessons}>Go to Chapters</button>
     </>
   );
 }
