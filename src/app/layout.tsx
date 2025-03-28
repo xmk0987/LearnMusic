@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Noto_Music } from "next/font/google";
 import "./globals.css";
 import { AudioContextProvider } from "@/context/AudioContext";
 import { SidebarProvider } from "@/context/SidebarContext";
-import AppLayout from "./layouts/AppLayout/AppLayout";
+import AppLayout from "../layouts/AppLayout/AppLayout";
 import { ChaptersProvider } from "@/context/ChaptersContext";
 
 const geistSans = Geist({

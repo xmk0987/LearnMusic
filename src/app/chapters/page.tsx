@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import CardGridLayout from "../layouts/CardGrid/CardGridLayout";
+import CardGridLayout from "../../layouts/CardGrid/CardGridLayout";
 import DynamicBreadcrumbs from "@/components/DynamicBreadcrumbs/DynamicBreadcrumbs";
 import styles from "./LessonsPage.module.css";
 import { useChaptersData } from "@/context/ChaptersContext";

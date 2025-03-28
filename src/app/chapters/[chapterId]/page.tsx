@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useChaptersData } from "@/context/ChaptersContext";
 import styles from "./CurrentChapterPage.module.css";
-import ExercisesLayout from "@/app/layouts/Exercises/ExercisesLayout";
+import ExercisesLayout from "@/layouts/Exercises/ExercisesLayout";
 import ExerciseCard from "@/components/GridCards/Exercise/ExerciseCard";
 
 const CurrentChapterPage = () => {
@@ -45,7 +45,11 @@ const CurrentChapterPage = () => {
             {section.exercises && section.exercises && (
               <ExercisesLayout>
                 {section.exercises.map((exercise) => (
-                  <ExerciseCard key={exercise.id} exercise={exercise} goToExercise={goToExercise}/>
+                  <ExerciseCard
+                    key={exercise.id}
+                    exercise={exercise}
+                    goToExercise={goToExercise}
+                  />
                 ))}
               </ExercisesLayout>
             )}
