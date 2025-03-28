@@ -26,7 +26,6 @@ export interface ExerciseConfig {
   isTest: boolean;
   exerciseFeedback?: ExerciseFeedback | null;
   exerciseFinished: boolean;
-  showNoteSheet?: boolean;
   playedNotes?: Key[];
   expectedNotes?: string[];
   handleKeyClick?: (key: Key) => void;

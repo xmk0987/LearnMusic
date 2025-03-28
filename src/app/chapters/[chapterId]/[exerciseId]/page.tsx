@@ -20,10 +20,12 @@ const ExercisePage = () => {
         </div>
       </div>
       <div className={styles.instructions}>
-        <p> {currentExercise.task}</p>
-        {showHint && <p className={styles.hint}>{currentExercise.tip}</p>}
+        <p>{currentExercise.task}</p>
+        {showHint && currentExercise.tip && (
+          <p className={styles.hint}>{currentExercise.tip}</p>
+        )}
       </div>
-      <ExerciseComponent exercise={currentExercise} isTest={type === "test"}/>
+      <ExerciseComponent exercise={currentExercise} isTest={type === "test"} />
     </div>
   );
 };

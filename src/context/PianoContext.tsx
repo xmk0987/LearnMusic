@@ -1,7 +1,6 @@
 // PianoContext.tsx
 "use client";
 import {
-  useEffect,
   useState,
   createContext,
   useContext,
@@ -10,7 +9,6 @@ import {
 } from "react";
 import { ExerciseConfig, Key } from "@/types/piano.types";
 import { useMidi } from "@/hooks/useMidiInput";
-import { getSessionStorage, setSessionStorage } from "@/utils/helpers";
 import { useAudioContext } from "./AudioContext";
 import EnableAudioModal from "@/components/Modals/EnableAudio/EnableAudioModal";
 import type { ExerciseTypes } from "@/types/chapters.types";
@@ -52,19 +50,13 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   children,
 }) => {
   const isTest = exerciseConfig.isTest;
-  const [uiSettings, setUiSettings] = useState<PianoUiSettings>(() => {
-    return getSessionStorage("pianoUiSettings", {
-      showLabels: !isTest,
-      showPlayed: true,
-      showNext: false,
-      showKeyboardKeys: false,
-      showCheckModal: false,
-    });
+  const [uiSettings, setUiSettings] = useState<PianoUiSettings>({
+    showLabels: !isTest,
+    showPlayed: true,
+    showNext: false,
+    showKeyboardKeys: false,
+    showCheckModal: false,
   });
-
-  useEffect(() => {
-    setSessionStorage("pianoUiSettings", uiSettings);
-  }, [uiSettings]);
 
   // Generic toggle function
   const toggleSetting = (key: keyof typeof uiSettings) => {
@@ -116,7 +108,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
         case "play_single_note":
           if (exerciseConfig.exerciseFeedback)
             return Object.keys(exerciseConfig.exerciseFeedback).includes(
-              `${key.label}/${key.octave}`
+              `${key.label}${key.octave}`
             );
           return false;
         case "play_scale":
@@ -138,7 +130,6 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   );
 
   const handleCheckExercise = () => {
-    console.log("Check exercise");
     setUiSettings((prev) => ({
       ...prev,
       showPlayed: true,
@@ -151,6 +142,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   };
 
   const isNextKey = (key: Key): boolean => {
+    if (isTest) return false;
     switch (exerciseConfig.exercise.type) {
       case "play_single_note":
         return false;

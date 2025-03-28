@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import type { ScaleExercise } from "@/types/chapters.types";
 import styles from "./Exercises.module.css";
 import scalesData from "@/lessons/scales.json";
@@ -10,7 +10,7 @@ import type {
 } from "@/types/piano.types";
 import Piano from "@/components/Piano/Piano";
 import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
-import { useMemo } from "react";
+import NoteSheet from "@/components/NoteSheet/NoteSheet";
 
 interface PlayScaleExerciseProps {
   isTest: boolean;
@@ -97,8 +97,10 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
 
       const expectedNote = expectedNotes[i];
 
-      if (possiblePlayedNotes.includes(expectedNote)) {
-        feedback[possiblePlayedNotes[0]] = "correct";
+      if (!expectedNote) {
+        feedback[possiblePlayedNotes[0]] = "wrong";
+      } else if (possiblePlayedNotes.includes(expectedNote)) {
+        feedback[expectedNote] = "correct";
       } else if (
         expectedNotes.some((note) => possiblePlayedNotes.includes(note))
       ) {
@@ -143,7 +145,6 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
     exercise,
     isTest,
     exerciseFinished,
-    showNoteSheet: true,
     playedNotes,
     expectedNotes,
     exerciseFeedback,
@@ -154,6 +155,7 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
 
   return (
     <div className={styles.container}>
+      <NoteSheet notes={expectedNotes} noteFeedback={exerciseFeedback?.notes} />
       <Piano exerciseConfig={exerciseConfig} />
     </div>
   );

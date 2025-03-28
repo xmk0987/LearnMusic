@@ -18,17 +18,18 @@ const NOTE_MAPPING = {
 interface NoteProps {
   note: NoteType;
   noteLength?: "q" | "e" | "be" | "bs";
+  spanStyle?: "" | "correct" | "wrong";
 }
 
-const Note: React.FC<NoteProps> = ({ note, noteLength = "q" }) => {
+const Note: React.FC<NoteProps> = ({ note, noteLength = "q", spanStyle }) => {
   // Determine accidental information
   const isSharp = note.noteName.includes("#");
   const isFlat = note.noteName.includes("b");
 
-  // Remove accidental from note name (assumes only one accidental)
+  // Remove accidental from note name
   const noteLetter = note.noteName.replace(/[#b]/, "");
   const noteCombo = `${noteLetter}${note.octave}`;
-  const needLine = noteCombo === "C4" || noteCombo === "B5";
+  const needLine = noteCombo === "C4" || noteCombo === "A5";
 
   // Determine accidental symbol if present
   const accidentalSymbol = isFlat
@@ -39,7 +40,9 @@ const Note: React.FC<NoteProps> = ({ note, noteLength = "q" }) => {
 
   return (
     <div
-      className={`${styles.noteContainer}`}
+      className={`${styles.noteContainer} ${
+        spanStyle ? styles[spanStyle] : ""
+      }`}
       style={{
         gridRow: noteCombo,
         gridColumn: note.position,

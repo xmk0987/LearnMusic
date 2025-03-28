@@ -44,11 +44,7 @@ export const PianoOptions = () => {
             />
             {exerciseType === "play_scale" && (
               <PrimaryButton
-                text={
-                  uiSettings.showNext
-                    ? "Hide Show Next Key"
-                    : "Show Show Next Key"
-                }
+                text={uiSettings.showNext ? "Hide Next Key" : "Show Next Key"}
                 onClick={() => toggleSetting("showNext")}
               />
             )}

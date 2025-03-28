@@ -6,6 +6,32 @@
   margin-bottom: var(--margin-m);
   font: var(--font-noto-music);
   font-size: var(--piano-sheet-size);
+  position: relative;
+}
+
+.showLabels {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--s-font);
+  text-wrap: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-100%, -50%);
+}
+
+.noteLabel {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 10px;
+  align-self: center;
+  grid-column: 1;
+  font-size: 10px;
 }
 
 .noteSheet {
@@ -24,4 +50,13 @@
   border-bottom: 1px solid black;
   height: 0;
   z-index: 0;
+  position: relative;
+}
+
+.staffLineLabel {
+  position: absolute;
+  transform: translate(-150%, -50%);
+  font-size: var(--s-font);
+  text-align: start;
+  width: 10px;
 }
