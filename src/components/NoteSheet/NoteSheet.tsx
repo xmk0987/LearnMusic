@@ -33,17 +33,15 @@ const NoteSheet: React.FC<NoteSheetProps> = ({ notes, noteFeedback }) => {
       <div className={styles.noteSheet} style={{ gridTemplateColumns }}>
         {/* Render staff lines on specified grid rows */}
         {staffLines.map((line) => (
-          <>
-            <div
-              key={line}
-              className={styles.staffLine}
-              style={{ gridRow: line }}
-            >
-              {showLabels && (
-                <span className={styles.staffLineLabel}>{line[0]}</span>
-              )}
-            </div>
-          </>
+          <div
+            key={line}
+            className={styles.staffLine}
+            style={{ gridRow: line }}
+          >
+            {showLabels && (
+              <span className={styles.staffLineLabel}>{line[0]}</span>
+            )}
+          </div>
         ))}
         <Clef />
         {parsedNotes.map((note: NoteType) => {

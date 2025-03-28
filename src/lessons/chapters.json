@@ -47,6 +47,38 @@
             ]
           },
           {
+            "title": "Reading the Stave",
+            "content": "The stave (or staff) is a set of five horizontal lines where musical notes are placed. The position of a note on the stave tells us its pitch. Higher notes are written higher on the stave, and lower notes are written lower. Notes can be placed on lines or in spaces between them. The treble clef (𝄞) and bass clef (𝄢) are commonly used to indicate different ranges of notes.",
+            "exercises": [
+              {
+                "id": "ex_3",
+                "title": "Identify Notes on the Stave",
+                "type": "play_single_note_stave",
+                "task": "Look at the note on the stave and play the correct note.",
+                "tip": "In the treble clef, the notes on the lines from bottom to top are E, G, B, D, F (Evil Guys Bring Danger Fun). The spaces spell FACE.",
+                "notes": [
+                  "C",
+                  "C#",
+                  "Db",
+                  "D",
+                  "D#",
+                  "Eb",
+                  "E",
+                  "F",
+                  "F#",
+                  "Gb",
+                  "G",
+                  "G#",
+                  "Ab",
+                  "A",
+                  "A#",
+                  "Bb",
+                  "B"
+                ]
+              }
+            ]
+          },
+          {
             "title": "What are Scales?",
             "content": "A scale is a sequence of notes arranged in ascending or descending order. Scales are fundamental to music because they provide a framework for melodies and harmonies. There are many types of scales, but we'll focus on the two most common: major and minor scales."
           },
@@ -65,84 +97,84 @@
             ],
             "exercises": [
               {
-                "id": "ex_3",
+                "id": "ex_4",
                 "title": "Learn C Major",
                 "type": "play_scale",
                 "task": "Play the C Major Scale in ascending order",
                 "scaleId": "scale_c_major"
               },
               {
-                "id": "ex_4",
+                "id": "ex_5",
                 "title": "Learn D Major",
                 "type": "play_scale",
                 "task": "Play the D Major Scale in ascending order",
                 "scaleId": "scale_d_major"
               },
               {
-                "id": "ex_5",
+                "id": "ex_6",
                 "title": "Learn E Major",
                 "type": "play_scale",
                 "task": "Play the E Major Scale in ascending order",
                 "scaleId": "scale_e_major"
               },
               {
-                "id": "ex_6",
+                "id": "ex_7",
                 "title": "Learn F Major",
                 "type": "play_scale",
                 "task": "Play the F Major Scale in ascending order",
                 "scaleId": "scale_f_major"
               },
               {
-                "id": "ex_7",
+                "id": "ex_8",
                 "title": "Learn G Major",
                 "type": "play_scale",
                 "task": "Play the G Major Scale in ascending order",
                 "scaleId": "scale_g_major"
               },
               {
-                "id": "ex_8",
+                "id": "ex_9",
                 "title": "Learn A Major",
                 "type": "play_scale",
                 "task": "Play the A Major Scale in ascending order",
                 "scaleId": "scale_a_major"
               },
               {
-                "id": "ex_9",
+                "id": "ex_10",
                 "title": "Learn B Major",
                 "type": "play_scale",
                 "task": "Play the B Major Scale in ascending order",
                 "scaleId": "scale_b_major"
               },
               {
-                "id": "ex_10",
+                "id": "ex_11",
                 "title": "Learn Db Major",
                 "type": "play_scale",
                 "task": "Play the Db Major Scale in ascending order",
                 "scaleId": "scale_db_major"
               },
               {
-                "id": "ex_11",
+                "id": "ex_12",
                 "title": "Learn Eb Major",
                 "type": "play_scale",
                 "task": "Play the Eb Major Scale in ascending order",
                 "scaleId": "scale_eb_major"
               },
               {
-                "id": "ex_12",
+                "id": "ex_13",
                 "title": "Learn F# Major",
                 "type": "play_scale",
                 "task": "Play the F# Major Scale in ascending order",
                 "scaleId": "scale_f#_major"
               },
               {
-                "id": "ex_13",
+                "id": "ex_14",
                 "title": "Learn Ab Major",
                 "type": "play_scale",
                 "task": "Play the Ab Major Scale in ascending order",
                 "scaleId": "scale_ab_major"
               },
               {
-                "id": "ex_14",
+                "id": "ex_15",
                 "title": "Learn Bb Major",
                 "type": "play_scale",
                 "task": "Play the Bb Major Scale in ascending order",
@@ -161,49 +193,49 @@
             ],
             "exercises": [
               {
-                "id": "ex_15",
+                "id": "ex_16",
                 "type": "play_scale",
                 "title": "Learn C Minor",
                 "task": "Play the C Minor Scale in ascending order",
                 "scaleId": "scale_c_minor"
               },
               {
-                "id": "ex_16",
+                "id": "ex_17",
                 "title": "Learn D Minor",
                 "type": "play_scale",
                 "task": "Play the D Minor Scale in ascending order",
                 "scaleId": "scale_d_minor"
               },
               {
-                "id": "ex_17",
+                "id": "ex_18",
                 "title": "Learn E Minor",
                 "type": "play_scale",
                 "task": "Play the E Minor Scale in ascending order",
                 "scaleId": "scale_e_minor"
               },
               {
-                "id": "ex_18",
+                "id": "ex_19",
                 "title": "Learn F Minor",
                 "type": "play_scale",
                 "task": "Play the F Minor Scale in ascending order",
                 "scaleId": "scale_f_minor"
               },
               {
-                "id": "ex_19",
+                "id": "ex_20",
                 "title": "Learn G Minor",
                 "type": "play_scale",
                 "task": "Play the G Minor Scale in ascending order",
                 "scaleId": "scale_g_minor"
               },
               {
-                "id": "ex_20",
+                "id": "ex_21",
                 "title": "Learn A Minor",
                 "type": "play_scale",
                 "task": "Play the A Minor Scale in ascending order",
                 "scaleId": "scale_a_minor"
               },
               {
-                "id": "ex_21",
+                "id": "ex_22",
                 "title": "Learn B Minor",
 
                 "type": "play_scale",
@@ -211,35 +243,35 @@
                 "scaleId": "scale_b_minor"
               },
               {
-                "id": "ex_22",
+                "id": "ex_23",
                 "title": "Learn Db Minor",
                 "type": "play_scale",
                 "task": "Play the Db Minor Scale in ascending order",
                 "scaleId": "scale_db_minor"
               },
               {
-                "id": "ex_23",
+                "id": "ex_24",
                 "title": "Learn Eb Minor",
                 "type": "play_scale",
                 "task": "Play the Eb Minor Scale in ascending order",
                 "scaleId": "scale_eb_minor"
               },
               {
-                "id": "ex_24",
+                "id": "ex_25",
                 "title": "Learn F# Minor",
                 "type": "play_scale",
                 "task": "Play the F# Minor Scale in ascending order",
                 "scaleId": "scale_f#_minor"
               },
               {
-                "id": "ex_25",
+                "id": "ex_26",
                 "title": "Learn Ab Minor",
                 "type": "play_scale",
                 "task": "Play the Ab Minor Scale in ascending order",
                 "scaleId": "scale_ab_minor"
               },
               {
-                "id": "ex_26",
+                "id": "ex_27",
                 "title": "Learn Bb Minor",
                 "type": "play_scale",
                 "task": "Play the Bb Minor Scale in ascending order",
@@ -252,13 +284,13 @@
             "content": "Understanding notes and scales is crucial for several reasons: Composition: They help musicians create melodies and harmonies. Improvisation: Knowing scales allows musicians to improvise and play solos. Analysis: They provide a framework for analyzing and understanding music. By mastering major and minor scales, you'll have a solid foundation to explore more complex musical concepts and enhance your musical creativity.",
             "exercises": [
               {
-                "id": "ex_27",
+                "id": "ex_28",
                 "title": "Identify Scales",
                 "type": "identify_scales",
                 "task": "Identify each scale shown based on the notes."
               },
               {
-                "id": "ex_28",
+                "id": "ex_29",
                 "title": "Identify Scales with Accidentals",
                 "type": "identify_scales_accidentals",
                 "task": "Identify each scale shown based on the amount of accidentals."

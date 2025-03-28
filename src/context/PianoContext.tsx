@@ -79,6 +79,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
   const registerKeyClick = (key: Key) => {
     switch (exerciseConfig.exercise.type) {
       case "play_single_note":
+      case "play_single_note_stave":
         if (exerciseConfig.handleKeyClick) exerciseConfig.handleKeyClick(key);
         break;
       case "play_scale":
@@ -106,6 +107,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
     (key: Key) => {
       switch (exerciseConfig.exercise.type) {
         case "play_single_note":
+        case "play_single_note_stave":
           if (exerciseConfig.exerciseFeedback)
             return Object.keys(exerciseConfig.exerciseFeedback).includes(
               `${key.label}${key.octave}`
@@ -145,6 +147,7 @@ export const PianoProvider: React.FC<PianoProviderProps> = ({
     if (isTest) return false;
     switch (exerciseConfig.exercise.type) {
       case "play_single_note":
+      case "play_single_note_stave":
         return false;
       case "play_scale":
         const expectedNotes = exerciseConfig.expectedNotes ?? [];

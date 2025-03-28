@@ -17,6 +17,7 @@ const ExerciseComponent: React.FC<ExerciseComponentProps> = ({
     case "play_scale":
       return <PlayScaleExercise exercise={exercise} isTest={isTest} />;
     case "play_single_note":
+    case "play_single_note_stave":
       return <PlayNoteExercise exercise={exercise} isTest={isTest} />;
     case "identify_scales":
     case "identify_scales_accidentals":

@@ -105,31 +105,36 @@ export const PianoOptions = () => {
             ) : null}
           </>
         )}
-        {exerciseConfig.exercise.type === "play_single_note" &&
-          exerciseConfig.exerciseFinished && (
-            <>
-              <PrimaryButton
-                text={
-                  exerciseConfig.exerciseFinished ? "Try again" : "Reset Played"
-                }
-                onClick={() => exerciseConfig.resetExercise()}
-                color={
-                  exerciseConfig.playedNotes?.length === 0
-                    ? "var(--secondary)"
-                    : "red"
-                }
-              />
-              <PrimaryButton
-                text={isLastExercise ? "Go to chapter" : "Go to next exercise"}
-                onClick={goToNextExercise}
-                color={
-                  exerciseConfig.playedNotes?.length === 0
-                    ? "var(--secondary)"
-                    : "green"
-                }
-              />
-            </>
-          )}
+        {exerciseConfig.exercise.type === "play_single_note" ||
+          (exerciseConfig.exercise.type === "play_single_note_stave" &&
+            exerciseConfig.exerciseFinished && (
+              <>
+                <PrimaryButton
+                  text={
+                    exerciseConfig.exerciseFinished
+                      ? "Try again"
+                      : "Reset Played"
+                  }
+                  onClick={() => exerciseConfig.resetExercise()}
+                  color={
+                    exerciseConfig.playedNotes?.length === 0
+                      ? "var(--secondary)"
+                      : "red"
+                  }
+                />
+                <PrimaryButton
+                  text={
+                    isLastExercise ? "Go to chapter" : "Go to next exercise"
+                  }
+                  onClick={goToNextExercise}
+                  color={
+                    exerciseConfig.playedNotes?.length === 0
+                      ? "var(--secondary)"
+                      : "green"
+                  }
+                />
+              </>
+            ))}
       </div>
     </div>
   );

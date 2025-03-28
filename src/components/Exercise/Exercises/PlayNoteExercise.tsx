@@ -3,6 +3,7 @@ import type { PlayNotesExercise as PlayNoteExercise } from "@/types/chapters.typ
 import Piano from "@/components/Piano/Piano";
 import styles from "./Exercises.module.css";
 import { ExerciseFeedback, Key } from "@/types/piano.types";
+import NoteSheet from "@/components/NoteSheet/NoteSheet";
 
 interface PlayNoteExerciseProps {
   isTest: boolean;
@@ -103,7 +104,11 @@ const PlayNoteExercise: React.FC<PlayNoteExerciseProps> = ({
   return (
     <div className={styles.container}>
       {currentNoteIndex !== null && !exerciseFinished ? (
-        <div className={styles.task}>{exercise.notes[currentNoteIndex]}</div>
+        exercise.type === "play_single_note" ? (
+          <div className={styles.task}>{exercise.notes[currentNoteIndex]}</div>
+        ) : (
+          <NoteSheet notes={[`${exercise.notes[currentNoteIndex]}4`]} />
+        )
       ) : (
         <h3>Well done!</h3>
       )}

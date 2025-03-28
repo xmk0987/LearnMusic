@@ -136,7 +136,10 @@ const PianoKey: React.FC<PianoKeyProps> = ({ keyData }) => {
       } ${isActive ? styles.activeNote : ""} ${
         isNext && uiSettings.showNext ? styles.nextKey : ""
       } ${
-        exerciseConfig.exercise.type === "play_single_note" ? spanStyle : ""
+        exerciseConfig.exercise.type === "play_single_note" ||
+        exerciseConfig.exercise.type === "play_single_note_stave"
+          ? spanStyle
+          : ""
       }`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

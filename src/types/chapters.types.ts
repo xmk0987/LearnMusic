@@ -34,13 +34,14 @@ export interface ScaleExercise extends BaseExercise {
 }
 
 export interface PlayNotesExercise extends BaseExercise {
-  type: "play_single_note";
+  type: "play_single_note" | "play_single_note_stave";
   notes: NoteValue[];
 }
 
 export type ExerciseTypes =
   | "play_scale"
   | "play_single_note"
+  | "play_single_note_stave"
   | "identify_scales"
   | "identify_scales_accidentals";
 
