@@ -1,9 +1,6 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "../Note.module.css";
-import type { NoteType } from "@/types/lessons.types";
-import { usePiano } from "@/context/PianoContext";
-import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
-import { CheckResponseNote } from "@/context/ExerciseContext";
+import type { NoteType } from "@/types/piano.types";
 
 const NOTE_MAPPING = {
   q: "♩",
@@ -24,8 +21,6 @@ interface NoteProps {
 }
 
 const Note: React.FC<NoteProps> = ({ note, noteLength = "q" }) => {
-  const { playedNotes, currentExercise, checkResponse } = usePiano();
-
   // Determine accidental information
   const isSharp = note.noteName.includes("#");
   const isFlat = note.noteName.includes("b");
@@ -34,31 +29,6 @@ const Note: React.FC<NoteProps> = ({ note, noteLength = "q" }) => {
   const noteLetter = note.noteName.replace(/[#b]/, "");
   const noteCombo = `${noteLetter}${note.octave}`;
   const needLine = noteCombo === "C4" || noteCombo === "B5";
-
-  // Memoize expected notes based on currentExercise
-  const expectedNotes = useMemo(
-    () => calculateExpectedNotesWithOctaves(currentExercise.notes, 4),
-    [currentExercise.notes]
-  );
-
-  // Memoize note matching and status feedback
-  const { noteIsNextKey, noteStatus } = useMemo(() => {
-    const noteIsNextKey = expectedNotes[playedNotes.length] === note.value;
-    const noteFeedback = checkResponse?.notes.find(
-      (feedback: CheckResponseNote) =>
-        `${feedback.note}${feedback.octave}` === note.value
-    );
-    const noteStatus = noteFeedback?.status === "correct" ? "correct" : "wrong";
-    return { noteIsNextKey, noteStatus };
-  }, [expectedNotes, playedNotes.length, note.value, checkResponse]);
-
-  // Apply feedback class if checkResponse exists and noteStatus is defined.
-  const feedbackClass =
-    checkResponse && noteStatus
-      ? styles[noteStatus]
-      : noteIsNextKey
-      ? styles["nextKey"]
-      : "";
 
   // Determine accidental symbol if present
   const accidentalSymbol = isFlat
@@ -76,11 +46,9 @@ const Note: React.FC<NoteProps> = ({ note, noteLength = "q" }) => {
       }}
     >
       {accidentalSymbol && (
-        <span className={`${styles.sharp} ${feedbackClass}`}>
-          {accidentalSymbol}
-        </span>
+        <span className={`${styles.sharp} `}>{accidentalSymbol}</span>
       )}
-      <span className={`${styles.note} ${feedbackClass}`}>
+      <span className={`${styles.note} `}>
         {NOTE_MAPPING[noteLength]}
         {needLine && <span className={styles.noteLine}></span>}
       </span>

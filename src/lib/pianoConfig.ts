@@ -57,7 +57,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[3]}`,
-    value: [WHITE_KEYS[3]],
+    value: [WHITE_KEYS[3], "E#"],
     octave: 4,
     midiKey: 65,
     keyboardKey: "f",
@@ -154,7 +154,7 @@ export const KEYS: Key[] = [
   {
     type: "white",
     label: `${WHITE_KEYS[3]}`,
-    value: [WHITE_KEYS[3]],
+    value: [WHITE_KEYS[3], "E#"],
     octave: 5,
     midiKey: 77,
     keyboardKey: "F",

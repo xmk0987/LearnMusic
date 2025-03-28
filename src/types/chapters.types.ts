@@ -1,3 +1,5 @@
+import { NoteValue } from "./piano.types";
+
 export interface Chapter {
   id: string;
   name: string;
@@ -33,7 +35,7 @@ export interface ScaleExercise extends BaseExercise {
 
 export interface PlayNotesExercise extends BaseExercise {
   type: "play_single_note";
-  notes: string[];
+  notes: NoteValue[];
 }
 
 export type ExerciseTypes =

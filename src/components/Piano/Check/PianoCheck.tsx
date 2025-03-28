@@ -3,18 +3,20 @@ import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import styles from "./PianoCheck.module.css";
 import { usePiano } from "@/context/PianoContext";
 import PianoColorLabels from "./PianoColorLabels";
+import { useExercise } from "@/context/ExerciseContext";
 
 const PianoCheck = () => {
-  const {
-    checkResponse,
-    resetNotes,
-    goToNextExercise,
-    isLastExercise,
-    uiSettings,
-    toggleSetting,
-  } = usePiano();
+  const { exerciseConfig, uiSettings, toggleSetting } = usePiano();
+  const { isLastExercise, goToNextExercise } = useExercise();
 
-  if (!checkResponse) return null;
+  if (
+    !(
+      exerciseConfig.exercise.type === "play_scale" &&
+      exerciseConfig.exerciseFinished &&
+      exerciseConfig.exerciseFeedback
+    )
+  )
+    return null;
 
   return (
     <>
@@ -24,18 +26,22 @@ const PianoCheck = () => {
           onClick={() => toggleSetting("showCheckModal")}
         >
           <div className="modalContent">
-            <p className={styles.message}>{checkResponse?.message}</p>
+            <p className={styles.message}>
+              {exerciseConfig.exerciseFeedback.message}
+            </p>
             <div className={styles.buttons}>
               <PrimaryButton
                 text={"Try again"}
-                onClick={resetNotes}
+                onClick={exerciseConfig.resetExercise}
                 color="red"
               />
-              {checkResponse.completed && (
+              {exerciseConfig.exerciseFeedback.allCorrect && (
                 <PrimaryButton
-                  text={isLastExercise ? "Go back to lessons" : "Next exercise"}
+                  text={
+                    isLastExercise ? "Go to chapter" : "Go to next exercise"
+                  }
                   onClick={goToNextExercise}
-                  color="green"
+                  color={"green"}
                 />
               )}
             </div>

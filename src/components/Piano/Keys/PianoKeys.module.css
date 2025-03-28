@@ -93,14 +93,6 @@
   border: 1px solid black;
 }
 
-.wrong {
-  background-color: var(--wrong-note);
-}
-
-.correct {
-  background-color: var(--right-note);
-}
-
 .played.wrong {
   color: var(--wrong-note);
   border: 1px solid var(--wrong-note);
@@ -114,6 +106,14 @@
 .played.wrongPosition {
   color: var(--wrong-note-position);
   border: 1px solid var(--wrong-note-position);
+}
+
+.key.wrong:not(.played) {
+  background-color: var(--wrong-note);
+}
+
+.key.correct:not(.played) {
+  background-color: var(--right-note);
 }
 
 .activeNote {

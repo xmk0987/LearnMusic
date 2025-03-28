@@ -2,17 +2,12 @@ import React, { useEffect, useCallback, useState } from "react";
 import type { PlayNotesExercise as PlayNoteExercise } from "@/types/chapters.types";
 import Piano from "@/components/Piano/Piano";
 import styles from "./Exercises.module.css";
-import { Key } from "@/types/piano.types";
+import { ExerciseFeedback, Key } from "@/types/piano.types";
 
 interface PlayNoteExerciseProps {
   isTest: boolean;
   exercise: PlayNoteExercise;
 }
-
-export type NoteFeedback = {
-  [note: string]: "correct" | "wrong" | null;
-};
-
 const PlayNoteExercise: React.FC<PlayNoteExerciseProps> = ({
   exercise,
   isTest,
@@ -20,7 +15,11 @@ const PlayNoteExercise: React.FC<PlayNoteExerciseProps> = ({
   const [usedNotes, setUsedNotes] = useState<number[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentNoteIndex, setCurrentNoteIndex] = useState<number | null>(null);
-  const [noteFeedback, setNoteFeedback] = useState<NoteFeedback | null>(null);
+  const [exerciseFeedback, setExerciseFeedback] = useState<ExerciseFeedback>({
+    message: "",
+    notes: {},
+    allCorrect: false,
+  });
   const [exerciseFinished, setExerciseFinished] = useState<boolean>(false);
 
   const getRandomNoteIndex = useCallback(() => {
@@ -28,7 +27,6 @@ const PlayNoteExercise: React.FC<PlayNoteExerciseProps> = ({
       (_, index) => !usedNotes.includes(index)
     );
     if (availableNotes.length === 0) {
-      console.log("exercise finished");
       setExerciseFinished(true);
       return null;
     }
@@ -39,29 +37,37 @@ const PlayNoteExercise: React.FC<PlayNoteExerciseProps> = ({
   const handleNotePlayed = (key: Key) => {
     if (loading || exerciseFinished) return;
 
-    const noteKey = `${key.label}/${key.octave}`;
+    const possiblePlayedNotes = key.value.map((note) => `${note}`);
 
-    if (
-      currentNoteIndex !== null &&
-      key.value.includes(exercise.notes[currentNoteIndex])
-    ) {
+    const matchingNote = possiblePlayedNotes.find(
+      (note) =>
+        currentNoteIndex !== null && note === exercise.notes[currentNoteIndex]
+    );
+
+    const isCorrect = matchingNote !== undefined;
+    const feedbackKey = (matchingNote || possiblePlayedNotes[0]) + key.octave;
+    setExerciseFeedback((prevFeedback) => ({
+      ...prevFeedback,
+      notes: {
+        ...prevFeedback.notes,
+        [feedbackKey]: isCorrect ? "correct" : "wrong",
+      },
+    }));
+
+    if (isCorrect) {
       setLoading(true);
-      setNoteFeedback((prevFeedback) => ({
-        ...prevFeedback,
-        [noteKey]: "correct",
-      }));
-
-      setUsedNotes((prevNotes) => [...prevNotes, currentNoteIndex]);
+      if (currentNoteIndex !== null) {
+        setUsedNotes((prevNotes) => [...prevNotes, currentNoteIndex]);
+      }
 
       setTimeout(() => {
-        setNoteFeedback(null);
+        setExerciseFeedback({
+          message: "",
+          notes: {},
+          allCorrect: false,
+        });
         setLoading(false);
       }, 1000);
-    } else {
-      setNoteFeedback((prevFeedback) => ({
-        ...prevFeedback,
-        [noteKey]: "wrong",
-      }));
     }
   };
 
@@ -70,24 +76,26 @@ const PlayNoteExercise: React.FC<PlayNoteExerciseProps> = ({
       const nextNoteIndex = getRandomNoteIndex();
       setCurrentNoteIndex(nextNoteIndex);
     } else {
-      console.log("Comes here");
       setCurrentNoteIndex(null);
       setExerciseFinished(true);
     }
-  }, [usedNotes]);
+  }, [exercise.notes.length, getRandomNoteIndex, usedNotes]);
 
   const resetExercise = () => {
-    console.log("reset");
     setUsedNotes([]);
     setExerciseFinished(false);
-    setNoteFeedback(null);
+    setExerciseFeedback({
+      message: "",
+      notes: {},
+      allCorrect: false,
+    });
   };
 
   const exerciseConfig = {
     exercise,
     isTest,
     handleKeyClick: handleNotePlayed,
-    noteFeedback,
+    exerciseFeedback,
     exerciseFinished,
     resetExercise,
   };

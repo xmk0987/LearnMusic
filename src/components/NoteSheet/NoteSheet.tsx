@@ -2,22 +2,23 @@ import React from "react";
 import styles from "./NoteSheet.module.css";
 import Note from "../MusicNotes/Note/Note";
 import Clef from "../MusicNotes/Clef/Clef";
-import { usePiano } from "@/context/PianoContext";
 import { getNoteObjects } from "@/utils/helpers";
-import type { NoteType } from "@/types/lessons.types";
+import type { NoteType } from "@/types/piano.types";
 
 const staffLines = ["F5", "D5", "B4", "G4", "E4"];
+
+interface NoteSheetProps {
+  notes: string[];
+}
 
 /**
  * NoteSheet Component
  * Renders a note sheet grid with a fixed-width clef column and dynamic note columns.
  */
-const NoteSheet = () => {
-  const { currentExercise } = usePiano();
+const NoteSheet: React.FC<NoteSheetProps> = ({ notes }) => {
+  const parsedNotes = getNoteObjects(notes);
 
-  const notes = getNoteObjects(currentExercise.notes, currentExercise.useFlats);
-
-  const gridTemplateColumns = `70px repeat(${notes.length}, 1fr)`;
+  const gridTemplateColumns = `70px repeat(${parsedNotes.length}, 1fr)`;
 
   return (
     <div className={styles.container}>
@@ -31,7 +32,7 @@ const NoteSheet = () => {
           />
         ))}
         <Clef />
-        {notes.map((note: NoteType) => (
+        {parsedNotes.map((note: NoteType) => (
           <Note key={`${note.noteName}-${note.position}`} note={note} />
         ))}
       </div>

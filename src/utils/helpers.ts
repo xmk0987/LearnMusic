@@ -1,4 +1,4 @@
-import type { NoteValue } from "@/types/lessons.types";
+import type { NoteValue } from "@/types/piano.types";
 
 export function capitalizeFirstLetter(val: string) {
   return String(val).charAt(0).toUpperCase() + String(val).slice(1);
@@ -6,28 +6,32 @@ export function capitalizeFirstLetter(val: string) {
 
 // Helper to calculate expected note strings with correct octaves
 export const calculateExpectedNotesWithOctaves = (
-  notes: string[],
+  notes: NoteValue[],
   startingOctave: number
 ): string[] => {
   const noteMap: { [key: string]: number } = {
     C: 0,
-    "C#/Db": 1,
     "C#": 1,
-
+    "C#/Db": 1,
+    Db: 1,
     D: 2,
     "D#": 3,
     "D#/Eb": 3,
+    Eb: 3,
     E: 4,
     "E#": 5,
     F: 5,
     "F#": 6,
     "F#/Gb": 6,
+    Gb: 6,
     G: 7,
     "G#": 8,
     "G#/Ab": 8,
+    Ab: 8,
     A: 9,
     "A#": 10,
     "A#/Bb": 10,
+    Bb: 10,
     B: 11,
   };
 
@@ -43,28 +47,16 @@ export const calculateExpectedNotesWithOctaves = (
   });
 };
 
-export const getNoteObjects = (notes: string[], useFlats = false) => {
-  const notesWithOctaves = calculateExpectedNotesWithOctaves(notes, 4);
-
-  return notesWithOctaves.map((note: string, index) => {
+export const getNoteObjects = (notes: string[]) => {
+  return notes.map((note: string, index) => {
     const match = note.match(/([A-G]#?b?\/?[A-G]?#?b?)(\d)/);
     if (!match) {
       throw new Error(`Invalid note format: ${note}`);
     }
     const [, noteName, octave] = match;
 
-    let noteNameToUse = noteName;
-    if (noteName.includes("/")) {
-      const [sharpNote, flatNote] = noteName.split("/");
-      if (useFlats === true) {
-        noteNameToUse = flatNote;
-      } else {
-        noteNameToUse = sharpNote;
-      }
-    }
-
     return {
-      noteName: noteNameToUse as NoteValue,
+      noteName: noteName as NoteValue,
       octave: parseInt(octave, 10),
       position: index + 2,
       value: note,

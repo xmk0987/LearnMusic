@@ -10,12 +10,11 @@ export const PianoOptions = () => {
     isTest,
     uiSettings,
     toggleSetting,
-    playedNotes,
     handleCheckExercise,
     exerciseType,
     exerciseConfig,
   } = usePiano();
-  const { goToChapter } = useExercise();
+  const { isLastExercise, goToNextExercise } = useExercise();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -71,35 +70,70 @@ export const PianoOptions = () => {
         />
       </div>
       <div className={styles.optionsItem}>
-        {exerciseConfig.exercise.type !== "play_single_note" ? (
+        {exerciseConfig.exercise.type === "play_scale" && (
           <>
             <PrimaryButton
-              text={"Reset Played"}
+              text={
+                exerciseConfig.exerciseFinished ? "Try again" : "Reset Played"
+              }
               onClick={() => exerciseConfig.resetExercise()}
-              color={playedNotes.length === 0 ? "var(--secondary)" : "red"}
-              isDisabled={playedNotes.length === 0}
+              color={
+                exerciseConfig.playedNotes?.length === 0
+                  ? "var(--secondary)"
+                  : "red"
+              }
+              isDisabled={exerciseConfig.playedNotes?.length === 0}
             />
-            <PrimaryButton
-              text={"Check"}
-              onClick={handleCheckExercise}
-              isDisabled={playedNotes.length === 0}
-              color={playedNotes.length === 0 ? "var(--secondary)" : "green"}
-            />
+            {exerciseConfig.exerciseFinished &&
+            exerciseConfig.exerciseFeedback?.allCorrect ? (
+              <PrimaryButton
+                text={isLastExercise ? "Go to chapter" : "Go to next exercise"}
+                onClick={goToNextExercise}
+                color={
+                  exerciseConfig.playedNotes?.length === 0
+                    ? "var(--secondary)"
+                    : "green"
+                }
+              />
+            ) : !exerciseConfig.exerciseFinished ? (
+              <PrimaryButton
+                text={"Check"}
+                onClick={handleCheckExercise}
+                isDisabled={exerciseConfig.playedNotes?.length === 0}
+                color={
+                  exerciseConfig.playedNotes?.length === 0
+                    ? "var(--secondary)"
+                    : "green"
+                }
+              />
+            ) : null}
           </>
-        ) : exerciseConfig.exerciseFinished ? (
-          <>
-            <PrimaryButton
-              text={"Try Again"}
-              onClick={() => exerciseConfig.resetExercise()}
-              color={"red"}
-            />
-            <PrimaryButton
-              text={"Go Back"}
-              onClick={goToChapter}
-              color={"green"}
-            />
-          </>
-        ) : null}
+        )}
+        {exerciseConfig.exercise.type === "play_single_note" &&
+          exerciseConfig.exerciseFinished && (
+            <>
+              <PrimaryButton
+                text={
+                  exerciseConfig.exerciseFinished ? "Try again" : "Reset Played"
+                }
+                onClick={() => exerciseConfig.resetExercise()}
+                color={
+                  exerciseConfig.playedNotes?.length === 0
+                    ? "var(--secondary)"
+                    : "red"
+                }
+              />
+              <PrimaryButton
+                text={isLastExercise ? "Go to chapter" : "Go to next exercise"}
+                onClick={goToNextExercise}
+                color={
+                  exerciseConfig.playedNotes?.length === 0
+                    ? "var(--secondary)"
+                    : "green"
+                }
+              />
+            </>
+          )}
       </div>
     </div>
   );

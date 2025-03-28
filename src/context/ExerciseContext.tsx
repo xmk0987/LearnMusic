@@ -5,26 +5,13 @@ import { useEffect, useState, createContext, useContext, useMemo } from "react";
 import type { Chapter, Exercise } from "@/types/chapters.types";
 import { useChaptersData } from "./ChaptersContext";
 
-export interface CheckResponseNote {
-  note: string;
-  octave: number;
-  status: "correct" | "wrongPosition" | "wrong";
-}
-export interface CheckResponse {
-  completed: boolean;
-  message: string;
-  notes: CheckResponseNote[];
-}
-
 interface ExerciseContextValue {
   currentExercise: Exercise;
   currentChapter: Chapter;
   type: "test" | "practice";
-  checkResponse: CheckResponse | null;
   showHint: boolean;
   toggleShowHint: () => void;
   goToChapter: () => void;
-  closeCheckResponse: () => void;
   goToNextExercise: () => void;
   isLastExercise: boolean;
 }
@@ -49,9 +36,6 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 
   const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
   const [showHint, setShowHint] = useState(false);
-  const [checkResponse, setCheckResponse] = useState<CheckResponse | null>(
-    null
-  );
   const [error, setError] = useState<string | null>(null);
 
   const allExercises = useMemo(() => {
@@ -100,16 +84,16 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
     if (isLastExercise) {
       router.push(baseUrl);
     } else {
-      router.push(`${baseUrl}/${currentExercise.id + 1}?type=${type}`);
+      const currentExerciseIndex = allExercises.findIndex(
+        (ex) => ex.id === currentExercise.id
+      );
+      const nextExercise = allExercises[currentExerciseIndex + 1];
+      router.push(`${baseUrl}/${nextExercise.id}?type=${type}`);
     }
   };
 
   const toggleShowHint = () => {
     setShowHint(!showHint);
-  };
-
-  const closeCheckResponse = () => {
-    setCheckResponse(null);
   };
 
   return (
@@ -118,12 +102,10 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
         currentExercise,
         currentChapter,
         showHint,
-        checkResponse,
         isLastExercise,
         goToNextExercise,
         toggleShowHint,
         type,
-        closeCheckResponse,
         goToChapter,
       }}
     >
