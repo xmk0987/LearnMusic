@@ -1,8 +1,8 @@
-import type { ScaleExercise } from "@/types/chapters.types";
+import type { BaseExercise } from "@/types/chapters.types";
 import React from "react";
 
 interface IdentifyScalesExerciseProps {
-  exercise: ScaleExercise;
+  exercise: BaseExercise;
 }
 
 const IdentifyScalesExercise: React.FC<IdentifyScalesExerciseProps> = () => {

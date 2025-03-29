@@ -29,7 +29,7 @@ export interface BaseExercise {
 }
 
 export interface ScaleExercise extends BaseExercise {
-  type: "play_scale";
+  type: "play_scale" | "identify_scales" | "identify_scales_accidentals";
   scaleId: string;
 }
 
@@ -41,6 +41,8 @@ export interface PlayNotesExercise extends BaseExercise {
 export type ExerciseTypes =
   | "play_scale"
   | "play_single_note"
-  | "play_single_note_stave";
+  | "play_single_note_stave"
+  | "identify_scales"
+  | "identify_scales_accidentals";
 
 export type PracticeType = "test" | "practice";
