@@ -1,12 +1,14 @@
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: var(--margin-m);
   font: var(--font-noto-music);
   font-size: var(--piano-sheet-size);
   position: relative;
+  max-height: 280px;
 }
 
 .showLabels {

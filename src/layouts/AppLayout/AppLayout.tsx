@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import Header from "@/components/HeaderN/Header";
+import Header from "@/components/Header/Header";
 import styles from "./AppLayout.module.css";
 import { useSidebar } from "@/context/SidebarContext";
 

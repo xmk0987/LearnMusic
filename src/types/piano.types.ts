@@ -24,12 +24,13 @@ export type NoteFeedback = {
 export interface ExerciseConfig {
   exercise: PlayNotesExercise | ScaleExercise;
   isTest: boolean;
-  exerciseFeedback?: ExerciseFeedback | null;
   exerciseFinished: boolean;
+  resetExercise: () => void;
+  /* Dependend on exercise type */
+  exerciseFeedback?: ExerciseFeedback | null;
   playedNotes?: Key[];
   expectedNotes?: string[];
   handleKeyClick?: (key: Key) => void;
-  resetExercise: () => void;
   checkExercise?: () => void;
 }
 
