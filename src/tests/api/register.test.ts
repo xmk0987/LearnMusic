@@ -5,12 +5,7 @@ import { registerUser } from "@/server/services/authService";
 import { CustomError } from "@/lib/customError";
 
 jest.mock("@/lib/mongodb", () => ({
-  getDb: jest.fn().mockResolvedValue({
-    collection: jest.fn().mockReturnValue({
-      insertOne: jest.fn().mockResolvedValue({ insertedId: "123" }),
-      findOne: jest.fn().mockResolvedValue(null),
-    }),
-  }),
+  getDb: jest.fn(),
 }));
 
 jest.mock("@/server/services/authService", () => ({
@@ -130,7 +125,7 @@ describe("POST /api/auth/register", () => {
     expect(responseData.error).toBe("Method Not Allowed");
   });
 
-  it("should return 400 if email already taken", async () => {
+  it("should return status given by Custom Error with its message", async () => {
     (registerUser as jest.Mock).mockRejectedValueOnce(
       new CustomError(400, "User already exists")
     );
