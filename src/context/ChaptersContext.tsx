@@ -2,7 +2,7 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import { useParams, useRouter } from "next/navigation";
 import type { Chapter, PracticeType } from "@/types/chapters.types";
-import chaptersData from "@/lessons/chapters.json";
+import chaptersData from "@/data/chapters.json";
 
 interface ChaptersContextValue {
   chapters: Chapter[];

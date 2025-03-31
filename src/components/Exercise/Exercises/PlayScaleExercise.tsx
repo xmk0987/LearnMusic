@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import type { ScaleExercise } from "@/types/chapters.types";
 import styles from "./Exercises.module.css";
-import scalesData from "@/lessons/scales.json";
+import scalesData from "@/data/scales.json";
 import type {
   Key,
   NoteValue,

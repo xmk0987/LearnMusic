@@ -28,9 +28,10 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
   children,
 }) => {
   const router = useRouter();
-  const { exerciseId } = useParams<{ exerciseId: string }>();
+  const params = useParams<{ exerciseId: string }>();
+  const exerciseId = params?.exerciseId || null;
   const searchParams = useSearchParams();
-  const type = (searchParams.get("type") as "test" | "practice") || "practice";
+  const type = (searchParams?.get("type") as "test" | "practice") || "practice";
 
   const { currentChapter } = useChaptersData();
 
@@ -49,7 +50,7 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
   useEffect(() => {
     if (!currentChapter) {
       setError("Chapter not found");
-      router.push("/lessons");
+      router.push("/chapters");
     }
   }, [currentChapter, router]);
 
