@@ -16,7 +16,10 @@ const UserSchema = new Schema<IUser>(
       minlength: [3, "Username must be at least 3 characters long"],
       maxlength: [20, "Username can be only 20 characters long"],
       validate: {
-        validator: (value: string) => !/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u.test(value),
+        validator: (value: string) =>
+          !/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u.test(
+            value
+          ),
         message: "Username must not contain emojis",
       },
     },
@@ -28,12 +31,7 @@ const UserSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
-      minlength: [8, "Password must be at least 8 characters long"],
-      match: [
-        /^(?=.*[0-9])(?=.*[!@#$%^&*])/,
-        "Password must contain at least one number and one special character",
-      ],
+      required: true,
     },
   },
   { timestamps: true }

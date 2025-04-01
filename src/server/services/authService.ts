@@ -4,6 +4,23 @@ import User from "../dbModels/User";
 import connectDB from "@/lib/db";
 import { handleErrors } from "@/utils/errorHandler";
 
+function validatePassword(password: string) {
+  if (password.length < 8) {
+    throw new CustomError(400, "Password must be at least 8 characters long");
+  }
+
+  if (!/[0-9]/.test(password)) {
+    throw new CustomError(400, "Password must contain at least one number");
+  }
+
+  if (!/[!@#$%^&*]/.test(password)) {
+    throw new CustomError(
+      400,
+      "Password must contain at least one special character"
+    );
+  }
+}
+
 /**
  * Registers a new user with hashed password.
  * @param username - The username of the user
@@ -28,6 +45,7 @@ export async function registerUser(
           : "Username is already taken"
       );
     }
+    validatePassword(password);
 
     const hashedPassword = await bcrypt.hash(password, 10);
 

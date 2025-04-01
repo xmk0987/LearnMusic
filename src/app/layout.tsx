@@ -5,6 +5,7 @@ import { AudioContextProvider } from "@/context/AudioContext";
 import { SidebarProvider } from "@/context/SidebarContext";
 import AppLayout from "../layouts/AppLayout/AppLayout";
 import { ChaptersProvider } from "@/context/ChaptersContext";
+import { NotificationProvider } from "@/context/NotificationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,13 +38,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoMusic.variable} antialiased`}
       >
-        <ChaptersProvider>
-          <AudioContextProvider>
-            <SidebarProvider>
-              <AppLayout>{children}</AppLayout>
-            </SidebarProvider>
-          </AudioContextProvider>
-        </ChaptersProvider>
+        <NotificationProvider>
+          <ChaptersProvider>
+            <AudioContextProvider>
+              <SidebarProvider>
+                <AppLayout>{children}</AppLayout>
+              </SidebarProvider>
+            </AudioContextProvider>
+          </ChaptersProvider>
+        </NotificationProvider>
       </body>
     </html>
   );

@@ -33,6 +33,9 @@
   --accent2: red;
 
   --border-radius: 15px;
+  --btn-radius: 5px;
+
+  --btn-padding: 5px 10px;
 
   --drop-shadow: 0 4px 6px 5px rgba(0, 0, 0, 0.25);
   --drop-shadow-s: 0 2px 5px 2px rgba(0, 0, 0, 0.25);
@@ -126,7 +129,6 @@ button:disabled:hover {
   flex-basis: auto;
   z-index: 1001;
 }
-
 
 @media only screen and (max-width: 350px) {
   :root {

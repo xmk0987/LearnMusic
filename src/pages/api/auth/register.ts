@@ -21,7 +21,9 @@ export default async function handler(
     }
 
     const user = await registerUser(username, email, password);
-    return res.status(201).json({ user });
+    return res
+      .status(201)
+      .json({ user, message: "Register successful, you can now login" });
   } catch (error) {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message });

@@ -1,0 +1,21 @@
+.container {
+  width: 500px;
+  padding: var(--margin-m);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-xs);
+}
+
+.container form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-xs);
+  font-size: var(--s-font);
+}
+
+.container form input {
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--border-color);
+  padding: var(--btn-padding);
+}

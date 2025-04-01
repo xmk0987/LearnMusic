@@ -3,12 +3,54 @@
   height: 50px;
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--margin-m);
   border-bottom: 0.1px solid var(--border-color);
+  padding: 0 20px;
+}
+
+.headerItems {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--margin-m);
+}
+
+.headerItems nav {
+  height: 100%;
+}
+
+.headerItems nav ul {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--margin-m);
+  font-size: var(--xs-font);
+}
+
+.headerItems nav ul li:nth-of-type(2) {
+  padding: var(--btn-padding);
+  border-radius: var(--btn-radius);
+  background-color: var(--accent);
+  color: var(--contrast-text);
+  font-weight: 600;
+  box-shadow: var(--drop-shadow-s);
+}
+
+.headerItems nav ul li:nth-of-type(2):hover {
+  background-color: var(--special);
+  cursor: pointer;
+}
+
+.headerItems nav ul li:nth-of-type(1):hover {
+  color: var(--special);
+}
+
+.headerItems nav ul li:nth-of-type(2):active {
+  box-shadow: none;
 }
 
 .titleContainer button {
-  width: 50px;
   height: 100%;
   display: flex;
   align-items: center;

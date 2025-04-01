@@ -200,39 +200,9 @@ describe("registerUser", () => {
         expect(error).toBeInstanceOf(CustomError);
         if (error instanceof CustomError) {
           expect(error.statusCode).toBe(400);
-          expect(error.message).toBe("Password is required");
-        }
-      }
-      expect(connectDB).toHaveBeenCalled();
-    });
-
-    it("should throw an error if password is missing", async () => {
-      (connectDB as jest.Mock).mockResolvedValue(undefined);
-      (User.findOne as jest.Mock).mockResolvedValue(null);
-
-      try {
-        await registerUser("testuser", "test@example.com", "");
-      } catch (error) {
-        expect(error).toBeInstanceOf(CustomError);
-        if (error instanceof CustomError) {
-          expect(error.statusCode).toBe(400);
-          expect(error.message).toBe("Password is required");
-        }
-      }
-      expect(connectDB).toHaveBeenCalled();
-    });
-
-    it("should throw an error if password is missing", async () => {
-      (connectDB as jest.Mock).mockResolvedValue(undefined);
-      (User.findOne as jest.Mock).mockResolvedValue(null);
-
-      try {
-        await registerUser("testuser", "test@example.com", "");
-      } catch (error) {
-        expect(error).toBeInstanceOf(CustomError);
-        if (error instanceof CustomError) {
-          expect(error.statusCode).toBe(400);
-          expect(error.message).toBe("Password is required");
+          expect(error.message).toBe(
+            "Password must be at least 8 characters long"
+          );
         }
       }
       expect(connectDB).toHaveBeenCalled();
@@ -261,13 +231,13 @@ describe("registerUser", () => {
       (User.findOne as jest.Mock).mockResolvedValue(null);
 
       try {
-        await registerUser("testuser", "test@example.com", "passwordnospecial");
+        await registerUser("testuser", "test@example.com", "passwordnospecial2");
       } catch (error) {
         expect(error).toBeInstanceOf(CustomError);
         if (error instanceof CustomError) {
           expect(error.statusCode).toBe(400);
           expect(error.message).toBe(
-            "Password must contain at least one number and one special character"
+            "Password must contain at least one special character"
           );
         }
       }
@@ -289,7 +259,7 @@ describe("registerUser", () => {
         if (error instanceof CustomError) {
           expect(error.statusCode).toBe(400);
           expect(error.message).toBe(
-            "Password must contain at least one number and one special character"
+            "Password must contain at least one number"
           );
         }
       }

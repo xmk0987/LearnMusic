@@ -33,7 +33,8 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const { chapterId } = useParams<{ chapterId: string }>();
+  const params = useParams<{ chapterId: string }>();
+  const chapterId = params?.chapterId || null;
 
   useEffect(() => {
     setChapters(chaptersData.chapters as Chapter[]);

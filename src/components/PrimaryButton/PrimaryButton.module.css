@@ -1,8 +1,8 @@
 .button {
-  padding: 5px 10px;
+  padding: var(--btn-padding);
   font-size: var(--xs-font);
-  border-radius: 5px;
-  color: white;
+  border-radius: var(--btn-radius);
+  color: var(--contrast-text);
   font-weight: 600;
   box-shadow: var(--drop-shadow-s);
 }

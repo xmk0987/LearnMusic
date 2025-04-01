@@ -8,6 +8,7 @@
   line-height: 1.7;
   overflow-y: scroll;
   --sb-width: 12.5rem;
+  position: relative;
 }
 
 .sidebar {
@@ -36,6 +37,7 @@
   padding: var(--margin-m) var(--margin-xl);
   transition: margin-left 0.5s ease-in-out;
   overflow-y: scroll;
+  position: relative;
 }
 
 @media only screen and (min-width: 768px) {

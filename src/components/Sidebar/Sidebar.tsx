@@ -4,11 +4,10 @@ import { useState } from "react";
 import styles from "./Sidebar.module.css";
 import { capitalizeFirstLetter } from "@/utils/helpers";
 import { ChevronDownIcon, ChevronRightIcon } from "@/assets/icons";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Sidebar = () => {
-  const { chapters, goToExercise } = useChaptersData();
-  const router = useRouter();
+  const { chapters } = useChaptersData();
 
   const [expandedChapters, setExpandedChapters] = useState<Set<string>>(
     new Set()
@@ -58,15 +57,10 @@ const Sidebar = () => {
     });
   };
 
-  const goToSection = (chapterId: string, sectionTitle: string) => {
-    const encodedSectionTitle = encodeURIComponent(sectionTitle);
-    router.push(`/chapters/${chapterId}#${encodedSectionTitle}`);
-  };
-
   return (
     <div className={styles.container}>
       <h2>Learn</h2>
-      <div className={styles.categories}>
+      <nav className={styles.categories}>
         {chapters.map((chapter) => (
           <div key={chapter.id} className={styles.items}>
             <div
@@ -117,13 +111,13 @@ const Sidebar = () => {
                       >
                         <div className={`${styles.items} `}>
                           <div className={`${styles.sidebarItem}`}>
-                            <button
-                              onClick={() =>
-                                goToSection(chapter.id, section.title)
-                              }
+                            <Link
+                              href={`/chapters/${
+                                chapter.id
+                              }#${encodeURIComponent(section.title)}`}
                             >
                               Go to Section
-                            </button>
+                            </Link>
                           </div>
                         </div>
                         {section.exercises && (
@@ -160,17 +154,11 @@ const Sidebar = () => {
                                   className={`${styles.items} `}
                                 >
                                   <div className={`${styles.sidebarItem}`}>
-                                    <button
-                                      onClick={() =>
-                                        goToExercise(
-                                          exercise.id,
-                                          "practice",
-                                          chapter.id
-                                        )
-                                      }
+                                    <Link
+                                      href={`/chapters/${chapter.id}/${exercise.id}?type=practice`}
                                     >
                                       {exercise.title}
-                                    </button>
+                                    </Link>
                                   </div>
                                 </div>
                               ))}
@@ -184,7 +172,7 @@ const Sidebar = () => {
             )}
           </div>
         ))}
-      </div>
+      </nav>
     </div>
   );
 };
