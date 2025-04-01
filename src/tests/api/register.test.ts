@@ -1,13 +1,13 @@
 import { createMocks } from "node-mocks-http";
 import handler from "@/pages/api/auth/register";
-import { getDb } from "@/lib/mongodb";
 import { registerUser } from "@/server/services/authService";
 import { CustomError } from "@/lib/customError";
 
-jest.mock("@/lib/mongodb", () => ({
-  getDb: jest.fn(),
+jest.mock("@/lib/db", () => jest.fn());
+jest.mock("@/server/dbModels/User", () => ({
+  findOne: jest.fn(),
+  save: jest.fn(),
 }));
-
 jest.mock("@/server/services/authService", () => ({
   registerUser: jest.fn(),
 }));
@@ -129,15 +129,6 @@ describe("POST /api/auth/register", () => {
     (registerUser as jest.Mock).mockRejectedValueOnce(
       new CustomError(400, "User already exists")
     );
-
-    const dbMock = {
-      collection: jest.fn().mockReturnValueOnce({
-        findOne: jest.fn().mockResolvedValue({
-          email: "john@example.com",
-        }),
-      }),
-    };
-    (getDb as jest.Mock).mockResolvedValue(dbMock);
 
     const newUser = {
       username: "john_doe",
