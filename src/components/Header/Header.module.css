@@ -28,7 +28,7 @@
   font-size: var(--xs-font);
 }
 
-.headerItems nav ul li:nth-of-type(2) {
+.linkButton {
   padding: var(--btn-padding);
   border-radius: var(--btn-radius);
   background-color: var(--accent);
@@ -37,7 +37,7 @@
   box-shadow: var(--drop-shadow-s);
 }
 
-.headerItems nav ul li:nth-of-type(2):hover {
+.linkButton:hover {
   background-color: var(--special);
   cursor: pointer;
 }
@@ -46,7 +46,7 @@
   color: var(--special);
 }
 
-.headerItems nav ul li:nth-of-type(2):active {
+.linkButton:active {
   box-shadow: none;
 }
 

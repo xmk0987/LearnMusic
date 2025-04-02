@@ -14,8 +14,23 @@
   font-size: var(--s-font);
 }
 
-.container form input {
+.formItem {
+  width: 100%;
+}
+
+.formItem input {
+  width: 100%;
   border-radius: var(--btn-radius);
   border: 1px solid var(--border-color);
   padding: var(--btn-padding);
+}
+
+.inputError {
+  border-color: red !important;
+}
+
+.errorText {
+  color: red;
+  font-size: var(--xs-font);
+  margin-top: 5px;
 }

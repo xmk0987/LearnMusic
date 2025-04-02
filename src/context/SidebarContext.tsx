@@ -17,12 +17,7 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 export const SidebarProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("isSidebarOpen") === "true";
-    }
-    return false;
-  });
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
 
   useEffect(() => {
     sessionStorage.setItem("isSidebarOpen", String(isSidebarOpen));

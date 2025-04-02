@@ -1,35 +1,41 @@
+"use server";
 import { CustomError } from "@/lib/customError";
 import mongoose from "mongoose";
 import { MongoServerError } from "mongodb";
 
-export function handleErrors(error: unknown) {
+type ServerError = {
+  errors: {
+    server?: string;
+  };
+};
+
+export async function handleErrors(error: unknown): Promise<ServerError> {
   if (error instanceof CustomError) {
-    throw error; // Preserve the original CustomError and rethrow it
+    return { errors: { server: error.message } };
   }
 
   if (error instanceof mongoose.Error.ValidationError) {
-    throw new CustomError(400, error.message);
+    return { errors: { server: `Validation error: ${error.message}` } };
   }
 
   if (error instanceof mongoose.Error.CastError) {
-    throw new CustomError(
-      400,
-      `Invalid value for ${error.path}: ${error.value}`
-    );
+    return {
+      errors: { server: `Invalid value for ${error.path}: ${error.value}` },
+    };
   }
 
   if (error instanceof MongoServerError && error.code === 11000) {
     const field = Object.keys(error.keyPattern || {})[0] || "Field";
-    throw new CustomError(400, `${field} is already taken`);
+    return { errors: { server: `${field} is already taken` } };
   }
 
   if (error instanceof mongoose.Error) {
-    throw new CustomError(500, `Mongoose error: ${error.message}`);
+    return { errors: { server: `Mongoose error: ${error.message}` } };
   }
 
   if (error instanceof Error) {
-    throw new CustomError(500, `Internal server error: ${error.message}`);
+    return { errors: { server: `Internal server error: ${error.message}` } };
   }
 
-  throw new CustomError(500, "Unknown server error");
+  return { errors: { server: "Unknown server error" } };
 }

@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useCallback,
+} from "react";
 
 type NotificationType = "info" | "success" | "error";
 type NotificationTarget = "global" | "login" | "register";
@@ -30,16 +36,19 @@ export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const addNotification = (
-    message: string,
-    type: NotificationType = "info",
-    target: NotificationTarget = "global"
-  ) => {
-    const id = Date.now();
-    setNotifications((prev) => [...prev, { id, message, type, target }]);
+  const addNotification = useCallback(
+    (
+      message: string,
+      type: NotificationType = "info",
+      target: NotificationTarget = "global"
+    ) => {
+      const id = Date.now();
+      setNotifications((prev) => [...prev, { id, message, type, target }]);
 
-    setTimeout(() => removeNotification(id), 5000);
-  };
+      setTimeout(() => removeNotification(id), 5000);
+    },
+    []
+  );
 
   const removeNotification = (id: number) => {
     setNotifications((prev) => prev.filter((notif) => notif.id !== id));
