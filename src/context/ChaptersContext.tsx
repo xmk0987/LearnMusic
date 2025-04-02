@@ -42,19 +42,19 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
   }, []);
 
   useEffect(() => {
-    if (chapterId) {
+    if (chapterId && !loading) {
       setLoading(true);
       const foundChapter = chapters.find((c) => c.id === chapterId);
-      setCurrentChapter(foundChapter);
       if (foundChapter) {
         setCurrentChapter(foundChapter);
         setError(null);
       } else {
         setError("Chapter not found");
+        router.push("/chapters");
       }
-      setLoading(false);
     }
-  }, [chapterId, chapters]);
+    setLoading(false);
+  }, [chapterId, chapters, loading, router]);
 
   const goToExercise = (
     exerciseId: string,
@@ -63,8 +63,6 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
   ) => {
     router.push(`/chapters/${chapterId}/${exerciseId}?type=${type}`);
   };
-
-  if (loading) return <h1>Loading chapters</h1>;
 
   if (error) {
     return <h1>{error || "Chapter not found"}</h1>;

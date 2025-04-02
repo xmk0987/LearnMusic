@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./ExerciseCard.module.css";
 import { BaseExercise, PracticeType } from "@/types/chapters.types";
 import { GoIcon } from "@/assets/icons";
+import { useUser } from "@/context/UserContext";
 
 interface ExerciseCardProps {
   exercise: BaseExercise;
@@ -13,10 +14,11 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
   goToExercise,
 }) => {
+  const { user } = useUser();
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-        <span className={styles.completed}>X</span>
+        {user && <span className={styles.completed}>X</span>}
         <p>{exercise.title}</p>
       </div>
       <div className={styles.cardInfo}>
@@ -29,15 +31,17 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           </span>
           Practice
         </button>
-        <button
-          className={`${styles.circleButton} ${styles.test}`}
-          onClick={() => goToExercise(exercise.id, "test")}
-        >
-          <span>
-            <GoIcon color="white" />
-          </span>
-          Test
-        </button>
+        {user && (
+          <button
+            className={`${styles.circleButton} ${styles.test}`}
+            onClick={() => goToExercise(exercise.id, "test")}
+          >
+            <span>
+              <GoIcon color="white" />
+            </span>
+            Test
+          </button>
+        )}
       </div>
     </div>
   );

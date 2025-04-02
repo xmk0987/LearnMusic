@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState, createContext, useContext, useMemo } from "react";
 import type { Chapter, Exercise } from "@/types/chapters.types";
 import { useChaptersData } from "./ChaptersContext";
+import { useUser } from "./UserContext";
 
 interface ExerciseContextValue {
   currentExercise: Exercise;
@@ -30,6 +31,8 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
   const router = useRouter();
   const params = useParams<{ exerciseId: string }>();
   const exerciseId = params?.exerciseId || null;
+  const { user, loading } = useUser();
+
   const searchParams = useSearchParams();
   const type = (searchParams?.get("type") as "test" | "practice") || "practice";
 
@@ -53,6 +56,12 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
       router.push("/chapters");
     }
   }, [currentChapter, router]);
+
+  useEffect(() => {
+    if (type === "test" && !user && !loading) {
+      router.push("/login");
+    }
+  }, [loading, router, type, user]);
 
   useEffect(() => {
     if (exerciseId) {
