@@ -17,7 +17,6 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           isSidebarOpen ? styles.sbExpanded : ""
         }`}
       >
-        {/* Sidebar is always in the DOM but hidden via CSS */}
         <div
           className={`${styles.sidebar} ${
             !isSidebarOpen ? styles.sbClosing : ""

@@ -1,5 +1,4 @@
 "use server";
-import { CustomError } from "@/lib/customError";
 import mongoose from "mongoose";
 import { MongoServerError } from "mongodb";
 
@@ -10,10 +9,6 @@ type ServerError = {
 };
 
 export async function handleErrors(error: unknown): Promise<ServerError> {
-  if (error instanceof CustomError) {
-    return { errors: { server: error.message } };
-  }
-
   if (error instanceof mongoose.Error.ValidationError) {
     return { errors: { server: `Validation error: ${error.message}` } };
   }

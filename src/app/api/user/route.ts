@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/session";
 import connectDB from "@/lib/db";
-import User from "@/server/dbModels/User";
+import User from "@/dbModels/User";
 
 export async function GET() {
   const session = await getSession();

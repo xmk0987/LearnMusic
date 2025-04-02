@@ -5,7 +5,7 @@ import type { LoginResponse } from "@/types/responses/response.types";
 import connectDB from "@/lib/db";
 import { handleErrors } from "@/utils/errorHandler";
 import { createSession } from "@/lib/session";
-import User from "@/server/dbModels/User";
+import User from "@/dbModels/User";
 import type { PublicUser } from "@/types/user.types";
 
 const loginSchema = z.object({

@@ -1,6 +1,6 @@
 "use server";
 import { z } from "zod";
-import User from "@/server/dbModels/User";
+import User from "@/dbModels/User";
 import connectDB from "@/lib/db";
 import { handleErrors } from "@/utils/errorHandler";
 import type { RegisterResponse } from "@/types/responses/response.types";
