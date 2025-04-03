@@ -22,7 +22,6 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
   isTest,
 }) => {
   const [scale, setScale] = useState<NoteValue[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [exerciseFinished, setExerciseFinished] = useState<boolean>(false);
   const [playedNotes, setPlayedNotes] = useState<Key[]>([]);
   const [exerciseFeedback, setExerciseFeedback] = useState<ExerciseFeedback>({
@@ -38,7 +37,6 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
 
   useEffect(() => {
     if (exercise) {
-      setLoading(true);
       const foundScale = scalesData.scales.find(
         (s) => s.id === exercise.scaleId
       );
@@ -46,8 +44,6 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
         setScale(foundScale.notes as NoteValue[]);
       }
     }
-
-    setLoading(false);
   }, [exercise]);
 
   useEffect(() => {
@@ -133,13 +129,6 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
     setExerciseFinished(false);
     setExerciseFeedback({ message: "", notes: {}, allCorrect: false });
   };
-
-  if (loading)
-    return (
-      <div className={styles.container}>
-        <p>Loading exercise</p>
-      </div>
-    );
 
   const exerciseConfig = {
     exercise,

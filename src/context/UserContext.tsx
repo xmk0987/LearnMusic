@@ -29,8 +29,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       .then((response) => {
         setUser(response.data.user);
       })
-      .catch((error) => {
-        console.error("Error fetching user:", error.response.data.error);
+      .catch(() => {
         setUser(null);
       })
       .finally(() => setLoading(false));

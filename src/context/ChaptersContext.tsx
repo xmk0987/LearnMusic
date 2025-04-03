@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState, createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import type { Chapter, PracticeType } from "@/types/chapters.types";
 import chaptersData from "@/data/chapters.json";
 
 interface ChaptersContextValue {
   chapters: Chapter[];
-  currentChapter: Chapter | undefined;
+  currentChapter?: Chapter;
   goToExercise: (
     exerciseId: string,
     type?: PracticeType,
@@ -26,47 +26,24 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
   children,
 }) => {
   const router = useRouter();
-  const [chapters, setChapters] = useState<Chapter[]>([]);
-  const [currentChapter, setCurrentChapter] = useState<Chapter | undefined>(
-    undefined
+  const { chapterId } = useParams<{ chapterId: string }>();
+
+  const chapters = useMemo(() => chaptersData.chapters as Chapter[], []);
+
+  const currentChapter = useMemo(
+    () => chapters.find((c) => c.id === chapterId),
+    [chapters, chapterId]
   );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const params = useParams<{ chapterId: string }>();
-  const chapterId = params?.chapterId || null;
-
-  useEffect(() => {
-    setChapters(chaptersData.chapters as Chapter[]);
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    if (chapterId && !loading) {
-      setLoading(true);
-      const foundChapter = chapters.find((c) => c.id === chapterId);
-      if (foundChapter) {
-        setCurrentChapter(foundChapter);
-        setError(null);
-      } else {
-        setError("Chapter not found");
-        router.push("/chapters");
-      }
-    }
-    setLoading(false);
-  }, [chapterId, chapters, loading, router]);
 
   const goToExercise = (
     exerciseId: string,
-    type = "practice",
+    type: PracticeType = "practice",
     chapterId = currentChapter?.id
   ) => {
-    router.push(`/chapters/${chapterId}/${exerciseId}?type=${type}`);
+    if (chapterId) {
+      router.push(`/chapters/${chapterId}/${exerciseId}?type=${type}`);
+    }
   };
-
-  if (error) {
-    return <h1>{error || "Chapter not found"}</h1>;
-  }
 
   return (
     <ChaptersContext.Provider
@@ -79,7 +56,7 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
 
 export const useChaptersData = () => {
   const context = useContext(ChaptersContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useChaptersData must be used within a ChaptersProvider");
   }
   return context;

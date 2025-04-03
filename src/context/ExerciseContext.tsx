@@ -1,14 +1,13 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, createContext, useContext, useMemo } from "react";
 import type { Chapter, Exercise } from "@/types/chapters.types";
 import { useChaptersData } from "./ChaptersContext";
 import { useUser } from "./UserContext";
 
 interface ExerciseContextValue {
-  currentExercise: Exercise;
-  currentChapter: Chapter;
+  currentExercise?: Exercise;
+  currentChapter?: Chapter;
   type: "test" | "practice";
   showHint: boolean;
   toggleShowHint: () => void;
@@ -29,94 +28,81 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
   children,
 }) => {
   const router = useRouter();
-  const params = useParams<{ exerciseId: string }>();
-  const exerciseId = params?.exerciseId || null;
-  const { user, loading } = useUser();
-
+  const { exerciseId } = useParams<{ exerciseId: string }>();
   const searchParams = useSearchParams();
-  const type = (searchParams?.get("type") as "test" | "practice") || "practice";
-
   const { currentChapter } = useChaptersData();
+  const { user, loading: userLoading } = useUser();
 
-  const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
-  const [showHint, setShowHint] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const type = (searchParams?.get("type") as "test" | "practice") || "practice";
 
   const allExercises = useMemo(() => {
     return (
-      currentChapter?.lesson?.sections?.flatMap((section) =>
-        Array.isArray(section.exercises) ? section.exercises : []
+      currentChapter?.lesson?.sections?.flatMap(
+        (section) => section.exercises || []
       ) || []
     );
   }, [currentChapter]);
 
+  const currentExercise = useMemo(() => {
+    return allExercises.find((ex) => ex.id === exerciseId);
+  }, [allExercises, exerciseId]);
+
+  const isLastExercise = useMemo(() => {
+    return (
+      allExercises.length > 0 &&
+      allExercises[allExercises.length - 1].id === currentExercise?.id
+    );
+  }, [currentExercise, allExercises]);
+
   useEffect(() => {
     if (!currentChapter) {
-      setError("Chapter not found");
-      router.push("/chapters");
+      router.replace("/chapters");
     }
   }, [currentChapter, router]);
 
   useEffect(() => {
-    if (type === "test" && !user && !loading) {
-      router.push("/login");
+    if (type === "test" && !user && !userLoading) {
+      router.replace("/login");
     }
-  }, [loading, router, type, user]);
-
-  useEffect(() => {
-    if (exerciseId) {
-      const foundExercise = allExercises.find((ex) => ex.id === exerciseId);
-      if (foundExercise) {
-        setCurrentExercise(foundExercise);
-        setError(null);
-      } else {
-        setError("Exercise not found");
-      }
-    }
-  }, [allExercises, exerciseId]);
-
-  const isLastExercise = useMemo(() => {
-    return allExercises.length > 0
-      ? allExercises[allExercises.length - 1].id === currentExercise?.id
-      : false;
-  }, [currentExercise, allExercises]);
-
-  if (error || !currentExercise || !currentChapter) {
-    return <h1>{error || "Exercise not found"}</h1>;
-  }
+  }, [user, userLoading, type, router]);
 
   const goToChapter = () => {
-    router.push("/chapters/" + currentChapter.id);
+    if (currentChapter) {
+      router.push(`/chapters/${currentChapter.id}`);
+    }
   };
 
   const goToNextExercise = () => {
-    const baseUrl = `/chapters/${currentChapter.id}`;
-    if (isLastExercise) {
-      router.push(baseUrl);
-    } else {
-      const currentExerciseIndex = allExercises.findIndex(
+    if (currentChapter && currentExercise) {
+      const currentIndex = allExercises.findIndex(
         (ex) => ex.id === currentExercise.id
       );
-      const nextExercise = allExercises[currentExerciseIndex + 1];
-      router.push(`${baseUrl}/${nextExercise.id}?type=${type}`);
+      const nextExercise = allExercises[currentIndex + 1];
+
+      if (nextExercise) {
+        router.push(
+          `/chapters/${currentChapter.id}/${nextExercise.id}?type=${type}`
+        );
+      } else {
+        router.push(`/chapters/${currentChapter.id}`);
+      }
     }
   };
 
-  const toggleShowHint = () => {
-    setShowHint(!showHint);
-  };
+  const [showHint, setShowHint] = useState(false);
+  const toggleShowHint = () => setShowHint((prev) => !prev);
 
   return (
     <ExerciseContext.Provider
       value={{
         currentExercise,
         currentChapter,
-        showHint,
-        isLastExercise,
-        goToNextExercise,
-        toggleShowHint,
         type,
+        showHint,
+        toggleShowHint,
         goToChapter,
+        goToNextExercise,
+        isLastExercise,
       }}
     >
       {children}
@@ -126,8 +112,8 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 
 export const useExercise = () => {
   const context = useContext(ExerciseContext);
-  if (context === undefined) {
-    throw new Error("useExercise must be used within a ExerciseProvider");
+  if (!context) {
+    throw new Error("useExercise must be used within an ExerciseProvider");
   }
   return context;
 };
