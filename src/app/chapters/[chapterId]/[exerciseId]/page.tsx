@@ -8,6 +8,8 @@ const ExercisePage = () => {
   const { currentExercise, toggleShowHint, showHint, goToChapter, type } =
     useExercise();
 
+  if (!currentExercise) return <p>Getting exercise</p>;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>

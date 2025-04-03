@@ -13,7 +13,7 @@ const ChapterCard: React.FC<ChapterCardProps> = ({ chapter }) => {
   const router = useRouter();
 
   const goToChapter = () => {
-    router.push("/chapters/" + chapter.id);
+    router.push("/chapters/" + chapter._id);
   };
 
   return (

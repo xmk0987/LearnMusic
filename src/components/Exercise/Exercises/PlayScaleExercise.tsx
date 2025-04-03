@@ -1,13 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import type { ScaleExercise } from "@/types/chapters.types";
 import styles from "./Exercises.module.css";
-import scalesData from "@/data/scales.json";
-import type {
-  Key,
-  NoteValue,
-  NoteFeedback,
-  ExerciseFeedback,
-} from "@/types/piano.types";
+import type { Key, NoteFeedback, ExerciseFeedback } from "@/types/piano.types";
 import Piano from "@/components/Piano/Piano";
 import { calculateExpectedNotesWithOctaves } from "@/utils/helpers";
 import NoteSheet from "@/components/NoteSheet/NoteSheet";
@@ -21,7 +15,8 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
   exercise,
   isTest,
 }) => {
-  const [scale, setScale] = useState<NoteValue[]>([]);
+  const scale = useMemo(() => exercise.scale?.notes ?? [], [exercise.scale]);
+
   const [exerciseFinished, setExerciseFinished] = useState<boolean>(false);
   const [playedNotes, setPlayedNotes] = useState<Key[]>([]);
   const [exerciseFeedback, setExerciseFeedback] = useState<ExerciseFeedback>({
@@ -30,21 +25,10 @@ const PlayScaleExercise: React.FC<PlayScaleExerciseProps> = ({
     allCorrect: false,
   });
   const expectedNotes = useMemo(
-    () => calculateExpectedNotesWithOctaves(scale ?? [], 4),
+    () => calculateExpectedNotesWithOctaves(scale, 4),
     [scale]
   );
   const playedNotesRef = useRef<Key[]>([]);
-
-  useEffect(() => {
-    if (exercise) {
-      const foundScale = scalesData.scales.find(
-        (s) => s.id === exercise.scaleId
-      );
-      if (foundScale) {
-        setScale(foundScale.notes as NoteValue[]);
-      }
-    }
-  }, [exercise]);
 
   useEffect(() => {
     playedNotesRef.current = playedNotes;

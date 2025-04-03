@@ -1,12 +1,13 @@
 "use client";
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useState, useMemo, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import type { Chapter, PracticeType } from "@/types/chapters.types";
-import chaptersData from "@/data/chapters.json";
+import { PracticeType, Chapter } from "@/types/chapters.types";
+import axios from "axios";
 
 interface ChaptersContextValue {
   chapters: Chapter[];
   currentChapter?: Chapter;
+  loading: boolean;
   goToExercise: (
     exerciseId: string,
     type?: PracticeType,
@@ -28,17 +29,42 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
   const router = useRouter();
   const { chapterId } = useParams<{ chapterId: string }>();
 
-  const chapters = useMemo(() => chaptersData.chapters as Chapter[], []);
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const currentChapter = useMemo(
-    () => chapters.find((c) => c.id === chapterId),
-    [chapters, chapterId]
-  );
+  useEffect(() => {
+    const storedChapters = localStorage.getItem("chapters");
+    if (storedChapters) {
+      setChapters(JSON.parse(storedChapters));
+      setLoading(false);
+    } else {
+      const fetchChapters = async () => {
+        try {
+          const response = await axios.get("/api/chapters");
+          const chapters = response.data.chapters;
+          setChapters(chapters);
+          localStorage.setItem("chapters", JSON.stringify(chapters));
+        } catch (error) {
+          console.error("Error fetching chapters:", error);
+          setChapters([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchChapters();
+    }
+  }, []);
+
+  const currentChapter = useMemo(() => {
+    if (chapters?.length === 0 || !chapterId) return undefined;
+    return chapters.find((c) => c._id === chapterId);
+  }, [chapters, chapterId]);
 
   const goToExercise = (
     exerciseId: string,
     type: PracticeType = "practice",
-    chapterId = currentChapter?.id
+    chapterId = currentChapter?._id
   ) => {
     if (chapterId) {
       router.push(`/chapters/${chapterId}/${exerciseId}?type=${type}`);
@@ -47,7 +73,7 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
 
   return (
     <ChaptersContext.Provider
-      value={{ chapters, currentChapter, goToExercise }}
+      value={{ chapters, currentChapter, loading, goToExercise }}
     >
       {children}
     </ChaptersContext.Provider>

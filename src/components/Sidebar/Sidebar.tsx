@@ -61,26 +61,26 @@ const Sidebar = () => {
     <div className={styles.container}>
       <h2>Learn</h2>
       <nav className={styles.categories}>
-        {chapters.map((chapter) => (
-          <div key={chapter.id} className={styles.items}>
+        {chapters?.map((chapter) => (
+          <div key={chapter._id} className={styles.items}>
             <div
-              onClick={() => toggleChapters(chapter.id)}
+              onClick={() => toggleChapters(chapter._id)}
               className={styles.sidebarItem}
             >
               <span
-                className={expandedChapters.has(chapter.id) ? styles.bold : ""}
+                className={expandedChapters.has(chapter._id) ? styles.bold : ""}
               >
                 {capitalizeFirstLetter(chapter.name)}
               </span>
               <button>
-                {expandedChapters.has(chapter.id) ? (
+                {expandedChapters.has(chapter._id) ? (
                   <ChevronDownIcon />
                 ) : (
                   <ChevronRightIcon />
                 )}
               </button>
             </div>
-            {expandedChapters.has(chapter.id) && (
+            {expandedChapters.has(chapter._id) && (
               <div
                 className={`${styles.items} ${styles.guideLine} ${styles.section}`}
               >
@@ -113,14 +113,14 @@ const Sidebar = () => {
                           <div className={`${styles.sidebarItem}`}>
                             <Link
                               href={`/chapters/${
-                                chapter.id
+                                chapter._id
                               }#${encodeURIComponent(section.title)}`}
                             >
                               Go to Section
                             </Link>
                           </div>
                         </div>
-                        {section.exercises && (
+                        {section.exercises?.length > 0 && (
                           <div
                             onClick={() => toggleExercises(section.title)}
                             className={`${styles.sidebarItem}`}
@@ -150,12 +150,12 @@ const Sidebar = () => {
                             >
                               {section.exercises.map((exercise) => (
                                 <div
-                                  key={exercise.id}
+                                  key={exercise._id}
                                   className={`${styles.items} `}
                                 >
                                   <div className={`${styles.sidebarItem}`}>
                                     <Link
-                                      href={`/chapters/${chapter.id}/${exercise.id}?type=practice`}
+                                      href={`/chapters/${chapter._id}/${exercise._id}?type=practice`}
                                     >
                                       {exercise.title}
                                     </Link>

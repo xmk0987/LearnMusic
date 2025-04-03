@@ -24,7 +24,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
       <div className={styles.cardInfo}>
         <button
           className={styles.circleButton}
-          onClick={() => goToExercise(exercise.id, "practice")}
+          onClick={() => goToExercise(exercise._id, "practice")}
         >
           <span>
             <GoIcon color="white" />
@@ -34,7 +34,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
         {user && (
           <button
             className={`${styles.circleButton} ${styles.test}`}
-            onClick={() => goToExercise(exercise.id, "test")}
+            onClick={() => goToExercise(exercise._id, "test")}
           >
             <span>
               <GoIcon color="white" />

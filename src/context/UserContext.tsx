@@ -1,57 +1,51 @@
 "use client";
 import axios from "axios";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import useSWR from "swr";
+import { createContext, useContext, useCallback } from "react";
 import type { PublicUser } from "@/types/user.types";
 
 interface UserContextType {
   user: PublicUser | null;
-  setUser: Dispatch<SetStateAction<PublicUser | null>>;
-  logout: () => void;
   loading: boolean;
+  logout: () => void;
+  setUser: (user: PublicUser | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data.user);
+
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<PublicUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: user,
+    isLoading: loading,
+    mutate,
+  } = useSWR("/api/user", fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
 
-  useEffect(() => {
-    axios
-      .get("/api/user")
-      .then((response) => {
-        setUser(response.data.user);
-      })
-      .catch(() => {
-        setUser(null);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const setUser = useCallback(
+    (userData: PublicUser | null) => mutate(userData, false),
+    [mutate]
+  );
 
-  const logout = () => {
-    axios
-      .get("/api/logout")
-      .then((response) => {
-        if (response.data.success) {
-          setUser(null);
-        } else {
-          console.error("Logout failed");
-        }
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-      });
-  };
+  const logout = useCallback(async () => {
+    try {
+      const response = await axios.get("/api/logout");
+      if (response.data.success) {
+        mutate(null, false);
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  }, [mutate]);
 
   return (
-    <UserContext.Provider value={{ user, loading, setUser, logout }}>
+    <UserContext.Provider value={{ user, loading, logout, setUser }}>
       {children}
     </UserContext.Provider>
   );

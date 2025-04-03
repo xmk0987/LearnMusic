@@ -1,7 +1,7 @@
 import { NoteValue } from "./piano.types";
 
 export interface Chapter {
-  id: string;
+  _id: string;
   name: string;
   lesson: Lesson;
 }
@@ -14,14 +14,19 @@ export interface Lesson {
 export interface Section {
   title: string;
   content: string;
-  subsections?: Section[];
+  subsections?: SubSection[];
   exercises: Exercise[];
+}
+
+export interface SubSection {
+  title: string;
+  content: string;
 }
 
 export type Exercise = ScaleExercise | PlayNotesExercise;
 
 export interface BaseExercise {
-  id: string;
+  _id: string;
   title: string;
   type: ExerciseTypes;
   task: string;
@@ -30,7 +35,7 @@ export interface BaseExercise {
 
 export interface ScaleExercise extends BaseExercise {
   type: "play_scale" | "identify_scales" | "identify_scales_accidentals";
-  scaleId: string;
+  scale: Scale;
 }
 
 export interface PlayNotesExercise extends BaseExercise {
@@ -46,3 +51,8 @@ export type ExerciseTypes =
   | "identify_scales_accidentals";
 
 export type PracticeType = "test" | "practice";
+export interface Scale {
+  _id: string;
+  name: string;
+  notes: NoteValue[];
+}

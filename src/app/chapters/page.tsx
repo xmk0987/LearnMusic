@@ -9,6 +9,7 @@ import ChapterCard from "@/components/GridCards/Chapter/ChapterCard";
 const ChaptersPage = () => {
   const { chapters } = useChaptersData();
 
+  if (!chapters) return <p>Loading chapters</p>;
   return (
     <div className={styles.container}>
       <div>
@@ -18,7 +19,7 @@ const ChaptersPage = () => {
       {Object.keys(chapters).map((chapter) => (
         <CardGridLayout key={chapter}>
           {chapters.map((chapter) => (
-            <ChapterCard key={chapter.id} chapter={chapter} />
+            <ChapterCard key={chapter._id} chapter={chapter} />
           ))}
         </CardGridLayout>
       ))}

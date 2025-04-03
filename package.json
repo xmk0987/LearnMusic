@@ -7,7 +7,8 @@
     "test": "jest --detectOpenHandles --no-watchman",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "import-data": "ts-node src/scripts/importData.ts"
   },
   "dependencies": {
     "axios": "^1.8.4",
@@ -20,6 +21,7 @@
     "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swr": "^2.3.3",
     "tone": "^15.0.4",
     "webmidi": "^3.1.12",
     "zod": "^3.24.2"
@@ -42,6 +44,7 @@
     "supertest": "^7.1.0",
     "tailwindcss": "^4",
     "ts-jest": "^29.3.0",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }

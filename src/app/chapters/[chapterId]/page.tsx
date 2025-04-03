@@ -42,11 +42,11 @@ const CurrentChapterPage = () => {
                   <p>{subsection.content}</p>
                 </div>
               ))}
-            {section.exercises && section.exercises && (
+            {section.exercises && section.exercises.length > 0 && (
               <ExercisesLayout>
                 {section.exercises.map((exercise) => (
                   <ExerciseCard
-                    key={exercise.id}
+                    key={exercise._id}
                     exercise={exercise}
                     goToExercise={goToExercise}
                   />

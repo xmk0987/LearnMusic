@@ -44,13 +44,13 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
   }, [currentChapter]);
 
   const currentExercise = useMemo(() => {
-    return allExercises.find((ex) => ex.id === exerciseId);
+    return allExercises.find((ex) => ex._id === exerciseId);
   }, [allExercises, exerciseId]);
 
   const isLastExercise = useMemo(() => {
     return (
       allExercises.length > 0 &&
-      allExercises[allExercises.length - 1].id === currentExercise?.id
+      allExercises[allExercises.length - 1]._id === currentExercise?._id
     );
   }, [currentExercise, allExercises]);
 
@@ -68,23 +68,23 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({
 
   const goToChapter = () => {
     if (currentChapter) {
-      router.push(`/chapters/${currentChapter.id}`);
+      router.push(`/chapters/${currentChapter._id}`);
     }
   };
 
   const goToNextExercise = () => {
     if (currentChapter && currentExercise) {
       const currentIndex = allExercises.findIndex(
-        (ex) => ex.id === currentExercise.id
+        (ex) => ex._id === currentExercise._id
       );
       const nextExercise = allExercises[currentIndex + 1];
 
       if (nextExercise) {
         router.push(
-          `/chapters/${currentChapter.id}/${nextExercise.id}?type=${type}`
+          `/chapters/${currentChapter._id}/${nextExercise._id}?type=${type}`
         );
       } else {
-        router.push(`/chapters/${currentChapter.id}`);
+        router.push(`/chapters/${currentChapter._id}`);
       }
     }
   };
