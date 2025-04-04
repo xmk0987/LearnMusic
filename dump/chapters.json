@@ -1,0 +1,147 @@
+[{
+  "_id": {
+    "$oid": "67ee7a1ce78b7ca8eba8f1f4"
+  },
+  "name": "Getting Started",
+  "lesson": {
+    "header": "Introduction to Notes and Scales in Music Theory",
+    "sections": [
+      {
+        "title": "Understanding Notes",
+        "content": "Notes are the building blocks of music. They represent specific pitches, which are the sounds we hear. In Western music, there are 12 unique notes: A, A#, B, C, C#, D, D#, E, F, F#, G, and G#. These notes repeat in higher or lower pitches, forming what we call octaves.",
+        "exercises": [
+          {
+            "$oid": "67ee703e4ecd55369683c566"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c568"
+          }
+        ],
+        "subsections": []
+      },
+      {
+        "title": "Reading the Stave",
+        "content": "The stave (or staff) is a set of five horizontal lines where musical notes are placed. The position of a note on the stave tells us its pitch. Higher notes are written higher on the stave, and lower notes are written lower. Notes can be placed on lines or in spaces between them. The treble clef (𝄞) and bass clef (𝄢) are commonly used to indicate different ranges of notes.",
+        "exercises": [
+          {
+            "$oid": "67ee703e4ecd55369683c56a"
+          }
+        ],
+        "subsections": []
+      },
+      {
+        "title": "What are Scales?",
+        "content": "A scale is a sequence of notes arranged in ascending or descending order. Scales are fundamental to music because they provide a framework for melodies and harmonies. There are many types of scales, but we'll focus on the two most common: major and minor scales.",
+        "exercises": [],
+        "subsections": []
+      },
+      {
+        "title": "Major Scales",
+        "content": "A major scale is a series of seven notes with a specific pattern of whole and half steps (intervals). The pattern is: whole, whole, half, whole, whole, whole, half. Whole step means to go two keys up or down, including the black keys, and Half step is just going to the next key. For example, the C major scale consists of the notes: C, D, E, F, G, A, B, and then back to C.",
+        "subsections": [
+          {
+            "title": "Importance of Major Scales",
+            "content": "Major scales are often associated with happy, bright, and uplifting music. They are used as the foundation for many songs and compositions."
+          },
+          {
+            "title": "Relative Minor Scale",
+            "content": "Each major scale has a relative minor scale. The relative minor scale consists of all the same notes as the major scale, but starts with the relative minor key. You can find the relative minor scale by looking at the 6th note of the major scale or by going three half steps down of your major scales root note."
+          }
+        ],
+        "exercises": [
+          {
+            "$oid": "67ee703e4ecd55369683c56d"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c570"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c573"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c576"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c579"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c57c"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c57f"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c582"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c585"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c588"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c58b"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c58e"
+          }
+        ]
+      },
+      {
+        "title": "Minor Scales",
+        "content": "A minor scale also consists of seven notes but has a different pattern of intervals: whole, half, whole, whole, half, whole, whole. For example, the A minor scale includes the notes: A, B, C, D, E, F, G, and back to A.",
+        "subsections": [
+          {
+            "title": "Importance of Minor Scales",
+            "content": "Minor scales are often associated with sad, melancholic, or dramatic music. They provide a contrasting mood to major scales, adding emotional depth to music."
+          }
+        ],
+        "exercises": [
+          {
+            "$oid": "67ee703e4ecd55369683c591"
+          },
+          {
+            "$oid": "67ee703e4ecd55369683c594"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c597"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c59a"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c59d"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5a0"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5a3"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5a6"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5a9"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5ac"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5af"
+          },
+          {
+            "$oid": "67ee703f4ecd55369683c5b2"
+          }
+        ]
+      },
+      {
+        "title": "Why Notes and Scales Matter",
+        "content": "Understanding notes and scales is crucial for several reasons: Composition: They help musicians create melodies and harmonies. Improvisation: Knowing scales allows musicians to improvise and play solos. Analysis: They provide a framework for analyzing and understanding music. By mastering major and minor scales, you'll have a solid foundation to explore more complex musical concepts and enhance your musical creativity.",
+        "exercises": [],
+        "subsections": []
+      }
+    ]
+  },
+  "__v": 0
+}]

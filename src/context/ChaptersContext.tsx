@@ -33,27 +33,20 @@ export const ChaptersProvider: React.FC<ChaptersProviderProps> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedChapters = localStorage.getItem("chapters");
-    if (storedChapters) {
-      setChapters(JSON.parse(storedChapters));
-      setLoading(false);
-    } else {
-      const fetchChapters = async () => {
-        try {
-          const response = await axios.get("/api/chapters");
-          const chapters = response.data.chapters;
-          setChapters(chapters);
-          localStorage.setItem("chapters", JSON.stringify(chapters));
-        } catch (error) {
-          console.error("Error fetching chapters:", error);
-          setChapters([]);
-        } finally {
-          setLoading(false);
-        }
-      };
+    const fetchChapters = async () => {
+      try {
+        const response = await axios.get("/api/chapters");
+        const chapters = response.data.chapters;
+        setChapters(chapters);
+      } catch (error) {
+        console.error("Error fetching chapters:", error);
+        setChapters([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchChapters();
-    }
+    fetchChapters();
   }, []);
 
   const currentChapter = useMemo(() => {

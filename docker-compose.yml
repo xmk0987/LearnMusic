@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  LetsLearnMusicMongo:
+    image: mongo:latest
+    container_name: LetsLearnMusicMongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - letslearnmusicdata:/data/db
+      - ./dump:/dump
+
+  mongo-seed:
+    image: mongo:latest
+    depends_on:
+      - LetsLearnMusicMongo
+    volumes:
+      - ./dump:/dump
+    entrypoint:
+      [
+        "sh",
+        "-c",
+        "sleep 5 && mongoimport --host LetsLearnMusicMongo --db letslearnmusic --collection scales --file /dump/scales.json --jsonArray && sleep 2 && mongoimport --host LetsLearnMusicMongo --db letslearnmusic --collection exercises --file /dump/exercises.json --jsonArray && sleep 2 && mongoimport --host LetsLearnMusicMongo --db letslearnmusic --collection chapters --file /dump/chapters.json --jsonArray",
+      ]
+
+
+volumes:
+  letslearnmusicdata:
+    driver: local

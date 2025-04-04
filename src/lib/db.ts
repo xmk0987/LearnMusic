@@ -1,28 +1,37 @@
-"use server";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose, { Mongoose } from "mongoose";
 
-dotenv.config();
-
-const uri = process.env.MONGO_DB_URL;
-
+const uri = process.env.MONGODB_URI;
 if (!uri) {
-  throw new Error("❌ Missing configuration in .env");
+  throw new Error("❌ MONGODB_URI is not defined in environment variables");
 }
 
-const connectDB = async () => {
-  if (mongoose.connection.readyState >= 1) {
-    console.log("MongoDB already connected");
-    return mongoose.connection;
+interface MongooseGlobal {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
+declare global {
+  // eslint-disable-next-line no-var
+  var mongooseGlobal: MongooseGlobal | undefined;
+}
+
+const cached = (globalThis.mongooseGlobal ??= {
+  conn: null,
+  promise: null,
+});
+
+const connectDB = async (): Promise<Mongoose> => {
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(uri).then((mongooseInstance) => {
+      console.log("✅ Connected to MongoDB");
+      return mongooseInstance;
+    });
   }
 
-  try {
-    await mongoose.connect(uri);
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
-    process.exit(1);
-  }
+  cached.conn = await cached.promise;
+  return cached.conn;
 };
 
 export default connectDB;
