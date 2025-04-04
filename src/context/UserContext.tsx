@@ -1,21 +1,25 @@
 "use client";
+
 import axios from "axios";
 import useSWR from "swr";
-import { createContext, useContext, useCallback } from "react";
+import { createContext, useContext, useCallback, ReactNode } from "react";
 import type { PublicUser } from "@/types/user.types";
 
 interface UserContextType {
-  user: PublicUser | null;
+  user: PublicUser | null | undefined;
   loading: boolean;
-  logout: () => void;
+  logout: () => Promise<void>;
   setUser: (user: PublicUser | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data.user);
+const fetcher = async (url: string): Promise<PublicUser | null> => {
+  const res = await axios.get(url);
+  return res.data.user ?? null;
+};
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
+export function UserProvider({ children }: { children: ReactNode }) {
   const {
     data: user,
     isLoading: loading,
@@ -27,7 +31,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   });
 
   const setUser = useCallback(
-    (userData: PublicUser | null) => mutate(userData, false),
+    (userData: PublicUser | null) => {
+      mutate(userData, false);
+    },
     [mutate]
   );
 
@@ -35,7 +41,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     try {
       const response = await axios.get("/api/logout");
       if (response.data.success) {
-        mutate(null, false);
+        await mutate(null, false);
       } else {
         console.error("Logout failed");
       }
@@ -51,7 +57,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useUser() {
+export function useUser(): UserContextType {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("useUser must be used within a UserProvider");
